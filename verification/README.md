@@ -10,6 +10,10 @@ check is allowed ten minutes; runtime depends on the machine.
 
 ## What is checked
 
+- **collectioncheck.py:** finite ray-action checks for the buffered collection
+  identities, local Coxeter rewrites through 24 generators, and recursive
+  insertion on 120 deterministic test words. These are transcription regressions;
+  the arbitrary-word argument and its area bound are the manuscript's proof.
 - **Independent Python certificate verifier:** all 40 distributed certificates,
   including recursion instances through n = 5. Targets are recomputed from the
   definitions; the verifier imports no code from the certificate builder.
@@ -33,7 +37,8 @@ check is allowed ten minutes; runtime depends on the machine.
   cutoff makes this coverage boundary reproducible.
 - **Lean Arithmetic.lean:** integer-scaled matrix inequalities, rational
   constants after clearing denominators, and an all-depth induction for the
-  stated recurrence hypotheses. The geometric derivation of those recurrences
+  stated recurrence hypotheses, plus the exact insertion-cost recurrence.
+  The geometric derivation of those recurrences
   is not a premise-free Lean theorem.
 
 The Lean files use neither proof placeholders nor native evaluation as a proof
@@ -44,7 +49,7 @@ no mathematical axioms specific to these papers.
 ## Not formally verified
 
 The presentation theorem for H_3, the all-n conversion from word certificates to
-the complete area theorem, the entropy/stability/sector arguments, the corner
+the complete area and Dehn-function theorems, the entropy/stability/sector arguments, the corner
 and unitary constructions, the sofic-profile theorem and the extension correction
 are not fully formalized in Lean. The certificate checker verifies triviality
 under the relator assumptions; a van Kampen-area semantics is not defined in Lean.

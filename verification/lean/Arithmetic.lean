@@ -83,6 +83,20 @@ theorem depth_recurrences
       rw [p96] at ihL
       constructor <;> omega
 
+-- Conditional insertion-cost arithmetic; no Coxeter-word semantics are claimed.
+def insertionCharge : Nat → Nat
+  | 0 => 0
+  | d + 1 => insertionCharge d + d + 2
+
+theorem insertion_charge_formula (d : Nat) :
+    2 * insertionCharge d = d * (d + 3) := by
+  induction d with
+  | zero => decide
+  | succ d ih =>
+      simp only [insertionCharge, Nat.mul_add, Nat.add_mul, Nat.one_mul, Nat.mul_one] at ih ⊢
+      omega
+
+#print axioms insertion_charge_formula
 #print axioms substitution_row_sums
 #print axioms weighted_lift_multiplier
 #print axioms ordinary_area_from_weight

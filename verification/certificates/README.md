@@ -75,4 +75,5 @@ are not in the distributed file; `python build_all.py 9` exports them, after whi
 The full area theorem is not formalized in Lean. The release's Lean arithmetic file
 checks a conditional all-depth induction for the reweighted recurrence, while
 FreeReduction.lean proves certificate-checker soundness and Certificates.lean
-checks the 25 core finite inputs. See ../README.md for the precise boundary.
+checks the 15 core finite inputs with at most 21 cells. All 40 distributed
+certificates are checked in Python. See ../README.md for the precise boundary.

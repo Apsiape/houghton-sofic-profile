@@ -9,7 +9,9 @@ Houghton's finitely presented elementary amenable group H_3 has a finite chunk
 with superpolynomial sofic profile. The paper proves quantitative lower bounds,
 constructs permutation and unitary models, and gives a scale-dependent correction
 to the extension estimate discussed in the text. The upper sofic bound applies
-to every fixed finite chunk of H_3.
+to every fixed finite chunk of H_3. Buffered collection also yields the full
+Dehn-function upper bound O(n^(log2(130)+4)); this does not change the sharper
+far-commutator estimate used for the profile exponents.
 
 This is a **private release candidate**, not an announced publication.
 The manuscript is the authority for exact statements and hypotheses. Licenses

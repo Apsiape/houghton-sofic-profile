@@ -51,7 +51,8 @@ bound. The same argument bounds unitary approximations, where our unitary models
 than our permutation construction. The upper sofic bound holds for every fixed finite chunk of $H_3$.
 The proof combines a polynomial bound on the area of far commutators
 in Johnson's presentation, obtained from a doubling self-similarity with executable certificates for its finite relations, with an entropy count for
-approximately commuting copies of the symmetric group $S_3$.
+approximately commuting copies of the symmetric group $S_3$. A collection argument also gives the full Dehn-function bound
+$\delta_{H_3}(n)=O(n^{\log_2 130+4})$.
 \end{abstract}
 
 \tableofcontents
@@ -64,8 +65,8 @@ Sofic groups are the groups whose finite pieces can be modelled by permutations 
 whose finite pieces can be modelled by unitary matrices. Quantitative versions ask, for groups that can be approximated, how large the models must be.
 Cornulier introduced the \emph{sofic profile} $\sigma_E(r)$ of a finite piece (a chunk)
 $E$ of a group: the least $n$ for which $E$ maps to the symmetric group $\Sym_n$ with multiplication defect $1/r$ and with distinct
-elements at normalized Hamming distance at least $1-1/r$~\cite{Cornulier2013}. Amenable groups are sofic, and one expects their
-models to be small. Cornulier derived from an extension theorem~\cite[Theorem~3.15]{Cornulier2013} that every elementary amenable
+elements at normalized Hamming distance at least $1-1/r$~\cite{Cornulier2013}. Amenable groups are sofic. More quantitatively,
+Cornulier derived from an extension theorem~\cite[Theorem~3.15]{Cornulier2013} that every elementary amenable
 group has polynomial sofic profile~\cite[Example~3.16]{Cornulier2013}, and asked for methods to bound the sofic profile of explicit
 groups from below, whether some group has sofic profile that is unbounded and not linear in $r$, and whether such a group can be
 sofic~\cite[Problem~3.18]{Cornulier2013}.
@@ -78,7 +79,7 @@ The chunk $E_H$ of $H_3$ has sofic profile
 \[
 2^{\,r^{1/(\log130+1)}/940-1/16}\ \le\ \sigma_{E_H}(r)\ \le\ 2^{O(\sqrt r\log r)}\qquad(r>1).
 \]
-The machine-certified area bound alone already gives $\sigma_{E_H}(r)\ge2^{\,r^{1/12}/270-1/16}$.
+The unweighted bound obtained from certified finite fillings already gives $\sigma_{E_H}(r)\ge2^{\,r^{1/12}/270-1/16}$.
 \end{theorem}
 
 Here and below logarithms are to base two, and $\log130\approx7.022$.
@@ -94,14 +95,14 @@ inverse error. Tracking that dependence gives a correct, scale-dependent extensi
 amenable, and hence sofic, Theorem~\ref{thm:sofic} also answers the last question of Cornulier's
 Problem~3.18: a sofic group can have sofic profile that is unbounded and not linear in $r$. Slofstra constructed the first finitely
 presented group with superpolynomial hyperlinear and sofic profile~\cite{Slofstra2018}, answering the first question; that group is
-not amenable. To our knowledge $H_3$ is the first amenable group shown to have superpolynomial sofic profile.
+not amenable, and its soficity and even hyperlinearity were left unresolved there. To our knowledge $H_3$ is the first amenable group shown to have superpolynomial sofic profile.
 
 The lower bound holds for unitary approximations as well. Write $P=\langle a,b,\alpha\mid r_1,\dots,r_5\rangle$ for Johnson's
 presentation (Section~\ref{sec:group}) and call unitaries $\phi(a),\phi(b),\phi(\alpha)\in U(D)$ an \emph{$e$-representation} if every
 relator satisfies $\|\phi(r_i)-I\|_2\le e$ in the normalized Hilbert--Schmidt norm.
 
 \begin{theorem}\label{thm:unitary}
-Let $\beta_H=1/(2\log130+1)\approx1/15.04$ and $K'=750\cdot30\cdot3^{\log130}$. Every $e$-representation of $P$ on $\mathbb C^D$ in which the
+Let $\beta_H=1/(2\log130+1)\approx1/15.04$, $K'=750\cdot30\cdot3^{\log130}$ and $e>0$. Every $e$-representation of $P$ on $\mathbb C^D$ in which the
 three-cycle $\gamma=\alpha\,a\alpha a^{-1}$ satisfies $\|\phi(\gamma)-I\|_2\ge1/2$ has $\log D\ge(K'e)^{-2\beta_H}/16-1/16$.
 \end{theorem}
 
@@ -112,7 +113,8 @@ while our permutation models give only $O(e^{-1})$ (Corollary~\ref{cor:unitary-u
 \begin{itemize}[leftmargin=1.2em,itemsep=2pt]
 \item \emph{Far commutators have polynomial area} (Section~\ref{sec:area}). The commutator of two conjugates of the basic transposition at
 distance $R$ has area at most $30R^{\log130}$ in Johnson's presentation, by a doubling self-similarity of $H_3$ whose finite relations are
-certified by machine. Only an exponential isoperimetric inequality for $H_3$ was known~\cite{Lee2012}.
+certified by machine. Buffered collection upgrades these estimates to a polynomial bound on the full Dehn function
+(Theorem~\ref{thm:dehn}), improving the exponential upper bound of~\cite{Lee2012}.
 \item \emph{Displaced copies of $S_3$ need dimension} (Section~\ref{sec:profile}). An approximate representation gives, through the far
 commutators, many approximately commuting copies of $S_3$ whose three-cycles are displaced from the identity. Rounding each copy to an
 exact one and counting the entropy needed to make a state invariant forces dimension exponential in their number.
@@ -229,18 +231,31 @@ The same fillings give a better exponent when the five kinds of cells are counte
 $A^*(M)\le30\,M^{\log130}$ for every $M\ge2$.
 \end{theorem}
 
-The proof is in Appendix~\ref{app:area}. Reweighting these fillings cannot bring the exponent below $\log\rho\approx7.018$, where
+The proof is in Appendix~\ref{app:area}. The same area estimates also control arbitrary null words.
+
+\begin{theorem}[Polynomial Dehn function]\label{thm:dehn}
+Let $\delta_P(n)$ be the maximum area of a null word of length at most $n$ in Johnson's presentation. There is an absolute constant $C_0$ such that
+\[
+\delta_P(n)\le C_0n^4\bigl(1+A^*(4n+2)\bigr)
+=O(n^{\log130+4})\qquad(n\ge1).
+\]
+The unweighted estimate of Theorem~\ref{thm:area} alone gives $\delta_P(n)=O(n^{15})$.
+\end{theorem}
+
+The proof in Appendix~\ref{app:dehn} collects a buffered null word into adjacent transpositions, then fills it using a uniform Coxeter insertion algorithm.
+This full Dehn bound does not improve the profile exponents: the direct far-commutator estimate is sharper for the words used there.
+Reweighting the far-commutator fillings cannot bring their exponent below $\log\rho\approx7.018$, where
 $\rho\approx129.64$ is the spectral radius of their substitution matrix; $\log130\approx7.022$ is the certified choice. The area is at least quadratic.
 
 \begin{proposition}[Quadratic lower bound]\label{prop:area-lower}
-For odd $k\ge9$, $\mathrm{Area}(C_k)\ge(k-7)(k-5)/8$, where $C_k=[\alpha,a^k\alpha a^{-k}]$. Hence $A^*(R)\ge R^2/16$ for $R\ge23$.
+For odd $k\ge9$, $\mathrm{Area}(C_k)\ge(k-7)(k-5)/8$, where $C_k=[\alpha,a^k\alpha a^{-k}]$. Hence $A^*(R)\ge R^2/16$ for every integer $R\ge23$.
 \end{proposition}
 
 \begin{proof}
 In a permutation model in which every relator moves at most a fraction $\delta$ of the points, a null word of area $A$ moves at most a
 fraction $A\delta$ (transport in measure, Section~\ref{sec:group}). In the corner models of Proposition~\ref{prop:corner}, $\delta\le M^{-2}$
 while $C_{2M-1}$ moves a fraction at least $(1-s^{-2})(M-4)(M-3)/(2M^2)$. Hence $\mathrm{Area}(C_{2M-1})\ge(1-s^{-2})(M-4)(M-3)/2$ for every
-$s$, which gives the claim with $k=2M-1$. For $R\ge23$ apply it to the largest odd $k\le R$.
+$s$, which gives the claim with $k=2M-1$. For integer $R\ge23$ apply it to the largest odd $k\le R$.
 \end{proof}
 
 Thus the present uniform-area transport and sector estimate cannot give more than the exponent $1/3$ in $r$ for permutation approximations,
@@ -250,6 +265,10 @@ possible use of far commutators.
 
 \section{Stability and counting}\label{sec:profile}
 %======================================================================
+
+The full $S_3^N$ sector bound below feeds the permutation-profile estimate; the phase-robust version later in the section
+feeds the unitary estimate and the companion's weighted extraction. The entropy arguments use monotonicity of the Holevo quantity
+under partial trace, a consequence of strong subadditivity~\cite{LiebRuskai1973}.
 
 \subsection{An entropic sector bound}
 
@@ -754,8 +773,8 @@ $2\beta_H\approx0.133$ (Theorem~\ref{thm:unitary}), and $O(e^{-2/3})$ (Corollary
 intrinsic to the particular substitution certificates used here: reweighting these fillings cannot go below $\log\rho\approx7.018$, with $\rho\approx129.64$ the spectral radius of their
 substitution matrix, and $\log130$ is the certified choice. Since the area is at least quadratic
 (Proposition~\ref{prop:area-lower}), the present uniform-area transport and sector argument cannot give more than $1/3$ in $r$ for permutations and $2/5$ in $1/e$
-for unitaries. A quadratic Dehn function for $H_3$ would reach these values: every word in the argument has linear length. Only an
-exponential isoperimetric inequality is known~\cite{Lee2012}, while for Thompson's group $F$ a quadratic Dehn function is a
+for unitaries. A quadratic Dehn function for $H_3$ would reach these values: every word in the argument has linear length. Theorem~\ref{thm:dehn}
+gives the polynomial upper bound $O(n^{\log130+4})$, while for Thompson's group $F$ a quadratic Dehn function is a
 theorem~\cite{Guba2006}. Shared fillings, improved aggregate defect estimates, or a stronger dimension argument are possible routes beyond these limits.
 \item \emph{Permutation versus unitary approximation.} Relator errors add up in measure for permutations and in norm for unitaries, so the
 two profiles may differ. The best models known already do: in the normalized Hilbert--Schmidt norm, permutation models of $H_3$ give
@@ -895,6 +914,61 @@ $A(m)\le2U(m-2)+18m-35$ for $m\ge3$ gives $A^*(M)\le[2(\frac9{10}+\frac{96}{19})
 $A(2)=1$.
 \end{proof}
 
+\section{From far commutators to the full Dehn function}\label{app:dehn}
+
+\begin{proof}[Proof of Theorem~\ref{thm:dehn}]
+Fix an integer $n\ge1$ and put $F_n=1+A^*(4n+2)$ and $U(0)=0$. Lemma~\ref{lem:transfer} gives
+\[
+U(q)\le\sum_{i=0}^{q-1}E(i)=O(n^2F_n)\qquad(0\le q\le2n).
+\]
+The implied constants in this proof are absolute.
+
+\emph{Buffered collection.} Let $w$ be a null word of length at most $n$ and put $h=a^nb^n$.
+The two quotient coordinates while reading $w$ after $h$ stay in $[0,2n]^2$. Write the current word as
+$v\,s(m,q)$, where $s(m,q)=a^mb^q$ and $v$ is a word in the $\sigma_j^{\pm1}$.
+Using $bab^{-1}=\alpha^{-1}a$ exactly $q$ times gives
+$b^qab^{-q}=\tau_{q-1}^{-1}\cdots\tau_0^{-1}a$.
+Replace each $\tau_j$ by $\sigma_j$ at cost $U(j)$. Thus
+\[
+\begin{split}
+s(m,q)a&=(\sigma_{m+q-1}^{-1}\cdots\sigma_m^{-1})s(m+1,q),\\
+s(m,q)a^{-1}&=(\sigma_{m-1}\cdots\sigma_{m+q-2})s(m-1,q)
+\end{split}
+\]
+each costs at most $q+\sum_{j<q}U(j)=O(n^3F_n)$; an empty product is omitted.
+The second rule is the inverse rearrangement of the first at $(m-1,q)$, and is used only when the next coordinate is nonnegative.
+The rules $s(m,q)\alpha^{\pm1}=\sigma_{m+q}^{\pm1}s(m,q)$ cost $U(q)$, while multiplication by $b^{\pm1}$ merely changes $q$ and costs no cells.
+The buffer ensures that all indices produced are nonnegative.
+
+After at most $n$ rules the quotient coordinates return to $(n,n)$, and hence $hwh^{-1}$ has been changed to a word $v$
+at cost $O(n^4F_n)$. It has at most $2n^2+n$ letters, with $0\le j\le4n$.
+Since $w=1$, the word $v$ is the identity permutation on the first $4n+2$ points of ray~1. It remains to fill this permutation word
+with a cost that is uniform in the size of that symmetric group.
+
+\emph{Coxeter insertion.} In $S_{d+1}$, with adjacent transpositions $s_0,\ldots,s_{d-1}$, use the recursive normal form $u c_k$, where
+$u\in S_d$, $c_k=s_{d-1}s_{d-2}\cdots s_k$ for $0\le k<d$, and $c_d=1$.
+With right actions $c_k$ sends the last point to $k+1$; this determines $k$, after which $u$ is determined recursively.
+To insert a generator on the right use
+\[
+c_ks_i=
+\begin{cases}
+s_ic_k,&i\le k-2,\\
+c_{k-1},&i=k-1,\\
+c_{k+1},&i=k,\\
+s_{i-1}c_k,&i\ge k+1.
+\end{cases}
+\]
+The first case uses far commutations, the middle cases concatenate or cancel, and the last case moves the final $s_i$ left across
+$s_k,\ldots,s_{i-2}$, applies one braid, and moves the resulting $s_{i-1}$ left across $s_{i+1},\ldots,s_{d-1}$.
+There are at most $d+1$ Coxeter moves at a level and at most $d$ levels per insertion, since only one generator is passed into $u$.
+Consequently a word of length $l$ reduces to its unique normal form in $O(ld^2)$ moves, and the identity reduces to the empty word.
+
+Apply this with $d=4n+1$ to $v$. First replace inverse letters by positive ones using $\sigma_j^2=1$, at one cell per letter.
+A Coxeter square costs one cell in $P$, a braid costs at most four, and a far commutation costs at most $A^*(4n+2)$.
+Thus the $O(n^2)$ letters of $v$ fill at cost $O(n^4F_n)$. Combining with collection and using invariance of area under free conjugation
+proves the asserted bound for $\delta_P(n)$. Substituting Theorem~\ref{thm:area-weighted}, or Theorem~\ref{thm:area}, gives the two polynomial exponents.
+\end{proof}
+
 \section*{Use of AI assistance}
 \addcontentsline{toc}{section}{Use of AI assistance}
 
@@ -904,6 +978,7 @@ verification notes distinguish executable checks and kernel-checked Lean results
 The authors take responsibility for the content.
 
 \begin{thebibliography}{99}
+\bibitem{LiebRuskai1973} E.~H.~Lieb and M.~B.~Ruskai, Proof of the strong subadditivity of quantum-mechanical entropy, J. Math. Phys. \textbf{14} (1973), 1938--1941.
 \bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62} (2013), 823--841; arXiv:1305.0993.
 \bibitem{ElekSzabo2006} G.~Elek and E.~Szabó, On sofic groups, J. Group Theory \textbf{9} (2006), 161--171; arXiv:math/0305352.
 \bibitem{Lee2012} S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); arXiv:1212.0257.
