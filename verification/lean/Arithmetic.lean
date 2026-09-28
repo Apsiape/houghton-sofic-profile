@@ -97,6 +97,15 @@ theorem insertion_charge_formula (d : Nat) :
       omega
 
 #print axioms insertion_charge_formula
+
+-- Conditional cost aggregation only: the manuscript proves the three charges.
+theorem dehn_cost_aggregation (collection inverseConversion insertion scale : Nat)
+    (hc : collection ≤ 5 * scale) (hi : inverseConversion ≤ 3 * scale)
+    (hn : insertion ≤ 360 * scale) :
+    collection + inverseConversion + insertion ≤ 400 * scale := by
+  omega
+
+#print axioms dehn_cost_aggregation
 -- Scalar prerequisite for log2(50625/64) <= 29/3. No logarithm semantics here.
 theorem sector_log_threshold : 50625^3 ≤ 64^3 * 2^29 := by decide
 

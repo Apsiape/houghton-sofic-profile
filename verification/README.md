@@ -19,7 +19,10 @@ check is allowed ten minutes; runtime depends on the machine.
   asymptotic limit are proved in the manuscript, not by sampling.
 - **collectioncheck.py:** finite ray-action checks for the buffered collection
   identities, local Coxeter rewrites through 24 generators, and recursive
-  insertion on 120 deterministic test words. These are transcription regressions;
+  insertion on 120 deterministic test words. It charges original-relator cells
+  (one for a square, four for a braid, the certified far-area bound for a
+  commutation), and checks five complete buffered relator traces with inverse
+  letters against the explicit 400 n^4 F_n ledger. These are transcription regressions;
   the arbitrary-word argument and its area bound are the manuscript's proof.
 - **representationcheck.py:** exact ray commutators and Clifford monomial matrices
   for m = 3,...,11, including anticommutation, joint-sign patterns and the rank of
@@ -59,7 +62,8 @@ check is allowed ten minutes; runtime depends on the machine.
 - **Lean Arithmetic.lean:** integer-scaled matrix inequalities, rational
   constants after clearing denominators, and an all-depth induction for the
   stated recurrence hypotheses, plus the exact insertion-cost recurrence and
-  integer logarithm threshold used in the constant-750 bound.
+  integer logarithm threshold used in the constant-750 bound, and the conditional
+  aggregation 5 + 3 + 360 <= 400 for the Dehn-function ledger.
   The geometric derivation of those recurrences
   is not a premise-free Lean theorem.
 - **Lean Auxiliary107.lean:** the integer weight bounds and conditional

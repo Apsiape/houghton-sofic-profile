@@ -80,6 +80,8 @@ The unweighted bound obtained from certified finite fillings already gives $\sig
 \end{theorem}
 
 Here and below logarithms are to base two, and $\log107\approx6.7415$.
+The displayed lower bound exceeds the trivial value one only for
+$r>80^{\log107+1}\approx5.40\cdot10^{14}$; its significance is asymptotic, not a prediction of a practical crossover.
 For $T\in M_D$ write $\tau_D(T)=D^{-1}\Tr T$,
 $\|T\|_2^2=\tau_D(T^*T)$ and $\|T\|_{HS}^2=\Tr(T^*T)$; the dimension subscript on $\tau$ is omitted when clear.
 For a density matrix $\rho$, $S(\rho)=-\Tr(\rho\log\rho)$, and
@@ -123,6 +125,7 @@ three-cycle $\gamma=\alpha\,a\alpha a^{-1}$ satisfies $\|\phi(\gamma)-I\|_2\ge1/
 
 Conversely, spreading the single defect of our permutation models over many cells gives such representations with $\log D=O(e^{-2/3})$,
 while our permutation models give only $O(e^{-1})$ (Corollary~\ref{cor:unitary-upper}).
+The displayed unitary lower bound is positive only for $e<1/K'\approx6.00\cdot10^{-9}$.
 
 \begin{corollary}[Exact finite-dimensional representations]\label{cor:finite-representations}
 Every homomorphism $H_m\to U(D)$, $m\ge3$, kills the finitary alternating subgroup. Every irreducible finite-dimensional unitary
@@ -377,9 +380,9 @@ $A^*(M)\le135\,M^{\log107}$ for every $M\ge2$.
 The proof is in Appendix~\ref{app:area}. The same area estimates also control arbitrary null words.
 
 \begin{theorem}[Polynomial Dehn function]\label{thm:dehn}
-Let $\delta_P(n)$ be the maximum area of a null word of length at most $n$ in Johnson's presentation. There is an absolute constant $C_0$ such that
+Let $\delta_P(n)$ be the maximum area of a null word of length at most $n$ in Johnson's presentation. Then
 \[
-\delta_P(n)\le C_0n^4\bigl(1+A^*(4n+2)\bigr)
+\delta_P(n)\le 400n^4\bigl(1+A^*(4n+2)\bigr)
 =O(n^{\log107+4})\qquad(n\ge1).
 \]
 The unweighted estimate of Theorem~\ref{thm:area} alone gives $\delta_P(n)=O(n^{15})$.
@@ -1188,9 +1191,11 @@ $A^*(M)=O(M^{\log\rho})$, where $\log\rho\approx6.73252$. The explicit constants
 \begin{proof}[Proof of Theorem~\ref{thm:dehn}]
 Fix an integer $n\ge1$ and put $F_n=1+A^*(4n+2)$ and $U(0)=0$. Lemma~\ref{lem:transfer} gives
 \[
-U(q)\le\sum_{i=0}^{q-1}E(i)=O(n^2F_n)\qquad(0\le q\le2n).
+E(i)\le2F_ni+1,\qquad
+U(q)\le\sum_{i=0}^{q-1}E(i)\le F_nq(q-1)+q\le F_nq^2
+\quad(0\le q\le2n).
 \]
-The implied constants in this proof are absolute.
+Here $F_n\ge1$; all costs below count cells of the original five-relator presentation.
 
 \emph{Buffered collection.} Let $w$ be a null word of length at most $n$ and put $h=a^nb^n$.
 The two quotient coordinates while reading $w$ after $h$ stay in $[0,2n]^2$. Write the current word as
@@ -1204,15 +1209,31 @@ s(m,q)a&=(\sigma_{m+q-1}^{-1}\cdots\sigma_m^{-1})s(m+1,q),\\
 s(m,q)a^{-1}&=(\sigma_{m-1}\cdots\sigma_{m+q-2})s(m-1,q)
 \end{split}
 \]
-each costs at most $q+\sum_{j<q}U(j)=O(n^3F_n)$; an empty product is omitted.
+each costs at most $q+\sum_{j<q}U(j)\le2n+(8/3)F_nn^3\le5F_nn^3$; an empty product is omitted.
 The second rule is the inverse rearrangement of the first at $(m-1,q)$, and is used only when the next coordinate is nonnegative.
 The rules $s(m,q)\alpha^{\pm1}=\sigma_{m+q}^{\pm1}s(m,q)$ cost $U(q)$, while multiplication by $b^{\pm1}$ merely changes $q$ and costs no cells.
 The buffer ensures that all indices produced are nonnegative.
 
 After at most $n$ rules the quotient coordinates return to $(n,n)$, and hence $hwh^{-1}$ has been changed to a word $v$
-at cost $O(n^4F_n)$. It has at most $2n^2+n$ letters, with $0\le j\le4n$.
+at cost at most $5F_nn^4$ (the $\alpha^{\pm1}$ rule costs at most $4F_nn^2$ per letter).
+It has at most $2n^2+n\le3n^2$ letters, with $0\le j\le4n$.
 Since $w=1$, the word $v$ is the identity permutation on the first $4n+2$ points of ray~1. It remains to fill this permutation word
 with a cost that is uniform in the size of that symmetric group.
+
+For example, take the null word $w=ab a^{-1}b^{-1}\alpha^{-1}$, $n=5$ and $h=a^5b^5$.
+The complete collection trace is
+\[
+\begin{array}{c|c|l|l}
+\text{letter}&(m,q)\text{ after the step}&\text{letters appended to }v&\text{cell cost at most}\\\hline
+a&(6,5)&\sigma_9^{-1}\cdots\sigma_5^{-1}&5+\sum_{j<5}U(j)\\
+b&(6,6)&1&0\\
+a^{-1}&(5,6)&\sigma_5\cdots\sigma_{10}&6+\sum_{j<6}U(j)\\
+b^{-1}&(5,5)&1&0\\
+\alpha^{-1}&(5,5)&\sigma_{10}^{-1}&U(5)
+\end{array}
+\]
+The resulting $v$ freely cancels. Its collection costs at most $11+110F_5$.
+This trace illustrates the inverse-letter rules; general null words require the insertion argument below.
 
 \emph{Coxeter insertion.} In $S_{d+1}$, with adjacent transpositions $s_0,\ldots,s_{d-1}$, use the recursive normal form $u c_k$, where
 $u\in S_d$, $c_k=s_{d-1}s_{d-2}\cdots s_k$ for $0\le k<d$, and $c_d=1$.
@@ -1230,12 +1251,16 @@ s_{i-1}c_k,&i\ge k+1.
 The first case uses far commutations, the middle cases concatenate or cancel, and the last case moves the final $s_i$ left across
 $s_k,\ldots,s_{i-2}$, applies one braid, and moves the resulting $s_{i-1}$ left across $s_{i+1},\ldots,s_{d-1}$.
 There are at most $d+1$ Coxeter moves at a level and at most $d$ levels per insertion, since only one generator is passed into $u$.
-Consequently a word of length $l$ reduces to its unique normal form in $O(ld^2)$ moves, and the identity reduces to the empty word.
+Consequently a word of length $l$ reduces to its unique normal form in at most $ld(d+1)$ moves, and the identity reduces to the empty word.
 
 Apply this with $d=4n+1$ to $v$. First replace inverse letters by positive ones using $\sigma_j^2=1$, at one cell per letter.
 A Coxeter square costs one cell in $P$, a braid costs at most four, and a far commutation costs at most $A^*(4n+2)$.
-Thus the $O(n^2)$ letters of $v$ fill at cost $O(n^4F_n)$. Combining with collection and using invariance of area under free conjugation
-proves the asserted bound for $\delta_P(n)$. Substituting Theorem~\ref{thm:area-weighted}, or Theorem~\ref{thm:area}, gives the two polynomial exponents.
+Each move therefore costs at most $4F_n$. Since $d\le5n$ and $d+1\le6n$, insertion costs at most
+$3n^2\cdot30n^2\cdot4F_n=360F_nn^4$. Inverse conversion costs at most $3n^2\le3F_nn^4$.
+Adding collection gives at most $(5+3+360)F_nn^4\le400F_nn^4$.
+Invariance of area under free conjugation proves the asserted bound for $\delta_P(n)$.
+The identification of null words with identity ray permutations uses Johnson's presentation, not the finite regression tests.
+Substituting Theorem~\ref{thm:area-weighted}, or Theorem~\ref{thm:area}, gives the two polynomial exponents.
 \end{proof}
 
 \section*{Use of AI assistance}
@@ -1253,7 +1278,7 @@ The authors take responsibility for the content.
 \bibitem{Lee2012} S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); \href{https://arxiv.org/abs/1212.0257v1}{arXiv:1212.0257v1}. Numbered references use this arXiv version.
 \bibitem{Houghton1978} C.~H.~Houghton, The first cohomology of a group with permutation module coefficients, Arch. Math. \textbf{31} (1978), 254--258.
 \bibitem{BCMR2014} J.~Burillo, S.~Cleary, A.~Martino and C.~E.~Röver, Commensurations and metric properties of Houghton's groups, Pacific J. Math. \textbf{285} (2016), 289--301; arXiv:1403.0026.
-\bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, arXiv:1806.05267 (2018).
+\bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, \href{https://arxiv.org/abs/1806.05267v1}{arXiv:1806.05267v1} (2018).
 \bibitem{SlofstraVidick2018} W.~Slofstra and T.~Vidick, Entanglement in non-local games and the hyperlinear profile of groups, Ann. Henri Poincaré \textbf{19} (2018), 2979--3005; arXiv:1711.10676.
 \bibitem{ArzhantsevaCherix2020} G.~Arzhantseva and P.-A.~Cherix, Quantifying metric approximations of discrete groups, Ann. Fac. Sci. Toulouse Math. \textbf{33} (2024), 831--877; arXiv:2008.12954.
 \bibitem{BCJM2023} P.~Burton, M.~Chaudkhari, K.~Juschenko and K.~Muliarchyk, Hyperlinear approximations to amenable groups come from sofic approximations, arXiv:2311.09202 (2023).

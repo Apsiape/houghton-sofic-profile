@@ -10,7 +10,7 @@ with superpolynomial sofic profile. The paper proves quantitative lower bounds,
 constructs permutation and unitary models, and gives a scale-dependent correction
 to the extension estimate discussed in the text. The upper sofic bound applies
 to every fixed finite chunk of H_3. Buffered collection also yields the full
-Dehn-function upper bound O(n^(log2(107)+4)); this does not change the sharper
+Dehn-function upper bound 400 n^4(1 + A*(4n+2)) = O(n^(log2(107)+4)); this does not change the sharper
 far-commutator estimate used for the profile exponents.
 The explicit area bound is 135 M^(log2(107)), giving sofic lower exponent
 1/(log2(107)+1) and squared-defect unitary exponent 1/(2log2(107)+1).
