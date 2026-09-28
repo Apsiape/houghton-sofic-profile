@@ -83,11 +83,27 @@ The unweighted bound obtained from certified finite fillings already gives $\sig
 \end{theorem}
 
 Here and below logarithms are to base two, and $\log130\approx7.022$.
+For $T\in M_D$ write $\tau_D(T)=D^{-1}\Tr T$,
+$\|T\|_2^2=\tau_D(T^*T)$ and $\|T\|_{HS}^2=\Tr(T^*T)$; the dimension subscript on $\tau$ is omitted when clear.
+For a density matrix $\rho$, $S(\rho)=-\Tr(\rho\log\rho)$, and
+$h_2(p)=-p\log p-(1-p)\log(1-p)$, with $0\log0=0$.
 
 \begin{corollary}\label{cor:intro-cornulier}
 Theorem~3.15 of~\cite{Cornulier2013} is false for the extension $1\to\FSym(\mathbb N)\to H_3\to\mathbb Z^2\to1$ and the chunk $E_H$. So $H_3$
 is an elementary amenable group whose sofic profile is not polynomial, contrary to~\cite[Example~3.16]{Cornulier2013}.
 \end{corollary}
+
+\begin{corollary}[Non-embedding in birational groups]\label{cor:cremona}
+For any field $K$ and absolutely irreducible finite-dimensional variety $X$ over $K$, the group $H_3$ does not embed into
+$\operatorname{Bir}_K(X)$. The same holds for every group containing $H_3$, in particular $H_m$ for $m\ge3$.
+\end{corollary}
+
+\begin{proof}
+An embedding preserves the partial multiplication and distinct elements of the chunk $E_H$, and hence its sofic profile.
+By the independent Corollary~4.5 of~\cite{Cornulier2013}, every chunk of $\operatorname{Bir}_K(X)$ has polynomial sofic profile;
+one may replace $X$ by a nonempty affine open without changing its birational group. This contradicts Theorem~\ref{thm:sofic}.
+Finally, $H_3$ embeds into $H_m$ by fixing the additional rays.
+\end{proof}
 
 We locate the error in Section~\ref{sec:correction}: the extension theorem asserts a finite piece of the kernel that does not depend on
 the error parameter, but the construction it relies on needs kernel elements conjugated along a Følner set whose size grows with the
@@ -412,7 +428,14 @@ indices differing by at least two, so four and two far-commutator interchanges g
 $\kappa(x_i,c_j)\le2A_Ne+20e\le22A_Ne$. By Theorem~\ref{thm:phase-robust} and the concavity of $G$,
 $\log D\ge N[(\overline{\Delta^2}-\bar a)/3-\bar b/(2\ln2)-G(\bar a)]$ with $\bar a=N^{-1}\sum_i\hat a_i^2\le\frac{2\cdot40^2}{3\cdot750^2}$,
 $\bar b=N^{-1}\sum_i\hat b_i^2\le\frac{4\cdot22^2}{3\cdot750^2}$ and $\overline{\Delta^2}\ge(\frac12-\frac9{750})^2$. Exact rational arithmetic, using
-$\ln2>69/100$ and $h_2(q)\le q\log(1/q)+q/\ln2$, shows that the bracket exceeds $1/16$ by $141043/1397250000$.
+$\ln2>69/100$ and $h_2(q)\le q\log(1/q)+q/\ln2$, gives a margin of at least $141043/1397250000$ above $1/16$.
+Explicitly, put $a=2\cdot40^2/(3\cdot750^2)$, $b=4\cdot22^2/(3\cdot750^2)$ and $q=2a/3=64/50625$.
+The integer inequality $64^3 2^{29}\ge50625^3$ gives $\log(1/q)\le29/3$, and the resulting rational lower margin is
+\[
+\frac{(488/1000)^2-a}{3}-\frac{b}{2(69/100)}
+-\left(\frac{32}{3}+\frac{100}{69}\right)q-\frac1{16}
+=\frac{141043}{1397250000}>0.
+\]
 \end{proof}
 
 If instead $\|\phi(\gamma)-I\|_2\ge\Delta$ with $0<\Delta\le1$, the same argument with $750$ replaced by a constant depending only on $\Delta$
@@ -559,9 +582,9 @@ $(e_x-e_y)/\sqrt2$; then $\exp(i\pi Q_S)$ is the transposition $(x\ y)$, and $\e
 \emph{Fermionic quantization.} For $W\in U(L)$ let $\Lambda(W)$ act on the exterior algebra $\Lambda(\mathbb C^L)$, of dimension $2^L$,
 by $v_1\wedge\cdots\wedge v_m\mapsto Wv_1\wedge\cdots\wedge Wv_m$. It is multiplicative on all of $U(L)$, and
 $\mathrm{Tr}\,\Lambda(W)=\det(I+W)$, since in degree $m$ its eigenvalues are the products of $m$ eigenvalues of $W$. For $k\ge1$ put
-$\Lambda_k=\Lambda^{\otimes k}$, so that $2^{-kL}\,\mathrm{Tr}\,\Lambda_k(W)=\det\big((I+W)/2\big)^k$. The quantized model acts on $\mathcal H=\mathbb C^{M^2}\otimes\Lambda(\mathbb C^L)^{\otimes k}$, with normalized trace $\tau$. A letter moves the clock $c$ to
-$c+\pi(s)$ and applies $\Lambda_k$ of its link matrix at $c$, and $\rho(s)$ is the adjoint of this operator, so $\rho$ is a representation of the free group on $a,b,\alpha$. A word whose translation is nonzero
-modulo $M$ has $\tau(\rho(w))=0$, and a word that closes has
+$\Lambda_k=\Lambda^{\otimes k}$, so that $2^{-kL}\,\mathrm{Tr}\,\Lambda_k(W)=\det\big((I+W)/2\big)^k$. The quantized model acts on $\mathcal H=\mathbb C^{M^2}\otimes\Lambda(\mathbb C^L)^{\otimes k}$, with normalized trace $\tau_{\mathcal H}$, distinct from the transposition $\tau=(1\ 2)$. A letter moves the clock $c$ to
+$c+\pi(s)$ and applies $\Lambda_k$ of its link matrix at $c$. These right-action operators compose in reverse order; taking their adjoints defines the usual free-group representation $\rho$ on $a,b,\alpha$. A word whose translation is nonzero
+modulo $M$ has $\tau_{\mathcal H}(\rho(w))=0$, and a word that closes has
 \[
 \|\rho(w)-I\|_2^2=\mathbb E_c\Big[2-2\,\mathrm{Re}\det\big((I+W_c(w))/2\big)^k\Big],
 \]
@@ -596,8 +619,10 @@ product of the transpositions given by the base labels of the regions with that 
 \item every edge of a non-source plaquette, from $v$ to $w$, carries $\mathrm{lab}(v)$ onto $\mathrm{lab}(w)$ under its link permutation;
 \item every base label avoids $\{1,2\}$, and the label at the initial vertex of every interior edge avoids $\{2,3,4\}$;
 \item each region is connected through its interior edges, and the only interior edge of its source is the bottom edge;
-\item labels of different regions are disjoint wherever both are defined, and disjoint from any other modification of the link.
+\item labels of different regions are disjoint wherever both are defined; on an interior link carrying a region's rotation, its label is disjoint from any additional modification of that link.
 \end{enumerate}
+Here the link permutations belong to the base model, including any preliminary exact moves. Potentials vanish on boundary links;
+no disjointness from an additional modification is required for a region on a link where that region carries no rotation.
 Let $F_{R,q}$ be real numbers with $\sum_{q\in R}F_{R,q}=s_R\pi$ for each region. Then there are potentials $\varphi_R$ on the interior
 edges of $R$ such that the model with $U_c=\prod_R\exp(i\varphi_R(\text{$a$-edge at }c)\,Q_{\mathrm{lab}_R(c)})$ and
 $V_c=\prod_R\exp(i\varphi_R(\text{$b$-edge at }c)\,Q_{\mathrm{lab}_R(c)})$ still has $r_1,r_2,r_3,r_5$ exact, and its $r_4$ holonomy at
@@ -635,7 +660,7 @@ hypotheses of Lemma~\ref{lem:rotations}, so $r_1,r_2,r_3,r_5$ stay exact. The mo
 holonomy becomes $\sigma_1R_M=\prod_{t=5}^{M+3}(t\ \,t{+}M)$. At $(0,M-2)$, where it was the identity, it becomes
 $\tau\sigma_2\tau=\sigma_2$. At $(M-1,M-2)$ it becomes $(A\sigma_2A^{-1})\,\tau(B\sigma_1B^{-1})\tau$ with $A=A_{(M-1,M-2)}=c_5$ and
 $B=B_{(M-1,M-2)}=c_{3M+6}$. Here $A\sigma_2A^{-1}=(1\ \,M{+}5)$ and $B\sigma_1B^{-1}=(2\ \,M{+}5)$, so $\tau(B\sigma_1B^{-1})\tau=(1\ \,M{+}5)$ and
-the holonomy stays the identity.
+the holonomy stays the identity. Use these modified permutations as the base model in Lemma~\ref{lem:spreading}.
 
 \emph{The regions.} For $5\le t\le M+3$ let $R_t$ have source $c^*$ and sign $(-1)^{t-5}$, and consist of $c^*$, the plaquettes $(M-1,j)$
 with $1\le j\le M-2$, and the plaquettes $(i,j)$ with $0\le i\le M-3$, $0\le j\le M-2$ and $i+j\le t+M-8$; label the vertex $(i,j)$ by
@@ -651,7 +676,8 @@ $(M-1,j)$ and $(0,j)$ agree; this is the only crossing of a seam, since the rows
 bottom edge. Every base label and every label at the initial vertex of an interior edge has both coordinates at least $5$. Two labels of
 bulk regions at one vertex differ in $t$ by at most $M-2$, so they are disjoint; a bulk label meets a label of $T$ only if
 $t\in\{4,\ 4-M-i,\ M+4+i\}$, which is impossible; and $\sigma_1$, $\sigma_2$ are disjoint from the labels $\{t,t+M\}$ and $\{t+1,t+M+1\}$
-on the links they modify. Each region is connected through interior edges: the triangle is a staircase, the column is glued to it through
+on the links where those regions carry rotations. At $(0,M-2)$ the label of $T$ equals the support of $\sigma_2$, but that $b$-link is a boundary link of $T$ and carries no $T$-rotation.
+Each region is connected through interior edges: the triangle is a staircase, the column is glued to it through
 the $b$-edges at $(0,j)$, and each source through its bottom edge. Finally $R_t\subset R_{t+1}$, and every region has at least
 $m_M=(M-1)(M-2)/2+1$ plaquettes.
 
@@ -777,7 +803,7 @@ for unitaries. A quadratic Dehn function for $H_3$ would reach these values: eve
 gives the polynomial upper bound $O(n^{\log130+4})$, while for Thompson's group $F$ a quadratic Dehn function is a
 theorem~\cite{Guba2006}. Shared fillings, improved aggregate defect estimates, or a stronger dimension argument are possible routes beyond these limits.
 \item \emph{Permutation versus unitary approximation.} Relator errors add up in measure for permutations and in norm for unitaries, so the
-two profiles may differ. The best models known already do: in the normalized Hilbert--Schmidt norm, permutation models of $H_3$ give
+two profiles may differ. The constructions here already have different exponents: in the normalized Hilbert--Schmidt norm, permutation models of $H_3$ give
 $\log D=O(e^{-1})$ and unitary models $O(e^{-2/3})$ (Section~\ref{sec:unitary-models}). Can the unitary profile of a chunk of an amenable group be
 polynomially smaller, in exponent, than its sofic profile?
 \item \emph{Other groups.} Every Houghton group $H_m$ with $m\ge3$ contains $H_3$; the same method applies to groups with a displaced
@@ -834,7 +860,7 @@ The lemma gives, in this order: $A(2)=1$, $E(0)=U(1)=1$, $E(1)\le4$, $U(2)\le5$,
 $A(4)\le47$ ($k=j=2$), $E(2)\le27$, $U(3)\le32$, $B(3)\le12$, $A(5)\le79$ ($k=3,j=2$), $A(6)\le157$ ($k=j=3$) and $E(3)\le76$.
 Part (iv) with $k=2$ gives $A(m)\le2U(m-2)+18m-35$ for $m\ge3$.
 
-\paragraph{The cheap letters.} Freely, $\psi(t)=b^{-2}a^2=t\rho t$, $t^b=b^{-2}ab=t\rho$, and
+\paragraph{The cheap letters.} We use $g^h=h^{-1}gh$. Freely, $\psi(t)=b^{-2}a^2=t\rho t$, $t^b=b^{-2}ab=t\rho$, and
 $\psi(\rho)=\rho^a\rho^{ba}\rho\rho^b=t^{-1}\rho^b\rho^{b^2}t\cdot\rho\cdot\rho^b$ (from $[x^2,y^2]=(xcx^{-1})(xy\,c\,y^{-1}x^{-1})\,c\,(ycy^{-1})$ with
 $c=[x,y]$, $x=a^{-1}$, $y=b^{-1}$, and $a=bt$). The one relation needed is
 \[

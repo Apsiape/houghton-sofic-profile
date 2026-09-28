@@ -12,6 +12,10 @@ to the extension estimate discussed in the text. The upper sofic bound applies
 to every fixed finite chunk of H_3. Buffered collection also yields the full
 Dehn-function upper bound O(n^(log2(130)+4)); this does not change the sharper
 far-commutator estimate used for the profile exponents.
+Combined with Cornulier's independent polynomial-profile theorem for birational
+groups, the lower bound also excludes embeddings of H_3 (and H_m, m >= 3) into
+Bir_K(X) for absolutely irreducible finite-dimensional varieties over any field.
+This corollary is stated without a separate priority claim.
 
 This is a **private release candidate**, not an announced publication.
 The manuscript is the authority for exact statements and hypotheses. Licenses

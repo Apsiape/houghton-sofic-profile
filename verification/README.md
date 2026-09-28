@@ -10,6 +10,9 @@ check is allowed ten minutes; runtime depends on the machine.
 
 ## What is checked
 
+- **scalarcheck.py:** exact rational margin in the constant-750 sector bound,
+  including the integer threshold for its logarithm estimate. The entropy
+  inequality and the analytic lower bound on ln(2) remain proof inputs.
 - **collectioncheck.py:** finite ray-action checks for the buffered collection
   identities, local Coxeter rewrites through 24 generators, and recursive
   insertion on 120 deterministic test words. These are transcription regressions;
@@ -37,7 +40,8 @@ check is allowed ten minutes; runtime depends on the machine.
   cutoff makes this coverage boundary reproducible.
 - **Lean Arithmetic.lean:** integer-scaled matrix inequalities, rational
   constants after clearing denominators, and an all-depth induction for the
-  stated recurrence hypotheses, plus the exact insertion-cost recurrence.
+  stated recurrence hypotheses, plus the exact insertion-cost recurrence and
+  integer logarithm threshold used in the constant-750 bound.
   The geometric derivation of those recurrences
   is not a premise-free Lean theorem.
 

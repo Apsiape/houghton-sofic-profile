@@ -97,6 +97,10 @@ theorem insertion_charge_formula (d : Nat) :
       omega
 
 #print axioms insertion_charge_formula
+-- Scalar prerequisite for log2(50625/64) <= 29/3. No logarithm semantics here.
+theorem sector_log_threshold : 50625^3 ≤ 64^3 * 2^29 := by decide
+
+#print axioms sector_log_threshold
 #print axioms substitution_row_sums
 #print axioms weighted_lift_multiplier
 #print axioms ordinary_area_from_weight
