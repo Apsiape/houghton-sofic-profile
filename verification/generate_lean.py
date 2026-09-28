@@ -85,7 +85,7 @@ def main():
         ]
     lines += [f"#print axioms semantic_{n}", "end WordCertificate", ""]
     output = ROOT / "lean" / ("Certificates107.lean" if AUX107 else "Certificates.lean")
-    output.write_text("\n".join(lines), encoding="utf-8")
+    output.write_text("\n".join(lines), encoding="utf-8", newline="\n")
     print(f"Transcribed {len(entries)} core certificates to {output.name}")
 
 if __name__ == "__main__":
