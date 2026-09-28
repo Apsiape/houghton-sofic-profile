@@ -1,0 +1,922 @@
+% Houghton's group H_3 has superpolynomial sofic profile.
+% Compile: python build.py (three pdflatex passes).
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\setlength{\emergencystretch}{2em}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\hypersetup{pdftitle={Houghton's group H3 has superpolynomial sofic profile},
+pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlinear profile, Houghton groups, elementary amenable groups, stability, Dehn function}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\FSym}{FSym}
+
+\title{Houghton's group $H_3$ has superpolynomial sofic profile}
+\author{Seth Douglas \and Nidhal Mghirbi}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Amenable groups can be approximated by permutations, but the approximations need not be small. The sofic profile of a finite piece of
+a group measures how large a permutation model must be to reproduce its multiplication up to an error $1/r$. We show that Houghton's group
+$H_3$, a finitely presented elementary amenable group, has a finite piece whose sofic profile grows at least as fast as $\exp(r^{c})$ with
+$c=1/(\log_2130+1)\approx1/8.02$, and at most like $\exp(O(\sqrt r\log r))$. Since $H_3$ is amenable, and hence sofic, this answers the last
+question of Cornulier's Problem~3.18: a sofic group can have superpolynomial sofic profile. It also shows that Cornulier's extension theorem,
+from which he derived that every elementary amenable group has polynomial sofic profile, is false as stated, and we locate the error: the
+finite piece of the kernel that it provides must grow with the error parameter, and we give the corrected, scale-dependent form of the
+bound. The same argument bounds unitary approximations, where our unitary models, which spread a defect thinly, give a better upper bound
+than our permutation construction. The upper sofic bound holds for every fixed finite chunk of $H_3$.
+The proof combines a polynomial bound on the area of far commutators
+in Johnson's presentation, obtained from a doubling self-similarity with executable certificates for its finite relations, with an entropy count for
+approximately commuting copies of the symmetric group $S_3$.
+\end{abstract}
+
+\tableofcontents
+
+%======================================================================
+\section{Introduction}\label{sec:intro}
+%======================================================================
+
+Sofic groups are the groups whose finite pieces can be modelled by permutations up to a small error, and hyperlinear groups those
+whose finite pieces can be modelled by unitary matrices. Quantitative versions ask, for groups that can be approximated, how large the models must be.
+Cornulier introduced the \emph{sofic profile} $\sigma_E(r)$ of a finite piece (a chunk)
+$E$ of a group: the least $n$ for which $E$ maps to the symmetric group $\Sym_n$ with multiplication defect $1/r$ and with distinct
+elements at normalized Hamming distance at least $1-1/r$~\cite{Cornulier2013}. Amenable groups are sofic, and one expects their
+models to be small. Cornulier derived from an extension theorem~\cite[Theorem~3.15]{Cornulier2013} that every elementary amenable
+group has polynomial sofic profile~\cite[Example~3.16]{Cornulier2013}, and asked for methods to bound the sofic profile of explicit
+groups from below, whether some group has sofic profile that is unbounded and not linear in $r$, and whether such a group can be
+sofic~\cite[Problem~3.18]{Cornulier2013}.
+
+Houghton's group $H_3$ is finitely presented and elementary amenable: it is an extension of the locally finite group $\FSym(\mathbb N)$
+of finitary permutations by $\mathbb Z^2$~\cite{Houghton1978}. Section~\ref{sec:group} defines it and a chunk $E_H$.
+
+\begin{theorem}\label{thm:sofic}
+The chunk $E_H$ of $H_3$ has sofic profile
+\[
+2^{\,r^{1/(\log130+1)}/940-1/16}\ \le\ \sigma_{E_H}(r)\ \le\ 2^{O(\sqrt r\log r)}\qquad(r>1).
+\]
+The machine-certified area bound alone already gives $\sigma_{E_H}(r)\ge2^{\,r^{1/12}/270-1/16}$.
+\end{theorem}
+
+Here and below logarithms are to base two, and $\log130\approx7.022$.
+
+\begin{corollary}\label{cor:intro-cornulier}
+Theorem~3.15 of~\cite{Cornulier2013} is false for the extension $1\to\FSym(\mathbb N)\to H_3\to\mathbb Z^2\to1$ and the chunk $E_H$. So $H_3$
+is an elementary amenable group whose sofic profile is not polynomial, contrary to~\cite[Example~3.16]{Cornulier2013}.
+\end{corollary}
+
+We locate the error in Section~\ref{sec:correction}: the extension theorem asserts a finite piece of the kernel that does not depend on
+the error parameter, but the construction it relies on needs kernel elements conjugated along a Følner set whose size grows with the
+inverse error. Tracking that dependence gives a correct, scale-dependent extension bound (Proposition~\ref{prop:extension}). Since $H_3$ is
+amenable, and hence sofic, Theorem~\ref{thm:sofic} also answers the last question of Cornulier's
+Problem~3.18: a sofic group can have sofic profile that is unbounded and not linear in $r$. Slofstra constructed the first finitely
+presented group with superpolynomial hyperlinear and sofic profile~\cite{Slofstra2018}, answering the first question; that group is
+not amenable. To our knowledge $H_3$ is the first amenable group shown to have superpolynomial sofic profile.
+
+The lower bound holds for unitary approximations as well. Write $P=\langle a,b,\alpha\mid r_1,\dots,r_5\rangle$ for Johnson's
+presentation (Section~\ref{sec:group}) and call unitaries $\phi(a),\phi(b),\phi(\alpha)\in U(D)$ an \emph{$e$-representation} if every
+relator satisfies $\|\phi(r_i)-I\|_2\le e$ in the normalized Hilbert--Schmidt norm.
+
+\begin{theorem}\label{thm:unitary}
+Let $\beta_H=1/(2\log130+1)\approx1/15.04$ and $K'=750\cdot30\cdot3^{\log130}$. Every $e$-representation of $P$ on $\mathbb C^D$ in which the
+three-cycle $\gamma=\alpha\,a\alpha a^{-1}$ satisfies $\|\phi(\gamma)-I\|_2\ge1/2$ has $\log D\ge(K'e)^{-2\beta_H}/16-1/16$.
+\end{theorem}
+
+Conversely, spreading the single defect of our permutation models over many cells gives such representations with $\log D=O(e^{-2/3})$,
+while our permutation models give only $O(e^{-1})$ (Corollary~\ref{cor:unitary-upper}).
+
+\paragraph{How the proofs go.}
+\begin{itemize}[leftmargin=1.2em,itemsep=2pt]
+\item \emph{Far commutators have polynomial area} (Section~\ref{sec:area}). The commutator of two conjugates of the basic transposition at
+distance $R$ has area at most $30R^{\log130}$ in Johnson's presentation, by a doubling self-similarity of $H_3$ whose finite relations are
+certified by machine. Only an exponential isoperimetric inequality for $H_3$ was known~\cite{Lee2012}.
+\item \emph{Displaced copies of $S_3$ need dimension} (Section~\ref{sec:profile}). An approximate representation gives, through the far
+commutators, many approximately commuting copies of $S_3$ whose three-cycles are displaced from the identity. Rounding each copy to an
+exact one and counting the entropy needed to make a state invariant forces dimension exponential in their number.
+\item \emph{Transport} (Section~\ref{sec:sofic}). For permutations, relator errors add up in measure over a van Kampen diagram; for
+unitaries, in norm. This converts the area bound into the two exponents.
+\item \emph{Upper bounds} (Section~\ref{sec:corner}). Permutation models on a torus of clock positions that fail at a single corner, and unitary models that spread
+that failure over many cells by small rotations.
+\end{itemize}
+
+\paragraph{Related work.} Quantitative metric approximations of groups are surveyed in~\cite{ArzhantsevaCherix2020}; the hyperlinear
+profile and its relation to nonlocal games are studied in~\cite{SlofstraVidick2018,Slofstra2018}, and hyperlinear approximations of
+amenable groups come from sofic ones~\cite{BCJM2023}. Our method follows Slofstra's in combining stability of approximate
+representations of finite groups, here an entropy bound in place of the stability theorems of Gowers--Hatami~\cite{GowersHatami2017}
+and De Chiffre--Ozawa--Thom~\cite{DOT2019}, with an isoperimetric input. Houghton's groups have an exponential isoperimetric
+inequality~\cite{Lee2012} and are not co-Hopfian~\cite{BCMR2014}; we use the doubling endomorphism behind the latter. The extension
+theorem is attributed in~\cite{Cornulier2013} to the construction of Elek and Szabó~\cite{ElekSzabo2006}. A companion paper~\cite{DouglasMghirbiB} applies the
+lower bounds to the memory needed for the repeated use of a quantum channel built from $H_3$.
+
+\paragraph{Organization.} Section~\ref{sec:group} defines $H_3$, the chunk and the profiles. Section~\ref{sec:area} proves the area bounds,
+Section~\ref{sec:profile} the dimension bounds for approximate representations, and Section~\ref{sec:sofic} the lower bounds of
+Theorems~\ref{thm:sofic} and~\ref{thm:unitary}. Section~\ref{sec:corner} gives the upper bounds, Section~\ref{sec:correction} the correction,
+and Section~\ref{sec:open} open problems. Appendix~\ref{app:area} gives the fillings.
+
+%======================================================================
+\section{Houghton's group, chunks and profiles}\label{sec:group}
+%======================================================================
+
+Let $Y=\{(i,j):i\in\{1,2,3\},\,j\ge1\}$ be three rays. Permutations act on the right and
+$gh$ means $g$ followed by $h$. Let $a$ send $(1,1)\mapsto(2,1)$, $(1,j)\mapsto(1,j-1)$ for $j\ge2$ and
+$(2,j)\mapsto(2,j+1)$, fixing ray~3; let $b$ be defined in the same way with rays 2 and 3 exchanged; let $\alpha$ be
+the transposition of $(1,1)$ and $(1,2)$. These generate $H_3$, the group of permutations of $Y$ that are eventually
+translations on each ray. They satisfy
+\begin{equation}\label{eq:relators}
+r_1=\alpha^2,\quad r_2=(\alpha a\alpha a^{-1})^3,\quad r_3=[\alpha,a^2\alpha a^{-2}],\quad
+r_4=aba^{-1}b^{-1}\alpha^{-1},\quad r_5=a\alpha a^{-1}b\alpha^{-1}b^{-1},
+\end{equation}
+with $[x,y]=xyx^{-1}y^{-1}$; each identity can be checked directly on the finitely many points where the word
+moves anything. By a theorem of Johnson (see~\cite[Theorem~2.8]{Lee2012}) these relators present $H_3$. The lower
+bound below uses only that $r_1,\dots,r_5$ hold in $H_3$, the far-commutator areas of Section~\ref{sec:area}, and
+that the three-cycle $\gamma=\alpha\,(a\alpha a^{-1})$ on $(1,1),(1,2),(1,3)$ is nontrivial. The short exact sequence
+$1\to\FSym(\mathbb{N})\to H_3\to\mathbb{Z}^2\to1$ shows that $H_3$ is elementary amenable.
+
+We recall Cornulier's definitions~\cite[Definitions~3.2 and~3.4]{Cornulier2013}. A \emph{chunk} of a group $G$ is a finite
+subset $E\ni1$ with the partial multiplication $xy=z$ whenever $x,y,z\in E$ and $xy=z$ in $G$. For a map
+$f:E\to\Sym_n$ with $f(1)=\mathrm{id}$, let $d_n$ be the normalized Hamming distance on $\Sym_n$. The map is an
+\emph{$\varepsilon$-morphism} if $d_n(f(xy),f(x)f(y))\le\varepsilon$ whenever $xy$ is defined in $E$, and it is
+\emph{$(1-\varepsilon)$-expansive} if $d_n(f(x),f(y))\ge1-\varepsilon$ for distinct $x,y\in E$. The sofic profile is
+\[
+\sigma_E(r)=\min\{n:\ \text{there is a }(1-r^{-1})\text{-expansive }r^{-1}\text{-morphism }E\to\Sym_n\},\qquad r>1.
+\]
+A group has polynomial sofic profile if every chunk has $\sigma_E\preceq$ some polynomial~\cite[Definition~3.10]{Cornulier2013}.
+
+Let $E_H\subset H_3$ be the symmetric chunk consisting of $1$, $a^{\pm1},b^{\pm1},\alpha^{\pm1}$, all prefixes of the relators
+$r_1,\dots,r_5$ and of the word $\alpha a\alpha a^{-1}$ for $\gamma$, and the inverses of these elements.
+
+For permutations, relations can be transported in measure: the normalized Hamming distance $d_n$ is bi-invariant, so a
+null word that is a product of $A$ conjugates of relators has $d_n(\phi(w),\mathrm{id})\le A\delta$ when every relator has
+$d_n(\phi(r_i),\mathrm{id})\le\delta$. For unitaries only $\|\phi(w)-I\|_2\le A\max_i\|\phi(r_i)-I\|_2$ is available in general, since
+$\|(e^{i\vartheta}I)^A-I\|_2$ grows like $A\vartheta$.
+
+\section{Polynomial area of far commutators}\label{sec:area}
+%======================================================================
+
+Let $P=\langle a,b,\alpha\mid r_1,\dots,r_5\rangle$, put $\sigma_j=a^j\alpha a^{-j}$, and let $A^*(M)$ be the
+largest area in $P$ of a commutator $[\sigma_p^{\pm1},\sigma_q^{\pm1}]$ with $0\le p,q\le M$ and $|p-q|\ge2$. These
+commutators are trivial in $H_3$ because the transpositions have disjoint supports.
+
+\begin{theorem}[Polynomial far-commutator area]\label{thm:area}
+$A^*(M)\le M^{11}$ for every $M\ge2$.
+\end{theorem}
+
+\begin{proof}[Outline; the full proof is in Appendix~\ref{app:area}]
+Let $\psi$ be the endomorphism of the free group on $a,b,\alpha$ with $\psi(a)=a^2$, $\psi(b)=b^2$ and
+$\psi(\alpha)=[a^2,b^2]$. On $H_3$ it is induced by the diagonal action on two copies of $Y$, identified with $Y$ by the bijection
+$(1,j,e)\mapsto(1,2j-1+e)$ and $(i,j,e)\mapsto(i,2j-e)$ for $i=2,3$ and $e\in\{0,1\}$.
+The resulting group endomorphism, not this bijection of sets, is injective and not surjective
+(compare~\cite{BCMR2014}). The proof has four steps.
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{$\psi$ lifts to $P$ with bounded area multiplier.} Each $\psi(r_i)$ is a null word in $P$, of area at
+most $0,17,182,864,359$ for $i=4,1,5,3,2$. Hence $\mathrm{Area}_P(\psi(w))\le864\,\mathrm{Area}_P(w)$.
+\item \emph{Two cheap letters.} With $t=b^{-1}a$ and $\rho=a^{-1}b^{-1}ab$, the letter $\alpha$ commutes with $t$ at
+cost 1 and with $\rho$ at cost at most 5, and $\{t,\rho\}$ is invariant under $\psi$ up to one relation,
+$b^{-1}\rho b=t\rho t^{-1}\cdot\rho\cdot t\rho t^{-1}$, of area at most 14. The identities $\psi(t)=t\rho t$,
+$t\rho=b^{-1}tb$ and $\psi(\rho)=t^{-1}\rho^b\rho^{b^2}t\,\rho\,\rho^b$ hold in the free group.
+\item \emph{A doubling recursion.} The words $X_n=b^{-n}a^n$ satisfy $X_{2n}=\psi(X_n)$ and $X_{2n+1}=b^{-1}X_{2n}bt$
+freely, and in $H_3$ act as a reversal of $[1,n]$ followed by translation on the line formed by rays 2 and 3. Writing
+$X_n$ as a word $W_n$ in $t,\rho$ costs $R(n)$ cells, with $R(2n)\le864\,R(n)+84\,\#_\rho(W_n)$ and a comparable odd
+step. Unrolling gives $R(n)\le1.35\,n^{\log_2864}$.
+\item \emph{From $X_n$ to far commutators.} $[\alpha,X_n]$ expands into one conjugate of $[\alpha,t]^{\pm1}$ or
+$[\alpha,\rho]^{\pm1}$ per letter of $W_n$, so its area is at most $2R(n)+5|W_n|$; a far commutator
+$[\sigma_0,\sigma_m]$ reduces to it at linear extra cost. This gives $A^*(m)\le5.4\,m^{\log_2864}+10\,m^{\log_2323}+18m\le
+m^{11}$ for $m\ge5$, and $A^*(2),A^*(3),A^*(4)\le1,21,47$.
+\end{enumerate}
+\end{proof}
+
+\paragraph{Certificates.} Every finite relation used in the proof is supplied in machine-checkable form: as an
+explicit list of cells $(z_k,r_{i_k},s_k)$ such that the relation equals $\prod_kz_kr_{i_k}^{s_k}z_k^{-1}$ in the free
+group on $a,b,\alpha$, which a short independent program verifies by free reduction after recomputing the relation
+from its definition. The certified relations and their cell counts are: $A(2)=1$, $A(3)\le21$, $A(4)\le47$,
+$A(5)\le79$, $A(6)\le157$; $E(0..3)\le1,4,27,76$; $U(1..3)\le1,5,32$; $B(2),B(3)\le9,12$; the relation of step~(2)
+with $14$ cells; $[\alpha,\rho]$ with $5$; $\psi(\alpha)=\sigma_1\sigma_2\sigma_0\sigma_1$ with $6$; the images
+$\psi(r_1),\psi(r_2),\psi(r_3),\psi(r_5)$ with $17,359,864,182$; and the rewriting of $\psi(\rho)$ as a word in
+$t$ and $\rho$, which uses the relation of step~(2) six times, with $84$. The recursion of step~(3) has also been executed mechanically, transporting certificates through
+$\psi$ cell by cell: for $n\le9$ the certificates of $X_n=W_n$ have $0,0,14,84,392,995,2493,5298,11878$ cells, each at
+most the recursion bound, and the resulting far commutators satisfy $A(m)\le73\,121$ for $m\le11$, far below $m^{11}$.
+Appendix~\ref{app:area} gives the fillings in words; the ancillary files contain the generator, the verifier and the
+exported certificates. The exported file holds every finite relation listed above and the recursion for $n\le5$, which the
+independent verifier checks; the instances $6\le n\le9$ were executed by the generator but are not in the file, and the generator
+exports them for the verifier on request. The proof uses only the finite relations and the hand induction of Appendix~\ref{app:area}.
+
+The same fillings give a better exponent when the five kinds of cells are counted separately.
+
+\begin{theorem}[Reweighted far-commutator area]\label{thm:area-weighted}
+$A^*(M)\le30\,M^{\log130}$ for every $M\ge2$.
+\end{theorem}
+
+The proof is in Appendix~\ref{app:area}. Reweighting these fillings cannot bring the exponent below $\log\rho\approx7.018$, where
+$\rho\approx129.64$ is the spectral radius of their substitution matrix; $\log130\approx7.022$ is the certified choice. The area is at least quadratic.
+
+\begin{proposition}[Quadratic lower bound]\label{prop:area-lower}
+For odd $k\ge9$, $\mathrm{Area}(C_k)\ge(k-7)(k-5)/8$, where $C_k=[\alpha,a^k\alpha a^{-k}]$. Hence $A^*(R)\ge R^2/16$ for $R\ge23$.
+\end{proposition}
+
+\begin{proof}
+In a permutation model in which every relator moves at most a fraction $\delta$ of the points, a null word of area $A$ moves at most a
+fraction $A\delta$ (transport in measure, Section~\ref{sec:group}). In the corner models of Proposition~\ref{prop:corner}, $\delta\le M^{-2}$
+while $C_{2M-1}$ moves a fraction at least $(1-s^{-2})(M-4)(M-3)/(2M^2)$. Hence $\mathrm{Area}(C_{2M-1})\ge(1-s^{-2})(M-4)(M-3)/2$ for every
+$s$, which gives the claim with $k=2M-1$. For $R\ge23$ apply it to the largest odd $k\le R$.
+\end{proof}
+
+Thus the present uniform-area transport and sector estimate cannot give more than the exponent $1/3$ in $r$ for permutation approximations,
+and $2/5$ in $1/e$ for unitary approximations with relator defect $e$ (Section~\ref{sec:open}). This is a limit of that argument, not of every
+possible use of far commutators.
+%======================================================================
+
+\section{Stability and counting}\label{sec:profile}
+%======================================================================
+
+\subsection{An entropic sector bound}
+
+\begin{lemma}[Projection products]\label{lem:projections}
+Let $P_1,\dots,P_m$ be orthogonal projections on a Hilbert space and $\|x\|=1$. Then
+$1-\mathrm{Re}\langle x,P_m\cdots P_1x\rangle\le2\sum_j\|(I-P_j)x\|^2$.
+\end{lemma}
+
+\begin{proof}
+Put $x_0=x$, $x_j=P_jx_{j-1}$ and $r_j=x_{j-1}-x_j\in\mathrm{ran}(I-P_j)$. Then $\sum_j\|r_j\|^2=1-\|x_m\|^2=:b$, and
+$a=1-\mathrm{Re}\langle x,x_m\rangle=\mathrm{Re}\sum_j\langle(I-P_j)x,r_j\rangle\le\sqrt{Eb}$ with $E=\sum_j\|(I-P_j)x\|^2$. Since
+$0\le\|x-x_m\|^2=2a-b$, we get $a\le\sqrt{2Ea}$, that is $a\le2E$.
+\end{proof}
+
+\begin{lemma}[Entropic sector bound]\label{lem:sector}
+Let $u_1,\dots,u_N:S_3\to U(D)$ be unitary representations, not assumed to commute, such that for a three-cycle $c$
+\[
+\|u_i(c)-I\|_2\ge\Delta\quad(1\le i\le N),\qquad\|u_i(g)u_j(h)-u_j(h)u_i(g)\|_2\le\eta\quad(i\ne j,\ g,h\in S_3).
+\]
+Put $t=\sqrt{2N}\,\eta$. If $t\le\Delta$ and $t^2\le5/6$, then
+\[
+\log D\ \ge\ N\Big[\frac{(\Delta-t)^2}3-h_2(t^2)-t^2\log5\Big].
+\]
+\end{lemma}
+
+\begin{proof}
+Let $G=S_3^N$ and $f(g)=u_1(g_1)\cdots u_N(g_N)$. For $h$ in factor $i$, $\|f(gh)-f(g)u_i(h)\|_2=\|S^*XS-X\|_2$ with $X=u_i(h)$ and
+$S=u_{i+1}(g_{i+1})\cdots u_N(g_N)$, and $\|S^*XS-X\|_2^2=2-2\,\mathrm{Re}\,\tau(X^*S^*XS)$. The averages
+$T_j(Y)=\frac16\sum_au_j(a)^*Yu_j(a)$ are orthogonal projections on $M_D$ with the normalized Hilbert--Schmidt inner product, the
+average of $S^*XS$ over $g$ is $T_N\cdots T_{i+1}(X)$, and $\|(I-T_j)X\|_2^2=\frac1{12}\sum_a\|[X,u_j(a)]\|_2^2\le\eta^2/2$.
+Lemma~\ref{lem:projections} therefore gives
+\[
+\mathbb E_g\|f(gh)-f(g)u_i(h)\|_2^2\le2(N-i)\eta^2\le t^2 .
+\]
+Let $R$ be the right regular representation of $G$ and $W:\mathbb C^D\to\ell^2(G)\otimes\mathbb C^D$ the isometry
+$Wv=|G|^{-1/2}\sum_g|g\rangle\otimes f(g)v$. Then $\|R(h)W-Wu_i(h)\|_{HS}\le\sqrt D\,t$ for $h$ in factor $i$. Put $P=WW^*$ and
+$\rho=P/D$, a state of entropy $\log D$. For the three-cycle $c_i$ of factor $i$ and $Z_i=2I-R(c_i)-R(c_i)^*$,
+\[
+\mathrm{Tr}(\rho Z_i)=D^{-1}\|(R(c_i)-I)W\|_{HS}^2\ge(\Delta-t)^2 .
+\]
+Let $\mathcal E_i(X)=\frac16\sum_hR(h_i)XR(h_i)^*$, with $h_i$ the element $h$ placed in factor $i$; these conditional expectations
+commute. Since $(I-P)W=0$, $\mathrm{Tr}[(I-P)\mathcal E_i(\rho)]\le t^2$. The state $\mathcal E_i(\rho)$ is an average of six states of rank
+$D$, one of them $\rho$, so after pinching by $P$ and $I-P$ its two blocks have rank at most $D$ and $5D$. Pinching does not decrease
+entropy and $x\mapsto h_2(x)+x\log5$ increases on $[0,5/6]$, so $S(\mathcal E_i(\rho))\le\log D+h_2(t^2)+t^2\log5$. For a conditional
+expectation $S(\mathcal E(\sigma))-S(\sigma)=D(\sigma\|\mathcal E(\sigma))$; since the $\mathcal E_j$ commute, monotonicity of relative entropy
+under $\mathcal E_{i-1}\cdots\mathcal E_1$ bounds the entropy increment of $\mathcal E_i$ applied after $\mathcal E_{i-1}\cdots\mathcal E_1$ by
+$D(\rho\|\mathcal E_i\rho)$. Hence $\bar\rho=\mathcal E_N\cdots\mathcal E_1(\rho)$ satisfies $S(\bar\rho)\le\log D+N[h_2(t^2)+t^2\log5]$.
+
+The state $\bar\rho$ commutes with $R(G)$, so $\bar\rho=\bigoplus_\lambda p_\lambda(I_{d_\lambda}/d_\lambda\otimes\sigma_\lambda)$ over the irreducible
+representations $\lambda$ of $S_3^N$, and $S(\bar\rho)\ge\sum_\lambda p_\lambda\log d_\lambda=\sum_\lambda p_\lambda k_\lambda$, where $k_\lambda$ is the
+number of factors of $\lambda$ carrying the two-dimensional representation of $S_3$. The operator $Z_i$ is central in the group
+algebra, so $\mathrm{Tr}(\bar\rho Z_i)=\mathrm{Tr}(\rho Z_i)$, and it acts as $3I$ on the sectors whose factor $i$ is two-dimensional and as
+$0$ on the others. Hence $N(\Delta-t)^2\le\sum_i\mathrm{Tr}(\bar\rho Z_i)=3\sum_\lambda p_\lambda k_\lambda\le3S(\bar\rho)$.
+\end{proof}
+
+\begin{lemma}[Exact $S_3$ rounding]\label{lem:s3round}
+If $A,B\in U(D)$ satisfy $\|A^2-I\|_2,\|B^2-I\|_2,\|(AB)^3-I\|_2\le e$, there is a unitary representation $u$ of
+$S_3=\langle s,t\mid s^2,t^2,(st)^3\rangle$ on $\mathbb C^D$ with $\|u(s)-A\|_2\le e$, $\|u(t)-B\|_2\le8e$ and $\|u(st)-AB\|_2\le9e$, and
+each normal form $1,s,t,st,ts,sts$ evaluated in $u$ is within $10e$ of the same word in $A,B$.
+\end{lemma}
+
+\begin{proof}
+Round the spectra of $A$ and $B$ to the nearer of $\pm1$. For $|z|=1$ this moves $z$ by at most $|z^2-1|$, so the resulting
+Hermitian unitaries $S,T$ satisfy $\|S-A\|_2,\|T-B\|_2\le e$. Then $C=ST$ satisfies $SCS=C^*$ and $\|C^3-I\|_2\le7e$. Round the spectrum
+of $C$ to the nearest cube root of unity, choosing $1$ at ties and at $-1$. This rule commutes with complex conjugation and moves
+$z$ by at most $|z^3-1|$, so $C_0$ satisfies $C_0^3=I$, $SC_0S=C_0^*$ and $\|C_0-C\|_2\le7e$. Then $u(s)=S$ and $u(t)=SC_0$ are
+involutions with $u(s)u(t)=C_0$, and the bounds follow from the triangle inequality.
+\end{proof}
+
+\subsection{A phase-robust form}
+
+The count of Lemma~\ref{lem:sector} can be run on products of three-cycles alone. It then needs no relation between the
+transpositions of different copies, so a coherent phase in their commutators does no harm. Write $\kappa(u,v)=\|uv-vu\|_2$ and
+$G(t)=h_2(\min\{\frac23t,\frac23\})+\min\{\frac23t,\frac23\}$.
+
+\begin{theorem}[Phase-robust sector bound]\label{thm:phase-robust}
+Let $c_i,x_i\in U(D)$, $1\le i\le N$, satisfy $c_i^3=x_i^2=I$ and $x_ic_ix_i=c_i^{-1}$, with no condition on the commutators of
+$x_i$ and $x_j$. Put $\Delta_i=\|c_i-I\|_2$ and $f(g)=c_1^{g_1}\cdots c_N^{g_N}$ for $g\in\mathbb Z_3^N$, let $g^{(i)}$ be $g$ with its
+$i$-th coordinate negated, and, for uniform $g$,
+\[
+\hat a_i^2=\mathbb E_g\|f(g+e_i)-f(g)c_i\|_2^2,\qquad \hat b_i^2=\mathbb E_g\|x_if(g^{(i)})-f(g)x_i\|_2^2 .
+\]
+Then $\hat a_i^2\le\frac43\sum_{j>i}\kappa(c_i,c_j)^2$, $\hat b_i^2\le\frac43\sum_{j\ne i}\kappa(x_i,c_j)^2$, and
+\[
+\log D\ \ge\ \sum_{i=1}^N\Big[\frac{(\Delta_i^2-\hat a_i^2)_+}3-\frac{\hat b_i^2}{2\ln2}-G(\hat a_i^2)\Big].
+\]
+In particular $\Delta_i\ge49/100$ and $\hat a_i,\hat b_i\le1/100$ for all $i$ give $\log D\ge N/16$.
+\end{theorem}
+
+\begin{proof}
+\emph{The ordered-product errors.} For $h$ unitary, $\|(I-E_j)h\|_2^2=\frac13\kappa(h,c_j)^2$ for the average $E_j$ of conjugation by the
+powers of $c_j$. Moving $c_i$ through the suffix $c_{i+1}^{g_{i+1}}\cdots c_N^{g_N}$ and averaging over its exponents gives
+$\hat a_i^2=2-2\,\mathrm{Re}\langle c_i,E_N\cdots E_{i+1}c_i\rangle$, and Lemma~\ref{lem:projections} gives the first bound. For the second,
+$T_j(Z)=\frac13\sum_kc_j^{-k}Zc_j^{s_jk}$ with $s_i=-1$ and $s_j=1$ otherwise are orthogonal projections, $T_i(x_i)=x_i$ by the local
+relation, $\|(I-T_j)x_i\|_2^2=\frac13\kappa(x_i,c_j)^2$ for $j\ne i$, and $\hat b_i^2=2-2\,\mathrm{Re}\langle x_i,T_N\cdots T_1x_i\rangle$.
+
+\emph{Embedding.} Let $V\xi=3^{-N/2}\sum_gf(g)\xi\otimes|g\rangle$, let $C_i$ shift the $i$-th coordinate of $\ell^2(\mathbb Z_3^N)$ by $-1$, let
+$F_i$ negate it, and put $X_i=x_i\otimes F_i$. The $C_i$ commute, $X_iC_iX_i=C_i^{-1}$, $X_iC_jX_i=C_j$ for $j\ne i$, and
+$D^{-1/2}\|C_iV-Vc_i\|_{HS}=\hat a_i$, $D^{-1/2}\|X_iV-Vx_i\|_{HS}=\hat b_i$.
+
+\emph{Entropy.} Let $\rho=VV^*/D$ and let $\mathcal T_i$ average conjugation by the powers of $C_i$. The twirl moves weight at most
+$\min\{\frac23\hat a_i^2,\frac23\}$ outside the range of $VV^*$, into a block of rank at most $2D$, so $S(\mathcal T_i\rho)\le\log D+G(\hat a_i^2)$; as in
+Lemma~\ref{lem:sector} the twirls commute, and the increment of each twirl, the Holevo quantity of the conjugates of the current
+state, can only decrease under the earlier twirls by data processing for the Holevo quantity, so $\bar\rho=\mathcal T_1\cdots\mathcal T_N\rho$ has
+$S(\bar\rho)\le\log D+\sum_iG(\hat a_i^2)$.
+
+\emph{Sectors.} Let $p$ be the joint distribution of the eigenvalue labels $Z_i\in\{1,\omega,\omega^2\}$ of the $C_i$, the same for $\rho$ and
+$\bar\rho$. Then $S(\bar\rho)\ge H(p)\ge\sum_iH(Z_i\mid Z_{-i})$. Let $Q_a$ and $P_b$ be the spectral projections of $c_i$ and $C_i$. The
+numbers $r_{ab}=D^{-1}\|P_bVQ_a\|_{HS}^2$ form a joint distribution whose marginals are the spectral distribution of $c_i$ in the
+normalized trace and that of $C_i$ in $\rho$. Distinct cube roots of unity are at squared distance $3$, so $\hat a_i^2=3\Pr(a\ne b)$ and
+$\Delta_i^2=3\Pr(a\ne1)$, whence $s_i:=\Pr(Z_i\ne1)\ge(\Delta_i^2-\hat a_i^2)_+/3$. Next, the normalized vectorizations of $V$ and of
+$X_iVx_i^*$ are at squared distance $\hat b_i^2$, so their real overlap is $1-\hat b_i^2/2$. Measuring the joint spectral projections of
+the $C_j$ gives $p$ from the first and its flip $p^{(i)}$ in coordinate $i$ from the second, because $X_i$ exchanges $\omega$ and $\omega^2$
+in coordinate $i$ and fixes the other labels; by the Cauchy--Schwarz inequality outcome by outcome,
+$\sum_z\sqrt{p(z)p(z^{(i)})}\ge1-\hat b_i^2/2$. For $0\le t\le1$ one has $1-h_2(t)\le(1-2\sqrt{t(1-t)})/\ln2$: with $y=2t-1$ the difference of
+$1-\sqrt{1-y^2}$ and $\ln2\,(1-h_2(t))$ vanishes with its derivative at $y=0$ and has second derivative
+$(1-y^2)^{-3/2}-(1-y^2)^{-1}\ge0$. So for fixed other labels with masses $u,w$ on the two nontrivial values of $Z_i$, the conditional
+entropy receives at least $u+w-(u+w-2\sqrt{uw})/\ln2$, and summing gives $H(Z_i\mid Z_{-i})\ge s_i-\hat b_i^2/(2\ln2)$. The numbers in the
+last claim give $\frac{0.49^2-10^{-4}}3-\frac{10^{-4}}{2\ln2}-G(10^{-4})>\frac1{16}$.
+\end{proof}
+
+The theorem isolates the row quantities $\hat a_i,\hat b_i$ that control the dimension estimate used below.
+
+\subsection{From an approximate presentation to dimension}
+
+Call $\phi:\{a,b,\alpha\}\to U(D)$ an $e$-representation if $\|\phi(r_i)-I\|_2\le e$ for $i=1,\dots,5$, where $\phi$
+is extended to the free group. If $w$ is null in $P$ with area $A$, then $\|\phi(w)-I\|_2\le Ae$, because $w$ is freely a
+product of $A$ conjugates of relators and the norm is unitarily invariant.
+
+\begin{proposition}\label{prop:dimension}
+Let $\phi$ be an $e$-representation with $\|\phi(\gamma)-I\|_2\ge1/2$, and let $N\ge1$ satisfy $750\sqrt N\,A_Ne\le1$, where
+$A_N=\max\{1,A^*(3N)\}$. Then $\log D\ge N/16$.
+\end{proposition}
+
+\begin{proof}
+Put $A_i=\phi(\sigma_{3(i-1)})$ and $B_i=\phi(\sigma_{3(i-1)+1})$ for $1\le i\le N$; all indices are at most $3N-2$. In $H_3$ each pair
+generates a copy of $S_3$ on $\{(1,3i-2),(1,3i-1),(1,3i)\}$; its involution and braid relations are conjugates of $r_1$ and $r_2$, with
+defect at most $e$. Lemma~\ref{lem:s3round} gives exact local pairs $x_i=u_i(s)$ and $c_i=u_i(st)$ with $\|x_i-A_i\|_2\le e$ and
+$\|c_i-A_iB_i\|_2\le9e$, and $A_iB_i=\phi(a)^{3(i-1)}\phi(\gamma)\phi(a)^{-3(i-1)}$, so $\Delta_i\ge\frac12-9e$. Pairs with different $i$ have
+indices differing by at least two, so four and two far-commutator interchanges give $\kappa(c_i,c_j)\le4A_Ne+36e\le40A_Ne$ and
+$\kappa(x_i,c_j)\le2A_Ne+20e\le22A_Ne$. By Theorem~\ref{thm:phase-robust} and the concavity of $G$,
+$\log D\ge N[(\overline{\Delta^2}-\bar a)/3-\bar b/(2\ln2)-G(\bar a)]$ with $\bar a=N^{-1}\sum_i\hat a_i^2\le\frac{2\cdot40^2}{3\cdot750^2}$,
+$\bar b=N^{-1}\sum_i\hat b_i^2\le\frac{4\cdot22^2}{3\cdot750^2}$ and $\overline{\Delta^2}\ge(\frac12-\frac9{750})^2$. Exact rational arithmetic, using
+$\ln2>69/100$ and $h_2(q)\le q\log(1/q)+q/\ln2$, shows that the bracket exceeds $1/16$ by $141043/1397250000$.
+\end{proof}
+
+If instead $\|\phi(\gamma)-I\|_2\ge\Delta$ with $0<\Delta\le1$, the same argument with $750$ replaced by a constant depending only on $\Delta$
+gives $\log D\ge c_\Delta N$ with $c_\Delta>0$. With $A^*(M)\le CM^p$ the condition reads $N^{p+1/2}e=O(1)$, which gives
+$\log D\ge c\,e^{-2/(2p+1)}$: the exponent is $2/(2p+1)$ in $1/e$, or $1/(2p+1)$ in the squared defect $1/e^2$. For $p=\log130$ this is the
+exponent $2\beta_H$ of Theorem~\ref{thm:unitary}.
+
+%======================================================================
+\section{Lower bounds}\label{sec:sofic}
+%======================================================================
+
+\begin{proposition}\label{prop:dimension-perm}
+Let $\phi$ assign permutations of a finite set $\Omega$ to $a,b,\alpha$, with $d_n(\phi(r_i),\mathrm{id})\le\delta$ for all $i$ and
+$d_n(\phi(\gamma),\mathrm{id})\ge1/2$, and let $N\ge1$ satisfy $10^8N\,A_N\delta\le1$, where $A_N=\max\{1,A^*(3N)\}$. Then
+$\log|\Omega|\ge N/16$.
+\end{proposition}
+
+\begin{proof}
+Use the pairs $A_i=\phi(\sigma_{3(i-1)})$, $B_i=\phi(\sigma_{3(i-1)+1})$, $1\le i\le N$, as permutation matrices, with $\|P-I\|_2^2=2d_n(P,\mathrm{id})$. Their
+$S_3$ relators have $d_n\le\delta$, hence $\|\cdot\|_2$-defect at most $e=\sqrt{2\delta}$, and Lemma~\ref{lem:s3round} gives exact
+representations $u_i$ within $10e$ of the normal forms. Commuting two normal forms from different pairs takes at most nine
+far-commutator interchanges, so by transport in measure their commutator has $d_n\le9A_N\delta$ and $\|\cdot\|_2\le3\sqrt{2A_N\delta}$;
+rounding adds at most $40e$, so $\eta\le43\sqrt{2A_N\delta}$. The element $u_i(st)$ lies within $9e$ of a conjugate of $\phi(\gamma)$,
+whose $\|\cdot\|_2$-displacement is at least $1$, so $\Delta\ge1-9\sqrt{2\delta}\ge\frac12$. Then $t^2=2N\eta^2\le7396NA_N\delta<10^{-4}$, and
+Lemma~\ref{lem:sector} gives $\log|\Omega|\ge N[(49/100)^2/3-h_2(10^{-4})-10^{-4}\log5]\ge N/16$.
+\end{proof}
+
+With $A^*(M)\le CM^p$ the condition reads $N^{p+1}\delta=O(1)$, which gives the sofic exponent $1/(p+1)$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:sofic}]
+Let $f:E_H\to\Sym_n$ be a $(1-r^{-1})$-expansive $r^{-1}$-morphism with $r\ge10$, and regard permutations as unitary matrices.
+For permutation matrices, $\|P-P'\|_2^2=2\,d_n(P,P')$, and $d_n$ is bi-invariant. Put $\phi(s)=f(s)$ for $s\in\{a,b,\alpha\}$
+and extend $\phi$ to the free group. Since $s\cdot s^{-1}=1$ in the chunk, $d_n(f(s)^{-1},f(s^{-1}))\le r^{-1}$. For a relator
+$s_1\cdots s_l$ with prefixes $p_k$, the chunk contains $p_ks_{k+1}=p_{k+1}$ and $p_l=1$, so $l-1$ merges and at most $l$
+inverse replacements give $d_n(\phi(r_i),\mathrm{id})\le(2l-1)/r\le23/r$, that is $\|\phi(r_i)-I\|_2\le\sqrt{46/r}$. In the
+same way $d_n(\phi(\gamma),f(\gamma))\le4/r$, while expansiveness gives $d_n(f(\gamma),\mathrm{id})\ge1-1/r$ because $\gamma\ne1$;
+so $d_n(\phi(\gamma),\mathrm{id})\ge1-5/r\ge1/2$. Apply Proposition~\ref{prop:dimension-perm} with $\delta=23/r$ and
+$A^*(3N)\le30(3N)^{\log130}$ (Theorem~\ref{thm:area-weighted}): the condition $10^8N\cdot30(3N)^{\log130}\delta\le1$ holds for
+$N=\lfloor(r/(23\cdot10^8\cdot30\cdot3^{\log130}))^{1/(\log130+1)}\rfloor$. Therefore, whenever $N\ge1$ (which forces $r\ge10$),
+\[
+\log\sigma_{E_H}(r)\ \ge\ \frac N{16}\ \ge\ c_Sr^{1/(\log130+1)}-\frac1{16},
+\]
+with $c_S=(23\cdot10^8\cdot30\cdot3^{\log130})^{-1/(\log130+1)}/16>1/940$,
+and for smaller $r$ the right side is negative. For unitary approximations Proposition~\ref{prop:dimension} gives the
+corresponding bound: by Theorem~\ref{thm:area-weighted}, with $K'=750\cdot30\cdot3^{\log130}$ and $N=\lfloor(K'e)^{-2\beta_H}\rfloor$, every
+$e$-representation of $P$ on $\mathbb C^D$ with $\|\phi(\gamma)-I\|_2\ge1/2$ has $\log D\ge(K'e)^{-2\beta_H}/16-1/16$, where
+$\beta_H=1/(2\log130+1)$; this is Theorem~\ref{thm:unitary}. The upper bound
+$\log\sigma_{E_H}(r)=O(\sqrt r\log r)$ is Proposition~\ref{prop:sofic-upper}.
+\end{proof}
+
+\section{Upper bounds}\label{sec:corner}
+
+\subsection{Permutation models}
+
+The upper bounds use permutation models that follow the quotient $\mathbb Z^2$ on a torus of clock positions and fail at a single
+corner. Fix integers $M\ge2$ and $s\ge2$, put $\ell=2M+2$ and $L=3\ell$, and let $\Omega_{M,s}=(\mathbb Z/M\mathbb Z)^2\times[s]^L$.
+For $2\le r\le L$ let $c_r=(1\ r\ r{-}1\ \cdots\ 2)\in\Sym(L)$ be the reverse cycle and $\tau=(1\ 2)$; products of permutations are read
+from left to right, and a permutation $\pi$ of the coordinates acts on colorings by $(x\cdot\pi)(t)=x(t\pi^{-1})$. For $0\le i,j<M$ put
+$A_{i,j}=c_{\ell-i-j}$ and, for $j<M-1$, $B_{i,j}=c_{2\ell-j}$. On the top row put $B_{i,M-1}=D_i$, where
+\begin{equation}\label{eq:corner-rec}
+D_0=c_{2\ell-M+1},\qquad D_{i+1}=c_{\ell-i-(M-1)}^{-1}\,\tau\,D_i\,c_{\ell-i}\qquad(0\le i<M-1).
+\end{equation}
+Define permutations of $\Omega_{M,s}$, with clock coordinates modulo $M$, by
+\[
+(i,j,x)\cdot a=(i+1,j,x\cdot A_{i,j}),\qquad(i,j,x)\cdot b=(i,j+1,x\cdot B_{i,j}),\qquad(i,j,x)\cdot\alpha=(i,j,x\cdot\tau).
+\]
+
+\begin{proposition}[Corner models]\label{prop:corner}
+In these permutations $r_1,r_2,r_3,r_5$ hold exactly and $r_4$ fails only at the clock $(M-1,M-1)$, where it acts as the product
+$R_M=(1\ \,M{+}4)\prod_{t=5}^{M+3}(t\ \,t{+}M)$ of $M$ disjoint transpositions of the colours; so every relator moves at most
+a fraction $M^{-2}$ of $\Omega_{M,s}$, and $\gamma$ moves a fraction $1-s^{-2}$. For $M\ge5$ the far commutator
+$C_{2M-1}=[\alpha,a^{2M-1}\alpha a^{1-2M}]$ moves a fraction at least $(1-s^{-2})(M-4)(M-3)/(2M^2)$. A word of length at most $t$ that
+represents a nonidentity element of $H_3$ fixes at most a fraction $s^{-1}+4t/M$ of $\Omega_{M,s}$ when $M>2t$.
+\end{proposition}
+
+\begin{proof}
+\emph{Cycle identities.} For $r\ge4$, $c_r\tau c_r^{-1}=(2\ 3)$ and $c_r(2\ 3)c_r^{-1}=(3\ 4)$, and for $3\le r<t$
+\begin{equation}\label{eq:corner-id}
+c_rc_tc_{r-1}^{-1}c_t^{-1}=\tau ;
+\end{equation}
+both sides exchange $1$ and $2$ and fix every other point. By induction on $i$, the recursion~\eqref{eq:corner-rec} gives $D_i(t)=t-1$
+for $2\le t\le M+3-i$: this holds for the reverse cycle $D_0$, and a point $t\le M+2-i$ passes the four factors of $D_{i+1}$ as
+$t\mapsto t+1\mapsto t+1\mapsto t\mapsto t-1$. Since $M+3-i\ge4$, $D_i^{-1}(1)=2$ and $D_i^{-1}(2)=3$, so $D_i\tau D_i^{-1}=(2\ 3)$.
+
+\emph{Relators.} At every clock the colour permutation of $a\alpha a^{-1}$ is $(2\ 3)$, that of $a^2\alpha a^{-2}$ is $(3\ 4)$, and that of
+$b\alpha b^{-1}$ is $(2\ 3)$, on the top row by the property of $D_i$. Hence $r_1,r_2,r_3,r_5$ act trivially everywhere, and $\gamma$ acts at
+every clock as a three-cycle of coordinates, which fixes a fraction $s^{-2}$ of the colorings. At the clock $(i,j)$ the colour
+permutation of $r_4$ is $A_{i,j}B_{i+1,j}A_{i,j+1}^{-1}B_{i,j}^{-1}\tau$. For $j<M-1$ it is trivial by~\eqref{eq:corner-id} with
+$r=\ell-i-j$ and $t=2\ell-j$, also for $i=M-1$ because $B_{i,j}$ does not depend on $i$ off the top row. For $j=M-1$ and $i<M-1$ it is
+trivial by~\eqref{eq:corner-rec}. Only the clock $(M-1,M-1)$ remains. There the colour permutation is $c_4D_0c_{M+3}^{-1}D_{M-1}^{-1}\tau$. With
+$E_r=c_r^{-1}\tau=(2\ 3\ \cdots\ r)$ the recursion unrolls to $D_{M-1}=E_5E_6\cdots E_{M+3}\,D_0\,c_{2M+2}c_{2M+1}\cdots c_{M+4}$, and
+$D_0c_r^{-1}D_0^{-1}=E_{r+1}$ for $r\le3M+4$, so the corner permutation is $c_4\,H\,G^{-1}\tau$ with $H=E_{M+4}\cdots E_{2M+3}$ and
+$G=E_5\cdots E_{M+3}$. Following the points, $H$ sends $t\mapsto t+M$ for $2\le t\le M+3$ and $t\mapsto2M+5-t$ for
+$M+4\le t\le2M+3$, and $G$ sends $t\mapsto t+M-1$ for $2\le t\le4$ and $t\mapsto M+5-t$ for $5\le t\le M+3$, both fixing all other
+points. Hence $HG^{-1}=(2\ 3\ 4\ \,M{+}4)\prod_{t=5}^{M+3}(t\ \,t{+}M)$, and $c_4HG^{-1}\tau=R_M$.
+
+\emph{Far commutators.} Let $k=2M-1$, fix a clock $(i,j)$ with $i+j\ge M+3$ (so $i\ge4$), and put $F=\ell-j$. The colour permutation
+of $a^k$ read from this clock is $P=\prod_{t=0}^{k-1}c_{F-((i+t)\bmod M)}$, and that of $\sigma_k$ is $P\tau P^{-1}$, which moves
+$P^{-1}(1)$ and $P^{-1}(2)$. With $d_r=c_r^{-1}=(1\ 2\ \cdots\ r)$,
+\[
+x\cdot(d_rd_{r+1}\cdots d_t)=\begin{cases}x+t-r+1,&x<r,\\ t-x+1,&r\le x\le t,\\ x,&x>t.\end{cases}
+\]
+The factors of $P^{-1}$ come in three blocks, with cycle lengths $F-i+2,\dots,F$, then $F-M+1,\dots,F$, then $F-M+1,\dots,F-i$. The
+first block sends $(1,2)$ to $(i,i+1)$; since $i\ge F-M+1$, the second sends $(i,i+1)$ to $(F-i+1,F-i)$; the third fixes $F-i+1$ and
+sends $F-i$ to $1$. So $\sigma_k$ acts as the transposition $(1\ \ 2M+3-i-j)$, whose second point is at least $5$, and $C_k$ acts as
+a three-cycle. There are $(M-4)(M-3)/2$ such clocks.
+
+\emph{Short words.} Let $\mathcal S_{i,j}$ consist of the first $\ell-i-j$, $\ell+i$ and $\ell+j$ points of rays $1,2,3$, ordered ray by
+ray; it has $L$ points. When the clock step does not wrap, the generator $a$ of $H_3$ maps $\mathcal S_{i,j}$ onto $\mathcal S_{i+1,j}$ and
+induces $c_{\ell-i-j}$ on the ordered coordinates; likewise $b$ induces $c_{2\ell-j}$ and $\alpha$ induces $\tau$. So on the clocks at
+distance at least $t$ from the lines where the clock wraps, a fraction at least $1-4t/M$ when $M>2t$, a word of length at most $t$
+acts through the element of $H_3$ it represents. If that element has nonzero translation it fixes no state. If it is nontrivial
+with zero translation, it moves only points among the first $t+2$ of each ray, which lie in $\mathcal S_{i,j}$, so it acts as a
+nonidentity permutation of the coordinates and fixes at most a fraction $s^{-1}$ of the colorings. Its fixed-point fraction is
+therefore at most $s^{-1}+4t/M$.
+\end{proof}
+
+\begin{proposition}[Upper bound for every fixed chunk]\label{prop:sofic-upper}
+For every finite chunk $E\subset H_3$, $\log\sigma_E(r)=O_E(\sqrt r\log r)$. In particular this holds for $E_H$.
+\end{proposition}
+
+\begin{proof}
+Fix representative words for the elements of $E$, with the empty word representing $1$, and let $t$ bound the lengths of their pairwise
+differences. The finitely many chunk relations have some maximum area $B_E$ in Johnson's presentation. Take $s=M$ and the diagonal action
+on two independent copies of $\Omega_{M,M}$. For $M>4t$, the short-word estimate in Proposition~\ref{prop:corner} bounds the fixed-point fraction
+of every nonidentity difference by $((1+8t)/M)^2$ in the product: the fractions square. Each relator has defect at most $2/M^2$ in the product,
+so transport in measure bounds every chunk-relation defect by $2B_E/M^2$.
+Choosing $M$ at least a sufficiently large $E$-dependent multiple of $\sqrt r$ gives an $r^{-1}$-morphism that is $(1-r^{-1})$-expansive.
+Its degree is $|\Omega_{M,M}|^2=M^{4+2(6M+6)}$, whose logarithm is $O(M\log M)$, proving the claim.
+\end{proof}
+
+\subsection{Unitary models}\label{sec:unitary-models}
+
+In a permutation model a relator that fails costs the fraction of points it moves. In a unitary model it costs a sum of squared
+angles, so a single defect can be spread thin. Doing this for the corner models gives unitary models whose relator defect has squared norm of order $M^{-3}$, not $M^{-2}$, at the same size. Throughout, products are read from left to right, the left factor acting first,
+as in Section~\ref{sec:corner}, and $e_1=(1,0)$, $e_2=(0,1)$.
+
+\emph{One-particle models.} No generator moves the last $2M+2$ of the $6M+6$ colour coordinates. Use the reduced colour coordinates $1,\dots,L$ with $L=4M+4$, and read each link permutation $A_c$, $B_c$
+and $\tau$ of Section~\ref{sec:corner} as a permutation matrix on $\mathbb C^L$. A one-particle model replaces some of these link matrices
+by unitaries. For a word $w$ and a clock $c$ the holonomy $W_c(w)\in U(L)$ is the product of the link matrices along the path of $w$ from
+$c$, with inverse matrices for inverse letters. For a two-element set $S=\{x,y\}$ let $Q_S$ be the projector onto
+$(e_x-e_y)/\sqrt2$; then $\exp(i\pi Q_S)$ is the transposition $(x\ y)$, and $\exp(i\vartheta Q_S)$ is a phase rotation in the plane of $S$.
+
+\emph{Fermionic quantization.} For $W\in U(L)$ let $\Lambda(W)$ act on the exterior algebra $\Lambda(\mathbb C^L)$, of dimension $2^L$,
+by $v_1\wedge\cdots\wedge v_m\mapsto Wv_1\wedge\cdots\wedge Wv_m$. It is multiplicative on all of $U(L)$, and
+$\mathrm{Tr}\,\Lambda(W)=\det(I+W)$, since in degree $m$ its eigenvalues are the products of $m$ eigenvalues of $W$. For $k\ge1$ put
+$\Lambda_k=\Lambda^{\otimes k}$, so that $2^{-kL}\,\mathrm{Tr}\,\Lambda_k(W)=\det\big((I+W)/2\big)^k$. The quantized model acts on $\mathcal H=\mathbb C^{M^2}\otimes\Lambda(\mathbb C^L)^{\otimes k}$, with normalized trace $\tau$. A letter moves the clock $c$ to
+$c+\pi(s)$ and applies $\Lambda_k$ of its link matrix at $c$, and $\rho(s)$ is the adjoint of this operator, so $\rho$ is a representation of the free group on $a,b,\alpha$. A word whose translation is nonzero
+modulo $M$ has $\tau(\rho(w))=0$, and a word that closes has
+\[
+\|\rho(w)-I\|_2^2=\mathbb E_c\Big[2-2\,\mathrm{Re}\det\big((I+W_c(w))/2\big)^k\Big],
+\]
+with $\mathbb E_c$ the average over clocks. For a three-cycle $\sigma$ of coordinates $\det((I+\sigma)/2)=\frac14$.
+
+\begin{lemma}[Rotating the links]\label{lem:rotations}
+In a corner model, replace every link $A_c$ by $U_cA_c$ and every link $B_c$ by $V_cB_c$, where $U_c$ commutes with $(2\ 3)$ and
+$(3\ 4)$, and $V_c$ commutes with $(2\ 3)$. Then at every clock the holonomies of $\alpha$, $a\alpha a^{-1}$, $a^2\alpha a^{-2}$ and
+$b\alpha b^{-1}$ are $(1\ 2)$, $(2\ 3)$, $(3\ 4)$ and $(2\ 3)$, so $r_1,r_2,r_3,r_5$ have identity holonomy everywhere and $\gamma$ acts
+as a three-cycle.
+\end{lemma}
+
+\begin{proof}
+By the proof of Proposition~\ref{prop:corner}, $A_c\tau A_c^{-1}=(2\ 3)$, $A_c(2\ 3)A_c^{-1}=(3\ 4)$ and $B_c\tau B_c^{-1}=(2\ 3)$ at every
+clock. So the holonomy of $a\alpha a^{-1}$ at $c$ is $U_c(2\ 3)U_c^{-1}=(2\ 3)$, that of $a^2\alpha a^{-2}$ is
+$U_cA_c\,U_{c+e_1}(2\ 3)U_{c+e_1}^{-1}A_c^{-1}U_c^{-1}=U_c(3\ 4)U_c^{-1}=(3\ 4)$, and that of $b\alpha b^{-1}$ is $V_c(2\ 3)V_c^{-1}=(2\ 3)$.
+The relators $r_1,r_2,r_3,r_5$ are products of these conjugates, as in the proof of Proposition~\ref{prop:corner}.
+\end{proof}
+
+A plaquette $q$ with base $v_0$ has the vertices $v_0$, $v_1=v_0+e_1$, $v_2=v_0+e_2$, $v_0+e_1+e_2$; its bottom and top edges are the
+$a$-links at $v_0$ and $v_2$, and its left and right edges the $b$-links at $v_0$ and $v_1$. Its $r_4$ holonomy is
+$W_q=A_{v_0}B_{v_1}A_{v_2}^{-1}B_{v_0}^{-1}\tau$. A \emph{region} consists of a set $R$ of plaquettes, a source $q_0\in R$, a sign
+$s_R=\pm1$, and a two-element label $\mathrm{lab}(v)\subset\{1,\dots,L\}$ at every vertex of every plaquette of $R$. An edge is
+\emph{interior} if it lies on two plaquettes of $R$.
+
+\begin{lemma}[Spreading a defect]\label{lem:spreading}
+Take a permutation model satisfying the local identities
+$A_c\tau A_c^{-1}=(2\ 3)$, $A_c(2\ 3)A_c^{-1}=(3\ 4)$ and $B_c\tau B_c^{-1}=(2\ 3)$ of Lemma~\ref{lem:rotations} at every clock.
+Suppose $W_q$ is the identity except at finitely many sources, where it is the
+product of the transpositions given by the base labels of the regions with that source. Let finitely many regions satisfy:
+\begin{enumerate}[label=(R\arabic*),itemsep=0pt]
+\item every edge of a non-source plaquette, from $v$ to $w$, carries $\mathrm{lab}(v)$ onto $\mathrm{lab}(w)$ under its link permutation;
+\item every base label avoids $\{1,2\}$, and the label at the initial vertex of every interior edge avoids $\{2,3,4\}$;
+\item each region is connected through its interior edges, and the only interior edge of its source is the bottom edge;
+\item labels of different regions are disjoint wherever both are defined, and disjoint from any other modification of the link.
+\end{enumerate}
+Let $F_{R,q}$ be real numbers with $\sum_{q\in R}F_{R,q}=s_R\pi$ for each region. Then there are potentials $\varphi_R$ on the interior
+edges of $R$ such that the model with $U_c=\prod_R\exp(i\varphi_R(\text{$a$-edge at }c)\,Q_{\mathrm{lab}_R(c)})$ and
+$V_c=\prod_R\exp(i\varphi_R(\text{$b$-edge at }c)\,Q_{\mathrm{lab}_R(c)})$ still has $r_1,r_2,r_3,r_5$ exact, and its $r_4$ holonomy at
+every plaquette $q$ is $\prod_{R\ni q}\exp(iF_{R,q}Q_{\mathrm{lab}_R(v_0)})$, with $v_0$ the base of $q$.
+\end{lemma}
+
+\begin{proof}
+Put $\varphi_R=0$ off the interior edges and $(\mathrm{curl}\,\varphi)(q)=\varphi(\text{bottom})+\varphi(\text{right})-\varphi(\text{top})
+-\varphi(\text{left})$. An interior edge enters the curls of its two plaquettes with opposite signs, so the curls over $R$ sum to zero.
+Choose a spanning tree of the plaquettes of $R$ joined through interior edges, rooted at the source, and fix the potential of each tree edge,
+from the leaves inward, so that $\mathrm{curl}\,\varphi_R=F_R-s_R\pi\,\delta_{q_0}$ at the plaquette below it; since both sides sum to zero,
+the equation then also holds at the root. By (R2) and (R4) all rotations on a link commute with the transpositions of
+Lemma~\ref{lem:rotations}, so $r_1,r_2,r_3,r_5$ stay exact.
+
+For the $r_4$ holonomy, the unmodified identity $A_{v_0}B_{v_1}A_{v_2}^{-1}B_{v_0}^{-1}=W_q\tau$ gives
+\[
+W_q'=U_{v_0}\big(A_{v_0}V_{v_1}A_{v_0}^{-1}\big)\,W_q\,\tau\big(B_{v_0}U_{v_2}B_{v_0}^{-1}\big)^{-1}V_{v_0}^{-1}\tau .
+\]
+Conjugation by a link permutation moves the plane of a rotation, and at a non-source plaquette (R1) moves the planes $\mathrm{lab}(v_1)$ and
+$\mathrm{lab}(v_2)$ to $\mathrm{lab}(v_0)$. At a source only the bottom edge carries a potential. So all rotations in $W_q'$ lie in the
+planes $\mathrm{lab}_R(v_0)$; they avoid $\{1,2\}$ by (R2), hence commute with $\tau$, and planes of different regions are disjoint by (R4).
+For region $R$ the angles add up to $(\mathrm{curl}\,\varphi_R)(q)$, and at its source $W_q$ contributes the rotation by $s_R\pi$ in the
+plane of the source label. The total is $F_{R,q}$.
+\end{proof}
+
+\begin{proposition}[Unitary models]\label{prop:unitary-models}
+For every $M\ge48$ the model above with $k=2$ and suitable rotations of the links gives unitaries $\rho(a),\rho(b),\rho(\alpha)$ on a space of
+dimension $M^2\,2^{8M+8}$ in which $r_1,r_2,r_3,r_5$ act as the identity, $\|\rho(r_4)-I\|_2^2\le14.26\,M^{-3}$ and $\|\rho(\gamma)-I\|_2^2=15/8$.
+\end{proposition}
+
+\begin{proof}
+\emph{Two exact moves.} Let $c^*=(M-1,M-1)$, where the $r_4$ holonomy is $R_M$ (Proposition~\ref{prop:corner}). Replace $A_{c^*}$ by
+$\sigma_1A_{c^*}$ and $B_{(0,M-2)}$ by $\sigma_2B_{(0,M-2)}$, with $\sigma_1=(1\ \,M{+}4)$ and $\sigma_2=(5\ \,M{+}5)$. These satisfy the
+hypotheses of Lemma~\ref{lem:rotations}, so $r_1,r_2,r_3,r_5$ stay exact. The modified links lie on three plaquettes. At $c^*$ the
+holonomy becomes $\sigma_1R_M=\prod_{t=5}^{M+3}(t\ \,t{+}M)$. At $(0,M-2)$, where it was the identity, it becomes
+$\tau\sigma_2\tau=\sigma_2$. At $(M-1,M-2)$ it becomes $(A\sigma_2A^{-1})\,\tau(B\sigma_1B^{-1})\tau$ with $A=A_{(M-1,M-2)}=c_5$ and
+$B=B_{(M-1,M-2)}=c_{3M+6}$. Here $A\sigma_2A^{-1}=(1\ \,M{+}5)$ and $B\sigma_1B^{-1}=(2\ \,M{+}5)$, so $\tau(B\sigma_1B^{-1})\tau=(1\ \,M{+}5)$ and
+the holonomy stays the identity.
+
+\emph{The regions.} For $5\le t\le M+3$ let $R_t$ have source $c^*$ and sign $(-1)^{t-5}$, and consist of $c^*$, the plaquettes $(M-1,j)$
+with $1\le j\le M-2$, and the plaquettes $(i,j)$ with $0\le i\le M-3$, $0\le j\le M-2$ and $i+j\le t+M-8$; label the vertex $(i,j)$ by
+$\{t+M-1-i-j,\ t+2M-1-j\}$ for $0\le i\le M-2$ and $(M-1,j)$ by $\{t+M-1-j,\ t+2M-1-j\}$. Let $T$ have source $(0,M-2)$ and sign
+$(-1)^{M-1}$, and consist of $(0,M-2)$ and the plaquettes $(i,j)$ with $i,j\ge0$ and $i+j\le M-3$, with labels $\{M+3-i-j,\ 2M+3-j\}$.
+The source labels are the defect pairs $\{t,t+M\}$ at $c^*$ and $\{5,M+5\}$ at $(0,M-2)$.
+
+These regions satisfy (R1)--(R4). Off the top row $B_{i,j}=c_{4M+4-j}$ lowers every label coordinate by one, which is the change of the
+labels from $j$ to $j+1$. In the triangles $A_{i,j}=c_{2M+2-i-j}$ lowers the first label coordinate, which is at most $2M+2-i-j$ since
+$t\le M+3$, and fixes the second, which exceeds $2M+2-i-j$ since $t\ge5$; this is the change from $i$ to $i+1$, and the same holds in $T$.
+On the column $i=M-1$, $A_{M-1,j}=c_{M+3-j}$ fixes both label coordinates, which are at least $t+M-1-j\ge M+4-j$, and the labels at
+$(M-1,j)$ and $(0,j)$ agree; this is the only crossing of a seam, since the rows stay below $M-1$ and $c^*$ is attached only through its
+bottom edge. Every base label and every label at the initial vertex of an interior edge has both coordinates at least $5$. Two labels of
+bulk regions at one vertex differ in $t$ by at most $M-2$, so they are disjoint; a bulk label meets a label of $T$ only if
+$t\in\{4,\ 4-M-i,\ M+4+i\}$, which is impossible; and $\sigma_1$, $\sigma_2$ are disjoint from the labels $\{t,t+M\}$ and $\{t+1,t+M+1\}$
+on the links they modify. Each region is connected through interior edges: the triangle is a staircase, the column is glued to it through
+the $b$-edges at $(0,j)$, and each source through its bottom edge. Finally $R_t\subset R_{t+1}$, and every region has at least
+$m_M=(M-1)(M-2)/2+1$ plaquettes.
+
+\emph{The defect.} Take $F_{R,q}=s_R\pi/|R|$ on each region and $k=2$. By Lemma~\ref{lem:spreading} the $r_4$ holonomy at $q$ is a product
+of phase rotations by angles $F_{R,q}$ in disjoint planes, so $\det((I+W'_q)/2)=\prod_R(1+e^{iF_{R,q}})/2=e^{i\Theta_q}C_q$ with
+$\Theta_q=\frac12\sum_RF_{R,q}$ and $C_q=\prod_R\cos(F_{R,q}/2)\in[0,1]$. Using $1-C^k\le k(1-C)$, $1-\prod_Rc_R\le\sum_R(1-c_R)$ and
+$1-\cos x\le x^2/2$,
+\[
+2-2\,\mathrm{Re}\big(e^{ik\Theta_q}C_q^k\big)=2(1-C_q^k)+2C_q^k(1-\cos k\Theta_q)\le\frac k4\sum_RF_{R,q}^2+k^2\Theta_q^2 .
+\]
+Summed over the plaquettes, $\sum_q\sum_RF_{R,q}^2=\sum_R\pi^2/|R|\le M\pi^2/m_M$. The bulk regions containing $q$ are those with $t$
+at least some $t_q$; their signs alternate and their magnitudes $\pi/|R_t|$ decrease, so they sum to at most $\pi/m_M$ in absolute value,
+and $T$ adds at most $\pi/m_M$. Hence $|\Theta_q|\le\pi/m_M$, and averaging over the $M^2$ clocks,
+\[
+M^3e_4^2:=M^3\|\rho(r_4)-I\|_2^2\le\frac{\pi^2M^2}{2m_M}+\frac{4\pi^2M^3}{m_M^2}
+\le\frac{\pi^2M^2}{(M-1)(M-2)}+\frac{16\pi^2M^3}{(M-1)^2(M-2)^2},
+\]
+which decreases in $M$ and is below $14.26$ at $M=48$. So $e_4^2\le14.26\,M^{-3}$ for $M\ge48$.
+
+\emph{The three-cycle.} By Lemma~\ref{lem:rotations}, $\gamma$ acts at every clock as a three-cycle $\sigma$ of coordinates, so
+$\tau(\rho(\gamma))=\det((I+\sigma)/2)^2=4^{-2}$ and $\|\rho(\gamma)-I\|_2^2=2-2\cdot4^{-2}=15/8$.
+\end{proof}
+
+\begin{corollary}[Unitary upper bound]\label{cor:unitary-upper}
+Let $0<e\le e_0=14.26^{1/2}\cdot48^{-3/2}$ and $M=\lceil(14.26/e^2)^{1/3}\rceil$. Johnson's presentation has an $e$-representation on $\mathbb C^D$ with
+$\|\phi(\gamma)-I\|_2\ge1/2$ and $\log D\le8M+8+2\log M$. So such representations exist with $\log D=O(e^{-2/3})$.
+\end{corollary}
+
+\begin{proof}
+The choice of $M$ gives $M\ge48$ and $14.26\,M^{-3}\le e^2$; apply Proposition~\ref{prop:unitary-models}.
+\end{proof}
+
+Our permutation construction gives the weaker bound in this norm. Read as permutation matrices, the corner models with $s=2$ have relator
+defects at most
+$\sqrt2/M$ in $\|\cdot\|_2$, since a permutation moving a fraction $f$ of the points has $\|P-I\|_2^2=2f$, and $\|\phi(\gamma)-I\|_2^2=3/2$, at
+$\log D=6M+6+2\log M$; this gives only $\log D=O(e^{-1})$. Spreading the defect lowers the exponent of $1/e$ in our upper bounds from $1$ to
+$\frac23$; whether optimal permutation models are weaker than optimal unitary ones is open (Section~\ref{sec:open}). The lower
+bound of Theorem~\ref{thm:unitary} has exponent $2\beta_H\approx0.133$.
+
+%======================================================================
+\section{The correction}\label{sec:correction}
+%======================================================================
+
+\begin{corollary}\label{cor:cornulier}
+Theorem~3.15 of~\cite{Cornulier2013} is false for $1\to\FSym(\mathbb{N})\to H_3\to\mathbb{Z}^2\to1$ and the chunk $E_H$.
+Consequently the conclusion of~\cite[Example~3.16]{Cornulier2013}, that every elementary amenable group has polynomial
+sofic profile, fails for $H_3$.
+\end{corollary}
+
+\begin{proof}
+Theorem~3.15 of~\cite{Cornulier2013} asserts a symmetric chunk $E'$ of the kernel and a finite symmetric $S\subset\mathbb{Z}^2$
+with $\sigma_{E_H}(r)\le\sigma_{E'}(r)\,\alpha_{\mathbb{Z}^2,S}(r)$ for all $r>1$, where $\alpha_{Q,S}(r)$ is the least size of a
+finite $F\subset Q$ with $|SF\setminus F|<|F|/r$. The kernel $\FSym(\mathbb{N})$ is locally finite, so $E'$ lies in a finite
+subgroup and $\sigma_{E'}$ is bounded~\cite[Fact~3.5]{Cornulier2013}; boxes show $\alpha_{\mathbb{Z}^2,S}(r)=O(r^2)$. The resulting
+bound $\sigma_{E_H}(r)=O(r^2)$ contradicts Theorem~\ref{thm:sofic}. Since $H_3$ is elementary amenable, Example~3.16 fails. The
+contradiction does not need Theorem~\ref{thm:area-weighted}: with the certified bound of Theorem~\ref{thm:area} alone, the proof of
+Theorem~\ref{thm:sofic} gives $\sigma_{E_H}(r)\ge2^{\,r^{1/12}/270-1/16}$.
+\end{proof}
+
+\paragraph{Where the argument breaks.} Theorem~3.15 is stated in~\cite{Cornulier2013} as what the explicit construction
+of Elek and Szabó~\cite{ElekSzabo2006} yields ``without any change''. That construction, given a finite $F\subset G$ and
+$\varepsilon>0$, chooses a Følner set $A\subset Q$ with $|Ag\setminus A|\le\varepsilon|A|$ for $g\in F$, a section
+$\sigma:Q\to G$, and then an approximation of the kernel on the finite set
+\[
+H_\varepsilon=N\cap\big(\sigma(A)\,F\,\sigma(A)^{-1}\big),
+\]
+acting on $B\times A$ with $B$ the kernel's approximation space~\cite[proof of Theorem~1(3)]{ElekSzabo2006}. The kernel
+chunk is therefore $H_\varepsilon$, and it depends on $\varepsilon=1/r$ through $A$. For $H_3$ with the section
+$(m,n)\mapsto a^mb^n$ and $A=[0,M)^2$, it contains $a^mb^n\alpha b^{-n}a^{-m}$, the transposition of $(1,m+n+1)$ and
+$(1,m+n+2)$, for all $0\le m,n<M$: at least $2M-1$ distinct transpositions, which generate the symmetric group of $2M$
+points, with $M$ of order $r$. No chunk independent of $r$ contains them. What the construction does give is the bound of
+Proposition~\ref{prop:extension} below, in which the kernel chunk grows with $r$. The upper bound by the isoperimetric
+profile~\cite[Proposition~3.14]{Cornulier2013} is not affected, and $H_3$, having exponential growth, has isoperimetric profile at least
+exponential. The proof of~\cite[Proposition~3.17]{Cornulier2013} for Baumslag--Solitar groups applies Theorem~3.15 in the same way, so it is
+incomplete as well; we do not know whether its conclusion holds.
+
+\paragraph{A scale-dependent extension bound.} The construction of Elek and Szabó, with the accuracy tracked explicitly, gives the following
+correct form of the extension bound. Let $1\to N\to G\xrightarrow{\pi}Q\to1$ be an extension, $s:Q\to G$ a section with $s(e)=1$, and put
+$c(a,g)=s(a)\,g\,s(a\pi(g))^{-1}\in N$ for $a\in Q$ and $g\in G$.
+
+\begin{proposition}\label{prop:extension}
+Let $E\subset G$ be a symmetric chunk, $r>1$, and $A\subset Q$ a finite nonempty set with $|A\pi(g)\setminus A|\le|A|/(4r)$ for every $g\in E$. Then
+$K_{A,E}=\{c(a,g):\ g\in E,\ a\in A,\ a\pi(g)\in A\}$ is a symmetric chunk of $N$, and
+\[
+\sigma_E(r)\ \le\ |A|\,\sigma_{K_{A,E}}(2r).
+\]
+\end{proposition}
+
+\begin{proof}
+The set $K_{A,E}$ contains $c(a,1)=1$, and $c(a,g)^{-1}=c(a\pi(g),g^{-1})$, so it is symmetric. The cocycle identity
+$c(a,g)\,c(a\pi(g),h)=c(a,gh)$ holds in $G$. Let $f_K:K_{A,E}\to\Sym_m$ be a $(1-\frac1{2r})$-expansive $\frac1{2r}$-morphism with $m=\sigma_{K_{A,E}}(2r)$, and
+on $A\times[m]$ let $f(g)$ send $(a,x)$ to $(a\pi(g),x\cdot f_K(c(a,g)))$ whenever $a\pi(g)\in A$, completed arbitrarily to a permutation; $f(1)$ is the
+identity. Call a fiber $a$ good for a relation $gh=k$ in $E$ if $a$, $a\pi(g)$ and $a\pi(k)$ lie in $A$. Then $c(a,g)c(a\pi(g),h)=c(a,k)$ is a relation of the
+chunk $K_{A,E}$, so on a good fiber $f(g)f(h)$ and $f(k)$ differ on at most a fraction $\frac1{2r}$ of the points, and the bad fibers form a fraction at
+most $\frac2{4r}$. So $f$ is an $r^{-1}$-morphism. For distinct $g,h\in E$: if $\pi(g)\ne\pi(h)$, then on every fiber $a$ with $a\pi(g),a\pi(h)\in A$ the
+two images have different quotient coordinates, a fraction at least $1-\frac1{2r}$ of the points; if $\pi(g)=\pi(h)$, then $c(a,g)\ne c(a,h)$ are distinct
+elements of $K_{A,E}$, so on the fibers with $a\pi(g)\in A$ the images differ on a fraction at least $1-\frac1{2r}$ of each fiber, and in total on at least
+$(1-\frac1{4r})(1-\frac1{2r})\ge1-\frac1r$. So $f$ is $(1-r^{-1})$-expansive, on $|A|\,m$ points.
+\end{proof}
+
+When the cocycle takes finitely many values on $Q\times E$, for instance for direct products, $K_{A,E}$ lies in a fixed finite set and a bound with a
+fixed kernel chunk follows, as Theorem~3.15 asserts. For $H_3$ with boxes $A=[0,M)^2$ and $M$ of order $r$, $K_{A,E_H}$ lies in the finite group of
+permutations of the first $2M+O(1)$ points of ray~1, whose regular representation gives $\sigma_{K_{A,E_H}}\le(2M+O(1))!$; so the proposition gives
+$\log\sigma_{E_H}(r)=O(r\log r)$, consistent with, and weaker than, Proposition~\ref{prop:sofic-upper}.
+
+All numbering refers to the published version~\cite{Cornulier2013}. Theorem~3.15 and Example~3.16 read the same there
+as in the arXiv version, where Proposition~3.17 appears as Example~3.17.
+
+%======================================================================
+
+%======================================================================
+\section{Open problems}\label{sec:open}
+%======================================================================
+
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{The exponents.} The sofic exponent of $E_H$ in $r$ lies between $1/(\log130+1)\approx1/8.02$ and $1/2$ (up to the logarithm). For unitary
+approximations with relator defect $e$ in the normalized Hilbert--Schmidt norm, $\log D$ lies between order $e^{-2\beta_H}$, with
+$2\beta_H\approx0.133$ (Theorem~\ref{thm:unitary}), and $O(e^{-2/3})$ (Corollary~\ref{cor:unitary-upper}). The exponent is essentially
+intrinsic to the particular substitution certificates used here: reweighting these fillings cannot go below $\log\rho\approx7.018$, with $\rho\approx129.64$ the spectral radius of their
+substitution matrix, and $\log130$ is the certified choice. Since the area is at least quadratic
+(Proposition~\ref{prop:area-lower}), the present uniform-area transport and sector argument cannot give more than $1/3$ in $r$ for permutations and $2/5$ in $1/e$
+for unitaries. A quadratic Dehn function for $H_3$ would reach these values: every word in the argument has linear length. Only an
+exponential isoperimetric inequality is known~\cite{Lee2012}, while for Thompson's group $F$ a quadratic Dehn function is a
+theorem~\cite{Guba2006}. Shared fillings, improved aggregate defect estimates, or a stronger dimension argument are possible routes beyond these limits.
+\item \emph{Permutation versus unitary approximation.} Relator errors add up in measure for permutations and in norm for unitaries, so the
+two profiles may differ. The best models known already do: in the normalized Hilbert--Schmidt norm, permutation models of $H_3$ give
+$\log D=O(e^{-1})$ and unitary models $O(e^{-2/3})$ (Section~\ref{sec:unitary-models}). Can the unitary profile of a chunk of an amenable group be
+polynomially smaller, in exponent, than its sofic profile?
+\item \emph{Other groups.} Every Houghton group $H_m$ with $m\ge3$ contains $H_3$; the same method applies to groups with a displaced
+$S_3$ structure and polynomially bounded far-commutator area. The proof of~\cite[Proposition~3.17]{Cornulier2013} for Baumslag--Solitar groups
+uses the same extension theorem; whether its conclusion holds is open.
+\item \emph{Extensions.} Proposition~\ref{prop:extension} bounds the profile of an extension by the Følner size of the quotient and the profile of a
+kernel chunk that grows with $r$ through the cocycle of a section; the kernel chunk is fixed when the cocycle takes finitely many values. Which
+extensions of groups with polynomial profile by amenable quotients have polynomial profile?
+\end{enumerate}
+
+\appendix
+%======================================================================
+\section{Fillings for the far-commutator bound}\label{app:area}
+%======================================================================
+
+Areas are taken in $P$; free conjugation and inversion do not change them, and freely $[x,yz]=[x,y]\cdot y[x,z]y^{-1}$.
+Write $\tau_j=b^j\alpha b^{-j}$, $t=b^{-1}a$, $\rho=a^{-1}b^{-1}ab$, $t_i=a^ita^{-i}$, $X_n=b^{-n}a^n$, and
+\[
+A(d)=\mathrm{Area}[\sigma_0,\sigma_d],\quad E(i)=\mathrm{Area}[\sigma_i,t],\quad U(j)=\mathrm{Area}(\tau_j\sigma_j^{-1}),\quad
+B(k)=\mathrm{Area}[\sigma_{-k},b].
+\]
+Since $b^{-n}(\tau_n\sigma_n^{-1})b^n=[\alpha,X_n]$ freely, $U(n)=\mathrm{Area}[\alpha,X_n]$. Since
+$[x^{-1},y]=x^{-1}[y,x]x$, the signs in the definition of $A^*$ do not matter and $A^*(M)=\max_{2\le d\le M}A(d)$. Every
+relation below with a numerical area is certified in the ancillary files (Section~\ref{sec:area}).
+
+\paragraph{Base relations.} $[\alpha,t]$ is a rotation of $r_5^{-1}$; $aba^{-1}=\alpha b$ and $bab^{-1}=\alpha^{-1}a$ are
+rotations of $r_4^{\pm1}$; $[\sigma_i,\sigma_{i+2}]$ is a conjugate of $r_3$; all have area $1$. The relation
+$B_0:=\mathrm{Area}[\alpha,\sigma_1\sigma_0b]\le5$ follows by replacing $b\alpha^{-1}b^{-1}$ with $\sigma_1^{-1}$ (one $r_5$), which
+leaves $\sigma_0\sigma_1\sigma_0\sigma_1^{-1}\sigma_0^{-1}\sigma_1^{-1}$, then three $r_1$ cells and one $r_2$ cell.
+
+\begin{lemma}[Transfer and halving]\label{lem:transfer}
+For $i\ge1$, $j\ge1$, $k\ge2$:
+\begin{enumerate}[label=(\roman*)]
+\item $E(i)\le2i+1+\sum_{d=2}^{i+1}A(d)$, and $E(0)=1$;
+\item $U(j)\le\sum_{i=0}^{j-1}E(i)$;
+\item $B(k)\le2k+5+\sum_{d=2}^{k-1}A(d)$;
+\item $A(k+j)\le A(k)+2jB(k)+2U(j)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) By $bab^{-1}=\alpha^{-1}a$, $t_k=t_{k+1}\sigma_{k-1}$ with one cell, so $t=t_i\sigma_{i-2}\cdots\sigma_0\sigma_{-1}$ with $i$ cells, and
+$i$ more for $t^{-1}$. Then $[\sigma_i,t_iS]=[\sigma_i,t_i]\cdot t_i[\sigma_i,S]t_i^{-1}$ with $S=\sigma_{i-2}\cdots\sigma_{-1}$; the first
+factor is $a^i[\alpha,t]a^{-i}$, and the second is a product of conjugates of $[\sigma_i,\sigma_l]$ for $l=i-2,\dots,-1$, of widths
+$2,\dots,i+1$. (ii) Freely $\tau_{i+1}=b\tau_ib^{-1}$; replace $\tau_i$ by $\sigma_i$ at cost $U(i)$, and use that
+$b\sigma_ib^{-1}\sigma_{i+1}^{-1}=b[\sigma_i,t]b^{-1}$ freely. (iii) Freely $[\sigma_{-k},b]=a^{-k}[\alpha,a^kba^{-k}]a^k$, and
+$a^kba^{-k}=\sigma_{k-1}\cdots\sigma_1\sigma_0b$ with $k$ cells (twice, for the element and its inverse); then move $\alpha$ past
+$\sigma_{k-1},\dots,\sigma_2$ and finish with $B_0$. (iv) Conjugating by $a^{-k}$ turns $[\sigma_0,\sigma_{k+j}]$ into
+$[\sigma_{-k},\sigma_j]$. Replace $\sigma_j^{\pm1}$ by $\tau_j^{\pm1}$ ($2U(j)$), move $\sigma_{-k}^{\pm1}$ across the $2j$ letters $b^{\pm1}$
+($2jB(k)$), and what remains is $b^j[\sigma_{-k},\alpha]b^{-j}$, a conjugate of $[\sigma_0,\sigma_k]$.
+\end{proof}
+
+The lemma gives, in this order: $A(2)=1$, $E(0)=U(1)=1$, $E(1)\le4$, $U(2)\le5$, $B(2)\le9$, $A(3)\le21$ ($k=2,j=1$),
+$A(4)\le47$ ($k=j=2$), $E(2)\le27$, $U(3)\le32$, $B(3)\le12$, $A(5)\le79$ ($k=3,j=2$), $A(6)\le157$ ($k=j=3$) and $E(3)\le76$.
+Part (iv) with $k=2$ gives $A(m)\le2U(m-2)+18m-35$ for $m\ge3$.
+
+\paragraph{The cheap letters.} Freely, $\psi(t)=b^{-2}a^2=t\rho t$, $t^b=b^{-2}ab=t\rho$, and
+$\psi(\rho)=\rho^a\rho^{ba}\rho\rho^b=t^{-1}\rho^b\rho^{b^2}t\cdot\rho\cdot\rho^b$ (from $[x^2,y^2]=(xcx^{-1})(xy\,c\,y^{-1}x^{-1})\,c\,(ycy^{-1})$ with
+$c=[x,y]$, $x=a^{-1}$, $y=b^{-1}$, and $a=bt$). The one relation needed is
+\[
+\rho^b=R':=t\rho t^{-1}\cdot\rho\cdot t\rho t^{-1},\qquad\text{area}\le14 .
+\]
+Replace each $\rho$ by $\alpha^{ba}$ (four $r_4$ cells); freely the relation becomes $\alpha^{bab}=\alpha^{b^2}\alpha^{ba}\alpha^{b^2}$, and after
+conjugating by $(bab)^{-1}$ it reads $\alpha=\alpha^g\alpha^{g'}\alpha^g$ with $g=ba^{-1}b^{-1}$ and $g'=bab^{-1}a^{-1}b^{-1}$. Six cells of
+$bab^{-1}=\alpha^{-1}a$ turn this into $\alpha=\alpha^{-1}\sigma_1\alpha\cdot b\alpha b^{-1}\cdot\alpha^{-1}\sigma_1\alpha$; one $r_5$ cell, two $r_1$ cells
+and one $r_2$ cell finish. Also $[\alpha,t]$ has area $1$ and $[\alpha,\rho]$ area at most $5$: $\rho\alpha^{-1}\rho^{-1}$ becomes
+$a^{-1}b^{-1}\sigma_2^{-1}ba$ after one $r_5$ cell, and $b^{-1}\sigma_2^{-1}b\to\sigma_1^{-1}$ costs $E(1)\le4$. Consequently, for a word
+$W$ in $t^{\pm1},\rho^{\pm1}$, $W^b=W(t\rho,R')$ at area $14\,\#_\rho(W)$, and $\psi(W)=W(t\rho t,R)$ at area $84\,\#_\rho(W)$, where
+\[
+R=t^{-1}\cdot R'\cdot R'(t\rho,R')\cdot t\cdot\rho\cdot R'
+\]
+uses the relation six times per letter $\rho$; $|R'|=7$ and $|R|=46$.
+
+\begin{lemma}[The doubling lifts]\label{lem:psi}
+$\psi(\alpha)=\Pi:=\sigma_1\sigma_2\sigma_0\sigma_1$ with $6$ cells, and $\mathrm{Area}\,\psi(r_i)\le17,359,864,0,182$ for $i=1,\dots,5$.
+Hence $\mathrm{Area}\,\psi(w)\le864\,\mathrm{Area}(w)$ for every null word $w$.
+\end{lemma}
+
+\begin{proof}
+The identity for $[x^2,y^2]$ with $x=a$, $y=b$ and four $r_4$ cells ($[a,b]=\alpha$) give
+$\psi(\alpha)=\sigma_1\cdot a(b\alpha b^{-1})a^{-1}\cdot\alpha\cdot b\alpha b^{-1}$, and two $r_5$ cells give $\Pi$. $\psi(r_4)$ is freely trivial.
+$\psi(r_1)=\psi(\alpha)^2$: after two conversions, $\Pi^2$ costs five cells ($\sigma_1^2$, one $r_3$ swap, then $\sigma_2^2,\sigma_0^2,\sigma_1^2$).
+$\psi(r_5)=a^2\psi(\alpha)a^{-2}\cdot b^2\psi(\alpha)^{-1}b^{-2}$: after two conversions, $a^2\Pi a^{-2}=\sigma_3\sigma_4\sigma_2\sigma_3$ freely, and
+$b^2\sigma_i^{-1}b^{-2}\to\sigma_{i+2}^{-1}$ costs $E(i)+E(i+1)$; over the letters of $\Pi$ this is $E(0)+3E(1)+3E(2)+E(3)\le170$.
+$\psi(r_3)=[\psi(\alpha),a^4\psi(\alpha)a^{-4}]$: after four conversions it is $[\Pi,\sigma_5\sigma_6\sigma_4\sigma_5]$, which splits freely into
+sixteen conjugates of far commutators of widths $2,3,3,3,3,4,4,4,4,4,4,5,5,5,5,6$, costing $840$. $\psi(r_2)=(\psi(\alpha)\,a^2\psi(\alpha)a^{-2})^3$:
+after six conversions it is the positive word $(\Pi\,\sigma_3\sigma_4\sigma_2\sigma_3)^3$ of length $24$ in $\sigma_0,\dots,\sigma_4$, which
+represents the identity of $\Sym(6)$. Reduce it by the coset procedure: keep the word in the form $h\cdot c_k$ with
+$c_k=\sigma_4\sigma_3\cdots\sigma_k$ and $h$ a word in $\sigma_0,\dots,\sigma_3$; absorbing a letter $\sigma_i$ costs far commutations for
+$i\le k-2$, nothing for $i=k-1$, one cancellation for $i=k$, and far commutations plus one braid move for $i\ge k+1$, and then
+recurse on $h$. A braid move $\sigma_i\sigma_{i-1}\sigma_i=\sigma_{i-1}\sigma_i\sigma_{i-1}$ costs four cells (three $r_1$, one $r_2$). Charging each
+far commutation its actual width, the procedure uses $47$ moves at total cost $323$. The last claim follows by applying
+$\psi$ to a product of conjugates of relators.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:area}]
+Define words in $t^{\pm1},\rho^{\pm1}$ by $W_1=t$, $W_{2n}=W_n(t\rho t,R)$ and $W_{2n+1}=W_{2n}(t\rho,R')\,t$, and let
+$\mathrm{Rw}(n)=\mathrm{Area}(X_nW_n^{-1})$. Then $\mathrm{Rw}(1)=0$. Since $X_{2n}=\psi(X_n)$ literally, Lemma~\ref{lem:psi} and the
+cheap-letter relations give $\mathrm{Rw}(2n)\le864\,\mathrm{Rw}(n)+84\,|W_n|$ and $|W_{2n}|\le46|W_n|$. Since
+$X_{2n+1}=X_{2n}^b\,t$ freely, $\mathrm{Rw}(2n+1)\le\mathrm{Rw}(2n)+14\cdot46|W_n|$ and $|W_{2n+1}|\le7|W_{2n}|+1$. Per binary digit,
+$\mathrm{Rw}\le864\,\mathrm{Rw}'+728|W'|$ and $|W|\le323|W'|$, so with $s=\lfloor\log n\rfloor$,
+\[
+|W_n|\le323^s,\qquad \mathrm{Rw}(n)\le728\sum_{i<s}864^{s-1-i}323^i\le\frac{728}{541}\,864^s\le1.346\,n^{\log864}.
+\]
+Expanding $[\alpha,W_n]$ letter by letter, $U(n)\le2\,\mathrm{Rw}(n)+5|W_n|\le2.70\,n^{\log864}+5\,n^{\log323}$. For $m\ge5$,
+$A(m)\le2U(m-2)+18m-35\le5.39\,m^{9.755}+10\,m^{8.336}+18m\le0.87\,m^{11}$, the ratio being largest at $m=5$; and
+$A(2),A(3),A(4)\le1,21,47$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:area-weighted}]
+The proof above bounds every lifted cell by the largest area $864$ of the images $\psi(r_i)$. Count instead the cells of each type. Let
+$C_{ij}$ be the number of cells of type $r_j$ in the certified filling of $\psi(r_i)$ from Lemma~\ref{lem:psi}; the certificates give
+\[
+C=\begin{pmatrix}4&0&1&8&4\\108&32&31&128&60\\204&68&64&384&144\\0&0&0&0&0\\36&12&14&84&36\end{pmatrix},
+\]
+with row sums $17,359,864,0,182$. For $w=(1,\frac{63}2,\frac{338}5,0,\frac{29}2)$, exact arithmetic gives $Cw\le130w$ and $C\mathbf1\le17w$
+entrywise. The weight of $r_4$ is zero, but $\psi(r_4)$ is freely trivial, so cells of type $r_4$ disappear under $\psi$; the second
+inequality pays for the ordinary cells created by the last application of $\psi$. Thus if a diagram has weighted count $S$ (a cell of
+type $r_j$ counted with weight $w_j$), substituting the certified fillings gives weighted count at most $130S$ and ordinary area at most
+$17S$. The relations $\rho^b=R'$ and $\psi(\rho)=R$ have ordinary costs $14$ and $84$ and weighted costs $48$ and $288$.
+
+Let $T_n$ and $R_n$ count the letters $t^{\pm1}$ and $\rho^{\pm1}$ of $W_n$. The even step multiplies the column vector $(T,R)$ by
+$D_0=\left(\begin{smallmatrix}2&26\\1&20\end{smallmatrix}\right)$, since $t\mapsto t\rho t$ and $R$ has $26$ letters $t^{\pm1}$ and $20$ letters
+$\rho^{\pm1}$, and conjugation by $b$ multiplies it by $B_0=\left(\begin{smallmatrix}1&4\\1&3\end{smallmatrix}\right)$. Since
+$(1,18)B_0D_0=(96,1654)\le96\,(1,18)$ and $(1,18)D_0\le96\,(1,18)$, the quantity $L_n=T_n+18R_n$ satisfies $L_n\le96L_{\lfloor n/2\rfloor}+1$,
+so $L_n\le\frac{96}{95}96^s$ with $s=\lfloor\log n\rfloor$.
+
+Let $S_n$ be the weighted count of the recursive filling of $X_nW_n^{-1}$ and $m=\lfloor n/2\rfloor$. Both branches give
+$S_n\le130S_m+48T_m+1248R_m\le130S_m+\frac{208}3L_m$, hence $S_n\le\frac{3328}{1615}(130^s-96^s)\le\frac{21}{10}130^s$. For the ordinary count,
+the second inequality applied to the diagram of level $m$ and the ordinary cost $14T_m+364R_m$ of the new relations give
+$\mathrm{Rw}(n)\le17S_m+\frac{182}9L_m\le\frac9{20}130^s$, because $17\cdot\frac{21}{10}+\frac{182}9\cdot\frac{96}{95}<\frac9{20}\cdot130$. Expanding
+$[\alpha,W_n]$ letter by letter, $U(n)\le2\,\mathrm{Rw}(n)+T_n+5R_n\le(\frac9{10}+\frac{96}{19})\,n^{\log130}$. Finally
+$A(m)\le2U(m-2)+18m-35$ for $m\ge3$ gives $A^*(M)\le[2(\frac9{10}+\frac{96}{19})+18]M^{\log130}=\frac{2841}{95}M^{\log130}<30M^{\log130}$, and
+$A(2)=1$.
+\end{proof}
+
+\section*{Use of AI assistance}
+\addcontentsline{toc}{section}{Use of AI assistance}
+
+Generative AI tools assisted with developing arguments and constructions, checking proofs and numerical identities, searching the literature,
+writing verification code, and drafting and editing the manuscript. Automated review is not a substitute for mathematical proof. The accompanying
+verification notes distinguish executable checks and kernel-checked Lean results from proofs in the manuscript that are not formalized in Lean.
+The authors take responsibility for the content.
+
+\begin{thebibliography}{99}
+\bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62} (2013), 823--841; arXiv:1305.0993.
+\bibitem{ElekSzabo2006} G.~Elek and E.~Szabó, On sofic groups, J. Group Theory \textbf{9} (2006), 161--171; arXiv:math/0305352.
+\bibitem{Lee2012} S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); arXiv:1212.0257.
+\bibitem{Houghton1978} C.~H.~Houghton, The first cohomology of a group with permutation module coefficients, Arch. Math. \textbf{31} (1978), 254--258.
+\bibitem{BCMR2014} J.~Burillo, S.~Cleary, A.~Martino and C.~E.~Röver, Commensurations and metric properties of Houghton's groups, Pacific J. Math. \textbf{285} (2016), 289--301; arXiv:1403.0026.
+\bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, arXiv:1806.05267 (2018).
+\bibitem{SlofstraVidick2018} W.~Slofstra and T.~Vidick, Entanglement in non-local games and the hyperlinear profile of groups, Ann. Henri Poincaré \textbf{19} (2018), 2979--3005; arXiv:1711.10676.
+\bibitem{ArzhantsevaCherix2020} G.~Arzhantseva and P.-A.~Cherix, Quantifying metric approximations of discrete groups, Ann. Fac. Sci. Toulouse Math. \textbf{33} (2024), 831--877; arXiv:2008.12954.
+\bibitem{BCJM2023} P.~Burton, M.~Chaudkhari, K.~Juschenko and K.~Muliarchyk, Hyperlinear approximations to amenable groups come from sofic approximations, arXiv:2311.09202 (2023).
+\bibitem{GowersHatami2017} W.~T.~Gowers and O.~Hatami, Inverse and stability theorems for approximate representations of finite groups, Sb. Math. \textbf{208} (2017), 1784--1817; arXiv:1510.04085.
+\bibitem{DOT2019} M.~De Chiffre, N.~Ozawa and A.~Thom, Operator algebraic approach to inverse and stability theorems for amenable groups, Mathematika \textbf{65} (2019), 98--118; arXiv:1706.04544.
+\bibitem{Guba2006} V.~S.~Guba, The Dehn function of Richard Thompson's group $F$ is quadratic, Invent. Math. \textbf{163} (2006), 313--342.
+\bibitem{DouglasMghirbiB} S.~Douglas and N.~Mghirbi, Causal quantum-channel simulation: memory beyond entropy, companion manuscript (2026); \url{https://github.com/Apsiape/causal-quantum-memory}.
+\end{thebibliography}
+
+\end{document}
