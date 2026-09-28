@@ -16,6 +16,7 @@ def run(args, cwd=HERE, timeout=180):
     subprocess.run(args, cwd=cwd, env=env, check=True, timeout=timeout)
 
 run([sys.executable, "collectioncheck.py"])
+run([sys.executable, "representationcheck.py"])
 run([sys.executable, "scalarcheck.py"])
 run([sys.executable, "verify.py"], cwd=HERE / "certificates")
 with gzip.open(HERE / "certificates/out/certificates.json.gz", "rt") as stream:

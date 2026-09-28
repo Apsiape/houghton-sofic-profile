@@ -143,7 +143,7 @@ while our permutation models give only $O(e^{-1})$ (Corollary~\ref{cor:unitary-u
 
 \begin{corollary}[Exact finite-dimensional representations]\label{cor:finite-representations}
 Every homomorphism $H_m\to U(D)$, $m\ge3$, kills the finitary alternating subgroup. Every irreducible finite-dimensional unitary
-representation of $H_m$ has dimension at most $2^{\lfloor(m-1)/2\rfloor}$.
+representation of $H_m$ has dimension either $1$ or $2^{\lfloor(m-1)/2\rfloor}$, and both dimensions occur.
 \end{corollary}
 
 \begin{proof}
@@ -154,7 +154,41 @@ restriction to an embedded $H_3$ gives the same conclusion for $H_m$. The centra
 Corollary~\ref{cor:cremona} gives an abelian subgroup of the image of index $q\le2^{\lfloor(m-1)/2\rfloor}$.
 Choose a common eigenvector of its commuting unitary operators. Its orbit lies in the span of its images under $q$ coset representatives,
 an invariant space of dimension at most $q$. Irreducibility makes this the whole representation space.
+The exact dimensions and their attainment follow from Remark~\ref{rem:sharp-images} below.
 \end{proof}
+
+\begin{remark}[Sharpness of the image bounds]\label{rem:sharp-images}
+Put $d=m-1$, $r=\lfloor d/2\rfloor$, and let $A_{\rm fin}$ be the finitary alternating subgroup. The parity quotient has presentation
+\[
+H_m/A_{\rm fin}=\langle t_1,\ldots,t_d,z\mid z^2=1,\ z\text{ central},\ [t_i,t_j]=z\ (i<j)\rangle.
+\]
+Indeed, take $t_i$ to translate from ray $1$ to ray $i+1$. Directly in the ray action, every $[t_i,t_j]$ is the same basic transposition
+$\alpha$. These translations generate $H_m$: they generate the translation lattice, and conjugates of $\alpha$ give adjacent
+transpositions along the connected union of rays, hence every finitary permutation. Their classes and $z=\alpha A_{\rm fin}$ satisfy
+the displayed relations. Every abstract word collects to $z^\epsilon t_1^{n_1}\cdots t_d^{n_d}$. If its image is trivial, translation forces
+all $n_i=0$, and parity forces $\epsilon=0$. Thus there are no further relations.
+
+By the preceding factorization argument and dimension bound, it remains to consider an irreducible representation of
+this quotient. Schur's lemma gives $z=\pm I$. For $z=I$ the generators commute, so the dimension is one. For $z=-I$, their matrices
+$T_i$ pairwise anticommute, and $T_i^2$ is central. Rescale each $T_i$ by a scalar phase so that $T_i^2=I$. The operators
+$H_j=iT_{2j-1}T_{2j}$, $1\le j\le r$, are commuting Hermitian involutions. From a common eigenvector, products of the $T_{2j-1}$ reach
+all $2^r$ joint eigenvalue patterns, since each flips exactly the $j$th sign. These vectors are nonzero and orthogonal. The dimension
+is at least $2^r$, hence exactly $2^r$ by the preceding upper bound.
+
+For attainment, use $X=\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$,
+$Y=\bigl(\begin{smallmatrix}0&-i\\i&0\end{smallmatrix}\bigr)$ and
+$Z=\bigl(\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\bigr)$. On $(\mathbb C^2)^{\otimes r}$ take
+\[
+\Gamma_{2j-1}=Z^{\otimes(j-1)}\otimes X\otimes I^{\otimes(r-j)},\qquad
+\Gamma_{2j}=Z^{\otimes(j-1)}\otimes Y\otimes I^{\otimes(r-j)}.
+\]
+If $d=2r+1$, append $\Gamma_{2r+1}=Z^{\otimes r}$. These pairwise anticommute and square to $I$, so $t_i\mapsto\Gamma_i$, $z\mapsto-I$
+defines a representation. The first pair generates all matrices on the first qubit; removing its $Z$-strings from the next pair and
+iterating proves irreducibility. Its image $F$ lies in the finite Pauli group. Any abelian subgroup $B\le F$ has a common eigenvector,
+whose coset orbit and irreducibility give $[F:B]\ge2^r$. Corollary~\ref{cor:cremona} gives the reverse bound, because a finite group has
+bounded chunk profiles. Thus its abelian-index bound is sharp already for a finite image. These are exact structural consequences;
+they make no separate priority claim or improvement to the approximation exponents.
+\end{remark}
 
 \paragraph{How the proofs go.}
 \begin{itemize}[leftmargin=1.2em,itemsep=2pt]
@@ -673,8 +707,10 @@ For the $r_4$ holonomy, the unmodified identity $A_{v_0}B_{v_1}A_{v_2}^{-1}B_{v_
 \[
 W_q'=U_{v_0}\big(A_{v_0}V_{v_1}A_{v_0}^{-1}\big)\,W_q\,\tau\big(B_{v_0}U_{v_2}B_{v_0}^{-1}\big)^{-1}V_{v_0}^{-1}\tau .
 \]
-Conjugation by a link permutation moves the plane of a rotation, and at a non-source plaquette (R1) moves the planes $\mathrm{lab}(v_1)$ and
-$\mathrm{lab}(v_2)$ to $\mathrm{lab}(v_0)$. At a source only the bottom edge carries a potential. So all rotations in $W_q'$ lie in the
+Conjugation by a link permutation moves the plane of a rotation. For each region separately, at a plaquette other than its own source,
+(R1) moves the planes $\mathrm{lab}(v_1)$ and $\mathrm{lab}(v_2)$ to $\mathrm{lab}(v_0)$. At that region's own source only its bottom edge
+carries its potential; potentials of other regions are still treated by their respective cases. By (R4) their planes commute with
+the source defects of the other regions. So all rotations in $W_q'$ lie in the
 planes $\mathrm{lab}_R(v_0)$; they avoid $\{1,2\}$ by (R2), hence commute with $\tau$, and planes of different regions are disjoint by (R4).
 For region $R$ the angles add up to $(\mathrm{curl}\,\varphi_R)(q)$, and at its source $W_q$ contributes the rotation by $s_R\pi$ in the
 plane of the source label. The total is $F_{R,q}$.

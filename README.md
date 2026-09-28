@@ -19,7 +19,8 @@ with Cornulier's independent theorem, this applies to Bir_K(X) for absolutely
 irreducible finite-dimensional varieties over any field, and excludes embeddings.
 This consequence is stated without a separate priority claim.
 Finite-dimensional unitary representations also kill that alternating subgroup;
-irreducible ones have dimension at most 2^floor((m-1)/2).
+their irreducible dimensions are exactly 1 and 2^floor((m-1)/2). A finite Pauli
+image attains the latter and makes the abelian-subgroup index bound sharp.
 
 This is a **private release candidate**, not an announced publication.
 The manuscript is the authority for exact statements and hypotheses. Licenses

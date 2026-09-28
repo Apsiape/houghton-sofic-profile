@@ -17,6 +17,11 @@ check is allowed ten minutes; runtime depends on the machine.
   identities, local Coxeter rewrites through 24 generators, and recursive
   insertion on 120 deterministic test words. These are transcription regressions;
   the arbitrary-word argument and its area bound are the manuscript's proof.
+- **representationcheck.py:** exact ray commutators and Clifford monomial matrices
+  for m = 3,...,11, including anticommutation, joint-sign patterns and the rank of
+  the parity commutator form. It uses only integer phases, not floating point.
+  These finite regressions do not prove the all-m quotient presentation,
+  irreducible-dimension classification or sharp index theorem.
 - **Independent Python certificate verifier:** all 40 distributed certificates,
   including recursion instances through n = 5. Targets are recomputed from the
   definitions; the verifier imports no code from the certificate builder.
