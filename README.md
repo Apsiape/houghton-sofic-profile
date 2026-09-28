@@ -33,9 +33,20 @@ equivalent conditions on the homomorphism and its image.
 The phase-spreading construction also has a sharp M^(-3) squared-defect law
 within its fixed regions; no matching lower bound for arbitrary models is claimed.
 
-This is a **private release candidate**, not an announced publication.
-The manuscript is the authority for exact statements and hypotheses. Licenses
-and the joint public-release decision remain pending; see [RIGHTS.md](RIGHTS.md).
+This repository contains the preprint, its source, and scoped verification
+artifacts. The manuscript is the authority for exact statements and hypotheses;
+the automated checks do not constitute full formal verification or peer review.
+
+## License and citation
+
+The manuscript and repository content are available under **CC BY 4.0**.
+The software and machine-readable certificates are additionally available under
+the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
+
+Please cite Seth Douglas and Nidhal Mghirbi, *Houghton's group H_3 has
+superpolynomial sofic profile* (2026). [CITATION.cff](CITATION.cff) provides
+machine-readable citation metadata. Tagged releases archive the corresponding
+manuscript and verification artifacts together.
 
 ## Reproduce
 
@@ -54,5 +65,4 @@ The bibliography is embedded in paper.tex.
 
 [Causal quantum-channel simulation: memory beyond entropy](https://github.com/Apsiape/causal-quantum-memory)
 uses these group results for operational memory lower bounds. Each manuscript
-can be built without the private research workspace. Companion links require
-access while the repositories remain private.
+can be built independently from its own repository.

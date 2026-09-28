@@ -1,0 +1,29 @@
+{
+  "title": "Houghton's group H_3 has superpolynomial sofic profile",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "version": "1.0.0",
+  "creators": [
+    {"name": "Douglas, Seth"},
+    {"name": "Mghirbi, Nidhal"}
+  ],
+  "description": "<p>Houghton's finitely presented elementary amenable group H_3 has a finite chunk with superpolynomial sofic profile. We prove a lower bound exp(Omega(r^c)), where c = 1/(log_2(107)+1), and an upper bound exp(O(sqrt(r) log r)). The upper bound holds for every fixed finite chunk of H_3. The paper gives a scale-dependent correction to the extension estimate discussed in the text, polynomial far-commutator fillings and a full Dehn-function upper bound, quantitative unitary approximation bounds, and consequences for homomorphisms into groups with polynomial sofic profile.</p><p>This preprint archive includes the PDF, TeX source, executable verification scripts, finite group-word certificates, and scoped Lean proofs. The verification artifacts do not formally verify the entire manuscript. Exact hypotheses and limitations are stated in the manuscript and verification/README.md.</p>",
+  "keywords": [
+    "sofic profile",
+    "Houghton groups",
+    "elementary amenable groups",
+    "hyperlinear profile",
+    "Dehn function",
+    "approximate representations"
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "language": "eng",
+  "notes": "The authors' archive content is licensed CC BY 4.0. Software and machine-readable verification artifacts are additionally available under MIT at the recipient's option; see RIGHTS.md. This is a preprint, not a claim of journal peer review.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Apsiape/causal-quantum-memory",
+      "relation": "isReferencedBy"
+    }
+  ]
+}
