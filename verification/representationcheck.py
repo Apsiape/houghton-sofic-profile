@@ -3,7 +3,76 @@
 Uses monomial matrices encoded by permutations and powers of i, not floating
 point arithmetic. These samples do not prove the all-m representation theorem.
 """
-from itertools import product
+from itertools import permutations, product
+
+
+def right_product(*perms):
+    """Permutation product in the manuscript's right-action convention."""
+    result = tuple(range(len(perms[0])))
+    for perm in perms:
+        result = tuple(perm[x] for x in result)
+    return result
+
+
+def inverse(perm):
+    result = [0] * len(perm)
+    for i, x in enumerate(perm):
+        result[x] = i
+    return tuple(result)
+
+
+def cycle(size, *points):
+    result = list(range(size))
+    for x, y in zip(points, points[1:] + points[:1]):
+        result[x] = y
+    return tuple(result)
+
+
+def parity(perm):
+    return sum(x > y for i, x in enumerate(perm) for y in perm[i+1:]) % 2
+
+
+def normal_subgroup_regressions():
+    """Finite identities only; the infinite normal-subgroup argument is written."""
+    commutators = centralizers = inverse_controls = 0
+    for head in permutations(range(6)):
+        x = head + (6, 7)
+        if x == tuple(range(8)):
+            continue
+        p = next(i for i in range(6) if x[i] != i)
+        q = inverse(x)[p]
+        c = cycle(8, p, 6, 7)
+        comm = right_product(x, c, inverse(x), inverse(c))
+        expected = cycle(8, q, p, 7)
+        assert comm == expected
+        commutators += 1
+        # Reversing the claimed cycle must not pass unnoticed.
+        assert comm != inverse(expected)
+        inverse_controls += 1
+
+        r, s = [i for i in range(8) if i not in (p, q)][:2]
+        c = cycle(8, p, r, s)
+        conjugate = right_product(x, c, inverse(x))
+        assert c[q] == q and conjugate[q] != q
+        centralizers += 1
+
+    conjugators = 0
+    for target in permutations(range(8), 3):
+        z = [None] * 8
+        for i, point in enumerate(target):
+            z[point] = i
+        unused = [i for i in range(8) if i not in target]
+        for point, image in zip(unused, range(3, 8)):
+            z[point] = image
+        if parity(z):
+            a, b = unused[:2]
+            z[a], z[b] = z[b], z[a]
+        assert parity(z) == 0
+        assert right_product(z, cycle(8, 0, 1, 2), inverse(z)) == cycle(8, *target)
+        conjugators += 1
+    print(f"Normal-subgroup identities: {commutators} commutators, "
+          f"{centralizers} centralizer witnesses, {conjugators} even conjugators; "
+          f"{inverse_controls} inverse-cycle negative controls rejected.")
 
 
 def ray_action(point, word):
@@ -101,5 +170,6 @@ for d in range(2, 11):
                                         for k, z in enumerate(patterns[x]))
     assert binary_rank([((1 << d) - 1) ^ (1 << i) for i in range(d)]) == 2 * r
 
+normal_subgroup_regressions()
 print(f"Parity commutators: {ray_checks} exact ray checks; Clifford images: {pair_checks} pairs, d=2..10.")
 print("Exact finite regressions only; the all-m quotient, irreducibility and index proof is in the manuscript.")

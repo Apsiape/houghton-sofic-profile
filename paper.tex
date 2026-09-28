@@ -91,6 +91,7 @@ is an elementary amenable group whose sofic profile is not polynomial, contrary 
 \end{corollary}
 
 \begin{corollary}[Homomorphisms to polynomial-profile groups]\label{cor:cremona}
+Let $H_m$ denote the group of permutations of $m$ rays that are eventually translations on each ray.
 Suppose every finite chunk of $\Gamma$ has polynomial sofic profile. Every homomorphism $H_m\to\Gamma$, $m\ge3$, kills the finitary
 alternating subgroup. Its image has commutator subgroup of order at most two, nilpotency class at most two, and an abelian subgroup
 of index at most $2^{\lfloor(m-1)/2\rfloor}$; for $H_3$ this index is at most two.
@@ -99,7 +100,9 @@ In particular these conclusions hold for $\Gamma=\operatorname{Bir}_K(X)$, for a
 variety $X$ over $K$. No group containing $H_3$ embeds into such a birational group.
 \end{corollary}
 
-The proof is in Section~\ref{sec:images}.
+The proof is in Section~\ref{sec:images}. In fact, every nontrivial normal subgroup of $H_m$ contains the finitary alternating subgroup
+(Lemma~\ref{lem:normal-subgroups}). Thus every homomorphic image is either a faithful copy of $H_m$, with superpolynomial sofic profile,
+or a residually finite, virtually abelian quotient with bounded profile on each finite chunk (Proposition~\ref{prop:image-classification}).
 
 We locate the error in Section~\ref{sec:correction}: the extension theorem asserts a finite piece of the kernel that does not depend on
 the error parameter, but the construction it relies on needs kernel elements conjugated along a Følner set whose size grows with the
@@ -264,17 +267,37 @@ If $d=2r+1$, append $\Gamma_{2r+1}=Z^{\otimes r}$. These pairwise anticommute an
 defines a representation. The first pair generates all matrices on the first qubit; removing its $Z$-strings from the next pair and
 iterating proves irreducibility. Its image $F$ lies in the finite Pauli group. Any abelian subgroup $B\le F$ has a common eigenvector,
 whose coset orbit and irreducibility give $[F:B]\ge2^r$. Corollary~\ref{cor:cremona} gives the reverse bound, because a finite group has
-bounded chunk profiles. Thus its abelian-index bound is sharp already for a finite image. These are exact structural consequences;
-they make no separate priority claim or improvement to the approximation exponents.
+bounded chunk profiles. Thus its abelian-index bound is sharp already for a finite image.
+\end{proof}
+
+\begin{lemma}[Normal subgroups]\label{lem:normal-subgroups}
+For $m\ge3$, every nontrivial normal subgroup of $H_m$ contains $A_{\rm fin}$.
+\end{lemma}
+\begin{proof}
+First, $A_{\rm fin}$ is simple. If $N\lhd A_{\rm fin}$ is nontrivial, choose $1\ne x\in N$, a moved point $p$, and distinct points
+$r,s$ outside the support of $x$. Put $q=px^{-1}\ne p$ and $c=(p\ r\ s)$. With our right-action convention,
+\[
+[x,c]=(q\ r\ s)(p\ s\ r)=(q\ p\ s).
+\]
+Thus $N$ contains a three-cycle. All three-cycles are conjugate in $A_{\rm fin}$: any finitary conjugator can be made even by
+composing with a transposition on two unused points. Since three-cycles generate $A_{\rm fin}$, we have $N=A_{\rm fin}$.
+
+Now let $K\lhd H_m$. Both $K$ and $A_{\rm fin}$ are normal, so
+$[K,A_{\rm fin}]\subseteq K\cap A_{\rm fin}$. If the intersection is nontrivial, simplicity gives the conclusion.
+Otherwise $K$ centralizes $A_{\rm fin}$. Its centralizer in the full symmetric group on the rays is trivial: if a permutation $x$
+moves $p$, set $q=px^{-1}\ne p$ and choose distinct $r,s\notin\{p,q\}$. The conjugate $x(p\ r\ s)x^{-1}$ has $q$ in its support,
+whereas $(p\ r\ s)$ does not, so $x$ cannot centralize that three-cycle. Hence $K=1$ in this case.
 \end{proof}
 
 \begin{proposition}[Classification of polynomial-profile images]\label{prop:image-classification}
 Let $f:H_m\to\Gamma$, $m\ge3$, and put $F=f(H_m)$. The following are equivalent:
 every finite chunk of $F$ has polynomial sofic profile; every finite chunk of $F$ has bounded sofic profile;
-$F$ is residually finite; and $f(A_{\rm fin})=1$.
+$F$ is residually finite; $f(A_{\rm fin})=1$; and $f$ is not injective.
+Every such image is virtually abelian, with the sharp index bound of Proposition~\ref{rem:sharp-images}.
 Moreover, $A_{\rm fin}$ is the intersection of the kernels of all finite quotients of $H_m$, and also of all finite-dimensional unitary representations.
 \end{proposition}
 \begin{proof}
+Lemma~\ref{lem:normal-subgroups} gives the equivalence of noninjectivity and $f(A_{\rm fin})=1$.
 The polynomial-profile condition implies $f(A_{\rm fin})=1$ by Corollary~\ref{cor:cremona}.
 If $f$ kills $A_{\rm fin}$, write its image using the generators of Proposition~\ref{rem:sharp-images}, and let
 $C=\langle f(z),f(t_1)^2,\ldots,f(t_{m-1})^2\rangle$. This is a finitely generated central abelian subgroup of finite index in $F$.
@@ -714,7 +737,7 @@ $A_c\tau A_c^{-1}=(2\ 3)$, $A_c(2\ 3)A_c^{-1}=(3\ 4)$ and $B_c\tau B_c^{-1}=(2\ 
 Suppose $W_q$ is the identity except at finitely many sources, where it is the
 product of the transpositions given by the base labels of the regions with that source. Let finitely many regions satisfy:
 \begin{enumerate}[label=(R\arabic*),itemsep=0pt]
-\item every edge of a non-source plaquette, from $v$ to $w$, carries $\mathrm{lab}(v)$ onto $\mathrm{lab}(w)$ under its link permutation;
+\item for each region $R$, every edge of a plaquette $q\in R$ other than its own source $q_0(R)$, from $v$ to $w$, carries $\mathrm{lab}_R(v)$ onto $\mathrm{lab}_R(w)$ under its link permutation, even if $q$ is another region's source;
 \item every base label avoids $\{1,2\}$, and the label at the initial vertex of every interior edge avoids $\{2,3,4\}$;
 \item each region is connected through its interior edges, and the only interior edge of its source is the bottom edge;
 \item labels of different regions are disjoint wherever both are defined; on an interior link carrying a region's rotation, its label is disjoint from any additional modification of that link.
@@ -755,11 +778,11 @@ dimension $M^2\,2^{8M+8}$ in which $r_1,r_2,r_3,r_5$ act as the identity, $\|\rh
 
 \begin{proof}
 \emph{Two exact moves.} Let $c^*=(M-1,M-1)$, where the $r_4$ holonomy is $R_M$ (Proposition~\ref{prop:corner}). Replace $A_{c^*}$ by
-$\sigma_1A_{c^*}$ and $B_{(0,M-2)}$ by $\sigma_2B_{(0,M-2)}$, with $\sigma_1=(1\ \,M{+}4)$ and $\sigma_2=(5\ \,M{+}5)$. These satisfy the
+$\eta_1A_{c^*}$ and $B_{(0,M-2)}$ by $\eta_2B_{(0,M-2)}$, with $\eta_1=(1\ \,M{+}4)$ and $\eta_2=(5\ \,M{+}5)$. These satisfy the
 hypotheses of Lemma~\ref{lem:rotations}, so $r_1,r_2,r_3,r_5$ stay exact. The modified links lie on three plaquettes. At $c^*$ the
-holonomy becomes $\sigma_1R_M=\prod_{t=5}^{M+3}(t\ \,t{+}M)$. At $(0,M-2)$, where it was the identity, it becomes
-$\tau\sigma_2\tau=\sigma_2$. At $(M-1,M-2)$ it becomes $(A\sigma_2A^{-1})\,\tau(B\sigma_1B^{-1})\tau$ with $A=A_{(M-1,M-2)}=c_5$ and
-$B=B_{(M-1,M-2)}=c_{3M+6}$. Here $A\sigma_2A^{-1}=(1\ \,M{+}5)$ and $B\sigma_1B^{-1}=(2\ \,M{+}5)$, so $\tau(B\sigma_1B^{-1})\tau=(1\ \,M{+}5)$ and
+holonomy becomes $\eta_1R_M=\prod_{t=5}^{M+3}(t\ \,t{+}M)$. At $(0,M-2)$, where it was the identity, it becomes
+$\tau\eta_2\tau=\eta_2$. At $(M-1,M-2)$ it becomes $(A\eta_2A^{-1})\,\tau(B\eta_1B^{-1})\tau$ with $A=A_{(M-1,M-2)}=c_5$ and
+$B=B_{(M-1,M-2)}=c_{3M+6}$. Here $A\eta_2A^{-1}=(1\ \,M{+}5)$ and $B\eta_1B^{-1}=(2\ \,M{+}5)$, so $\tau(B\eta_1B^{-1})\tau=(1\ \,M{+}5)$ and
 the holonomy stays the identity. Use these modified permutations as the base model in Lemma~\ref{lem:spreading}.
 
 \emph{The regions.} For $5\le t\le M+3$ let $R_t$ have source $c^*$ and sign $(-1)^{t-5}$, and consist of $c^*$, the plaquettes $(M-1,j)$
@@ -775,8 +798,8 @@ On the column $i=M-1$, $A_{M-1,j}=c_{M+3-j}$ fixes both label coordinates, which
 $(M-1,j)$ and $(0,j)$ agree; this is the only crossing of a seam, since the rows stay below $M-1$ and $c^*$ is attached only through its
 bottom edge. Every base label and every label at the initial vertex of an interior edge has both coordinates at least $5$. Two labels of
 bulk regions at one vertex differ in $t$ by at most $M-2$, so they are disjoint; a bulk label meets a label of $T$ only if
-$t\in\{4,\ 4-M-i,\ M+4+i\}$, which is impossible; and $\sigma_1$, $\sigma_2$ are disjoint from the labels $\{t,t+M\}$ and $\{t+1,t+M+1\}$
-on the links where those regions carry rotations. At $(0,M-2)$ the label of $T$ equals the support of $\sigma_2$, but that $b$-link is a boundary link of $T$ and carries no $T$-rotation.
+$t\in\{4,\ 4-M-i,\ M+4+i\}$, which is impossible; and $\eta_1$, $\eta_2$ are disjoint from the labels $\{t,t+M\}$ and $\{t+1,t+M+1\}$
+on the links where those regions carry rotations. At $(0,M-2)$ the label of $T$ equals the support of $\eta_2$, but that $b$-link is a boundary link of $T$ and carries no $T$-rotation.
 Each region is connected through interior edges: the triangle is a staircase, the column is glued to it through
 the $b$-edges at $(0,j)$, and each source through its bottom edge. Finally $R_t\subset R_{t+1}$, and every region has at least
 $m_M=(M-1)(M-2)/2+1$ plaquettes.
@@ -882,7 +905,7 @@ $(1,m+n+2)$, for all $0\le m,n<M$: at least $2M-1$ distinct transpositions, whic
 points, with $M$ of order $r$. No chunk independent of $r$ contains them. What the construction does give is the bound of
 Proposition~\ref{prop:extension} below, in which the kernel chunk grows with $r$. The upper bound by the isoperimetric
 profile~\cite[Proposition~3.14]{Cornulier2013} is not affected, and $H_3$, having exponential growth, has isoperimetric profile at least
-exponential. The proof of~\cite[Proposition~3.17]{Cornulier2013} for Baumslag--Solitar groups applies Theorem~3.15 in the same way, so it is
+exponential. The proof of~\cite[Example~3.17]{Cornulier2013} for Baumslag--Solitar groups applies Theorem~3.15 in the same way, so it is
 incomplete as well; we do not know whether its conclusion holds.
 
 \paragraph{A scale-dependent extension bound.} The construction of Elek and Szabó, with the accuracy tracked explicitly, gives the following
@@ -914,8 +937,8 @@ fixed kernel chunk follows, as Theorem~3.15 asserts. For $H_3$ with boxes $A=[0,
 permutations of the first $2M+O(1)$ points of ray~1, whose regular representation gives $\sigma_{K_{A,E_H}}\le(2M+O(1))!$; so the proposition gives
 $\log\sigma_{E_H}(r)=O(r\log r)$, consistent with, and weaker than, Proposition~\ref{prop:sofic-upper}.
 
-All numbering refers to the published version~\cite{Cornulier2013}. Theorem~3.15 and Example~3.16 read the same there
-as in the arXiv version, where Proposition~3.17 appears as Example~3.17.
+Statement identifiers in~\cite{Cornulier2013} refer to the
+\href{https://www.normalesup.org/~cornulier/cresofic.pdf}{author-hosted text}: in particular, Theorem~3.15, Examples~3.16--3.17 and Problem~3.18.
 
 %======================================================================
 
@@ -940,7 +963,7 @@ $O(\delta^{-1/3})$ (Section~\ref{sec:unitary-models}). Different upper construct
 A permutation lower exponent strictly above $1/3$ would separate them using this unitary upper bound; the present area method cannot exceed $1/3$.
 Can a different method prove a separation?
 \item \emph{Other groups.} Every Houghton group $H_m$ with $m\ge3$ contains $H_3$; the same method applies to groups with a displaced
-$S_3$ structure and polynomially bounded far-commutator area. The proof of~\cite[Proposition~3.17]{Cornulier2013} for Baumslag--Solitar groups
+$S_3$ structure and polynomially bounded far-commutator area. The proof of~\cite[Example~3.17]{Cornulier2013} for Baumslag--Solitar groups
 uses the same extension theorem. Its conclusion is already true in every residually finite case: a finite quotient injective on a fixed
 chunk gives a bounded profile, via its regular permutation action. In particular $BS(1,n)$ is not an open case. For $|n|\ge2$, its
 description $\mathbb Z[1/n]\rtimes\mathbb Z$ proves residual finiteness directly: reduce a nonzero translation modulo an integer coprime to $n$,
@@ -1057,7 +1080,8 @@ this word costs one adjacent braid (three $r_1$ cells and one $r_2$ cell) and on
 $r_4$ cells in total. We keep $r_6$ atomic until the final expansion. All recursive certificates use only the types
 $I=(1,3,4,5,6)$, so no image of $r_2$ is needed.
 
-Here are finite certificates and their derivation, with vectors ordered by $I$. Let $F_d$ fill $[\alpha,\sigma_d]$, $C_m$ certify
+Here are finite certificates and their derivation, with vectors ordered by $I$. For $i\in I$, $\mathbf e_i$ denotes the unit vector for relator type $r_i$
+(thus $\mathbf e_3$ is the second coordinate vector, not the third). Let $F_d$ fill $[\alpha,\sigma_d]$, $C_m$ certify
 $\sigma_m=\tau_m$, and $J_j$ certify $b\sigma_jb^{-1}=\sigma_{j+1}$. Starting from $\mathbf f_2=\mathbf e_3$ and $\mathbf c_0=0$,
 \[
 \mathbf j_j=2j\mathbf e_4+\mathbf e_5+\sum_{d=2}^{j+1}\mathbf f_d,\qquad

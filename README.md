@@ -15,18 +15,21 @@ far-commutator estimate used for the profile exponents.
 The explicit area bound is 135 M^(log2(107)), giving sofic lower exponent
 1/(log2(107)+1) and squared-defect unitary exponent 1/(2log2(107)+1).
 Its auxiliary-relator certificate archive is independently checked over the
-original five relators; the previous certificate archive is retained as a fallback.
+original five relators. A separate unweighted certificate archive checks the
+full five-image endomorphism and the M^11 bound.
 Every homomorphism from H_m (m >= 3) to a group with polynomial sofic profile
 kills the finitary alternating subgroup. Its image has commutator subgroup of
 order at most two and an abelian subgroup of index at most 2^floor((m-1)/2). Combined
 with Cornulier's independent theorem, this applies to Bir_K(X) for absolutely
 irreducible finite-dimensional varieties over any field, and excludes embeddings.
-This consequence is stated without a separate priority claim.
 Finite-dimensional unitary representations also kill that alternating subgroup;
 their irreducible dimensions are exactly 1 and 2^floor((m-1)/2). A finite Pauli
 image attains the latter and makes the abelian-subgroup index bound sharp.
-For images of H_m, polynomial chunk profile, bounded chunk profile, residual
-finiteness and killing the finitary alternating subgroup are equivalent.
+Every nontrivial normal subgroup of H_m contains the finitary alternating subgroup.
+Thus a homomorphic image is either a faithful copy of H_m or a residually finite,
+virtually abelian quotient. Noninjectivity, polynomial chunk profile, bounded
+chunk profile, residual finiteness and killing that alternating subgroup are
+equivalent conditions on the homomorphism and its image.
 The phase-spreading construction also has a sharp M^(-3) squared-defect law
 within its fixed regions; no matching lower bound for arbitrary models is claimed.
 

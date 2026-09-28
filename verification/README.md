@@ -13,7 +13,7 @@ check is allowed ten minutes; runtime depends on the machine.
 - **scalarcheck.py:** exact rational margin in the constant-750 sector bound,
   including the integer threshold for its logarithm estimate. The entropy
   inequality and the analytic lower bound on ln(2) remain proof inputs.
-  It also verifies the integer inequality giving the new sofic prefactor 1/1280.
+  It also verifies the integer inequality giving the sofic prefactor 1/1280.
 - **fluxcheck.py:** exact region-cardinality regressions at five sizes and finite
   evaluations of the restricted flux bounds. The universal phase inequality and
   asymptotic limit are proved in the manuscript, not by sampling.
@@ -26,6 +26,9 @@ check is allowed ten minutes; runtime depends on the machine.
   the parity commutator form. It uses only integer phases, not floating point.
   These finite regressions do not prove the all-m quotient presentation,
   irreducible-dimension classification or sharp index theorem.
+  It also checks the right-action commutator and conjugation identities used in
+  the normal-subgroup proof, with an inverse-cycle negative control. These
+  finite tests do not prove simplicity of the infinite alternating group.
 - **Independent Python certificate verifier:** all 40 distributed certificates,
   including recursion instances through n = 5. Targets are recomputed from the
   definitions; the verifier imports no code from the certificate builder.
@@ -59,11 +62,11 @@ check is allowed ten minutes; runtime depends on the machine.
   integer logarithm threshold used in the constant-750 bound.
   The geometric derivation of those recurrences
   is not a premise-free Lean theorem.
-- **Lean Auxiliary107.lean:** the new integer weight bounds and conditional
+- **Lean Auxiliary107.lean:** the integer weight bounds and conditional
   all-depth recurrence. **Certificates107.lean** kernel-checks the eight
-  nonrecursive certificates of at most 21 original cells from the new archive.
+  nonrecursive certificates of at most 21 original cells from the auxiliary archive.
   The longer image/rule lists are checked in independent Python, not Lean.
-  The 130 arithmetic remains a verified fallback, not the current headline bound.
+  Arithmetic.lean also verifies the independent multiplier-130 recurrence.
 
 The Lean files use neither proof placeholders nor native evaluation as a proof
 oracle. The abstract soundness proofs use propositional extensionality; concrete
