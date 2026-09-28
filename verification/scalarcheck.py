@@ -10,3 +10,9 @@ margin = (F(488, 1000)**2 - a) / 3 - b / (2 * F(69, 100))
 margin -= (F(32, 3) + F(100, 69)) * q + F(1, 16)
 assert margin == F(141043, 1397250000) > 0
 print("Exact constant-750 logarithm threshold and rational sector margin passed.")
+
+# p=log2(107) >= 337/50. This implies c_S > 1/1280 without
+# treating a floating-point logarithm as a proof of the displayed margin.
+assert 107**50 > 2**337
+assert (23*10**8*135)**50 * 3**337 < 80**387
+print("Exact 107-exponent threshold and sofic prefactor 1/1280 passed.")

@@ -9,11 +9,13 @@ import gzip
 import hashlib
 import importlib.util
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-DATA = ROOT / "certificates" / "out" / "certificates.json.gz"
-spec = importlib.util.spec_from_file_location("independent_verifier", ROOT / "certificates" / "verify.py")
+AUX107 = '--aux107' in sys.argv
+DATA = ROOT / "certificates" / "out" / ("certificates107.json.gz" if AUX107 else "certificates.json.gz")
+spec = importlib.util.spec_from_file_location("independent_verifier", ROOT / "certificates" / ("verify107.py" if AUX107 else "verify.py"))
 verifier = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(verifier)
 
@@ -26,7 +28,10 @@ def main():
     with gzip.open(DATA, "rt", encoding="ascii") as f:
         entries = json.load(f)["certificates"]
     # Core finite relations; recursion instances remain executable Python checks.
-    entries = entries[:next(i for i, e in enumerate(entries) if e["name"].startswith("X_"))]
+    if not AUX107:
+        entries = entries[:next(i for i, e in enumerate(entries) if e["name"].startswith("X_"))]
+    else:
+        entries = [e for e in entries if not e['name'].startswith('h')]
     # Keep the default kernel replay bounded. All 40 certificates, including
     # the longer relator images, are checked by the independent Python verifier.
     entries = [e for e in entries if len(e["cells"]) <= 21]
@@ -79,7 +84,7 @@ def main():
             f"#check semantic_{n}",
         ]
     lines += [f"#print axioms semantic_{n}", "end WordCertificate", ""]
-    output = ROOT / "lean" / "Certificates.lean"
+    output = ROOT / "lean" / ("Certificates107.lean" if AUX107 else "Certificates.lean")
     output.write_text("\n".join(lines), encoding="utf-8")
     print(f"Transcribed {len(entries)} core certificates to {output.name}")
 

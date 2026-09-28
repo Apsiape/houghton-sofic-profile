@@ -18,7 +18,10 @@ def run(args, cwd=HERE, timeout=180):
 run([sys.executable, "collectioncheck.py"])
 run([sys.executable, "representationcheck.py"])
 run([sys.executable, "scalarcheck.py"])
+run([sys.executable, "fluxcheck.py"])
 run([sys.executable, "verify.py"], cwd=HERE / "certificates")
+run([sys.executable, "verify107.py"], cwd=HERE / "certificates")
+run(["lean", "-M", "512", "-j", "1", "-T", "100000", "Auxiliary107.lean"], cwd=LEAN)
 with gzip.open(HERE / "certificates/out/certificates.json.gz", "rt") as stream:
     entries = {e["name"]: e for e in json.load(stream)["certificates"]}
 C = [[4,0,1,8,4], [108,32,31,128,60], [204,68,64,384,144],
@@ -34,4 +37,6 @@ run(["lean", "-M", "512", "-j", "1", "-T", "100000",
      "-o", "FreeReduction.olean", "FreeReduction.lean"], cwd=LEAN)
 run([sys.executable, "generate_lean.py"])
 run(["lean", "-M", "768", "-j", "1", "-T", "100000", "Certificates.lean"], cwd=LEAN, timeout=600)
+run([sys.executable, "generate_lean.py", "--aux107"])
+run(["lean", "-M", "768", "-j", "1", "-T", "100000", "Certificates107.lean"], cwd=LEAN, timeout=600)
 print("All specified checks passed. This is not full formal verification of the paper.")

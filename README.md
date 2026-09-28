@@ -10,8 +10,12 @@ with superpolynomial sofic profile. The paper proves quantitative lower bounds,
 constructs permutation and unitary models, and gives a scale-dependent correction
 to the extension estimate discussed in the text. The upper sofic bound applies
 to every fixed finite chunk of H_3. Buffered collection also yields the full
-Dehn-function upper bound O(n^(log2(130)+4)); this does not change the sharper
+Dehn-function upper bound O(n^(log2(107)+4)); this does not change the sharper
 far-commutator estimate used for the profile exponents.
+The explicit area bound is 135 M^(log2(107)), giving sofic lower exponent
+1/(log2(107)+1) and squared-defect unitary exponent 1/(2log2(107)+1).
+Its auxiliary-relator certificate archive is independently checked over the
+original five relators; the previous certificate archive is retained as a fallback.
 Every homomorphism from H_m (m >= 3) to a group with polynomial sofic profile
 kills the finitary alternating subgroup. Its image has commutator subgroup of
 order at most two and an abelian subgroup of index at most 2^floor((m-1)/2). Combined
@@ -21,6 +25,10 @@ This consequence is stated without a separate priority claim.
 Finite-dimensional unitary representations also kill that alternating subgroup;
 their irreducible dimensions are exactly 1 and 2^floor((m-1)/2). A finite Pauli
 image attains the latter and makes the abelian-subgroup index bound sharp.
+For images of H_m, polynomial chunk profile, bounded chunk profile, residual
+finiteness and killing the finitary alternating subgroup are equivalent.
+The phase-spreading construction also has a sharp M^(-3) squared-defect law
+within its fixed regions; no matching lower bound for arbitrary models is claimed.
 
 This is a **private release candidate**, not an announced publication.
 The manuscript is the authority for exact statements and hypotheses. Licenses

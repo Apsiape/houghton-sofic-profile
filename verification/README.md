@@ -13,6 +13,10 @@ check is allowed ten minutes; runtime depends on the machine.
 - **scalarcheck.py:** exact rational margin in the constant-750 sector bound,
   including the integer threshold for its logarithm estimate. The entropy
   inequality and the analytic lower bound on ln(2) remain proof inputs.
+  It also verifies the integer inequality giving the new sofic prefactor 1/1280.
+- **fluxcheck.py:** exact region-cardinality regressions at five sizes and finite
+  evaluations of the restricted flux bounds. The universal phase inequality and
+  asymptotic limit are proved in the manuscript, not by sampling.
 - **collectioncheck.py:** finite ray-action checks for the buffered collection
   identities, local Coxeter rewrites through 24 generators, and recursive
   insertion on 120 deterministic test words. These are transcription regressions;
@@ -28,6 +32,12 @@ check is allowed ten minutes; runtime depends on the machine.
 - **Certificate provenance for reweighting:** the five relator-image cell
   histograms are recomputed from the archive and compared with the substitution
   matrix. Exact rational arithmetic checks its weight inequality.
+- **verify107.py:** independently recomputes all 25 targets in the auxiliary
+  certificate archive (7,366 original-relator cells, including recursion through
+  k = 8), checks both auxiliary and expanded lists, reconstructs the 107 matrix,
+  and checks the integer weights, rule costs and characteristic polynomial.
+  It imports no builder code. The builder keeps the derived r6 atomic during
+  substitution, then expands its nine original cells at final export.
 - **Lean FreeReduction.lean:** free reduction preserves every multiplicative
   interpretation satisfying associativity, identity and inverse-letter
   cancellation. Relator-cell certificates accepted by the checker evaluate to
@@ -49,6 +59,11 @@ check is allowed ten minutes; runtime depends on the machine.
   integer logarithm threshold used in the constant-750 bound.
   The geometric derivation of those recurrences
   is not a premise-free Lean theorem.
+- **Lean Auxiliary107.lean:** the new integer weight bounds and conditional
+  all-depth recurrence. **Certificates107.lean** kernel-checks the eight
+  nonrecursive certificates of at most 21 original cells from the new archive.
+  The longer image/rule lists are checked in independent Python, not Lean.
+  The 130 arithmetic remains a verified fallback, not the current headline bound.
 
 The Lean files use neither proof placeholders nor native evaluation as a proof
 oracle. The abstract soundness proofs use propositional extensionality; concrete
@@ -84,3 +99,13 @@ certificate data. From the repository root, regenerate the Lean transcription:
 
 See certificates/README.md for the cells, definitions and larger optional finite
 recursion instances. Those larger runs are not part of the default release check.
+
+The deterministic auxiliary archive `certificates107.json.gz` has SHA-256:
+
+    f63563a1f8e1f8cde46620ccefd1085840c35198b10e6f4bc568f39354693149
+
+Regenerate from the repository root with:
+
+    python verification/certificates/build107.py
+    python verification/certificates/verify107.py
+    python verification/generate_lean.py --aux107

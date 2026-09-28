@@ -42,12 +42,12 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 \begin{abstract}
 The sofic profile of a finite piece of a group measures the size of a permutation model that approximately preserves multiplication and separates distinct elements, at error $1/r$.
 We prove that Houghton's finitely presented elementary amenable group $H_3$ has a finite piece with profile at least
-$\exp(\Omega(r^c))$, where $c=1/(\log_2 130+1)$, and at most $\exp(O(\sqrt r\log r))$.
+$\exp(\Omega(r^c))$, where $c=1/(\log_2 107+1)$, and at most $\exp(O(\sqrt r\log r))$.
 Thus a sofic group can have superpolynomial sofic profile, answering the last question of Cornulier's Problem~3.18.
 This also disproves his extension theorem as stated. We identify the missing dependence of the kernel chunk on the error scale and give a corrected bound.
 Every homomorphism from $H_m$, $m\ge3$, to a group with polynomial sofic profile kills the finitary alternating subgroup; in particular this applies
 to birational groups. The proof combines certified polynomial fillings of far commutators in Johnson's presentation with an entropy count for
-approximately commuting copies of $S_3$. Collection gives the full Dehn-function bound $\delta_{H_3}(n)=O(n^{\log_2 130+4})$.
+approximately commuting copies of $S_3$. Collection gives the full Dehn-function bound $\delta_{H_3}(n)=O(n^{\log_2 107+4})$.
 We also obtain quantitative unitary lower bounds and construct models that distribute the relator defect, improving the upper bound supplied by
 our permutation construction. The upper sofic bound holds for every fixed finite chunk of $H_3$.
 \end{abstract}
@@ -74,12 +74,12 @@ of finitary permutations by $\mathbb Z^2$~\cite{Houghton1978}. Section~\ref{sec:
 \begin{theorem}\label{thm:sofic}
 The chunk $E_H$ of $H_3$ has sofic profile
 \[
-2^{\,r^{1/(\log130+1)}/940-1/16}\ \le\ \sigma_{E_H}(r)\ \le\ 2^{O(\sqrt r\log r)}\qquad(r\ge2).
+2^{\,r^{1/(\log107+1)}/1280-1/16}\ \le\ \sigma_{E_H}(r)\ \le\ 2^{O(\sqrt r\log r)}\qquad(r\ge2).
 \]
 The unweighted bound obtained from certified finite fillings already gives $\sigma_{E_H}(r)\ge2^{\,r^{1/12}/270-1/16}$.
 \end{theorem}
 
-Here and below logarithms are to base two, and $\log130\approx7.022$.
+Here and below logarithms are to base two, and $\log107\approx6.7415$.
 For $T\in M_D$ write $\tau_D(T)=D^{-1}\Tr T$,
 $\|T\|_2^2=\tau_D(T^*T)$ and $\|T\|_{HS}^2=\Tr(T^*T)$; the dimension subscript on $\tau$ is omitted when clear.
 For a density matrix $\rho$, $S(\rho)=-\Tr(\rho\log\rho)$, and
@@ -99,27 +99,7 @@ In particular these conclusions hold for $\Gamma=\operatorname{Bir}_K(X)$, for a
 variety $X$ over $K$. No group containing $H_3$ embeds into such a birational group.
 \end{corollary}
 
-\begin{proof}
-Let $f:H_3\to\Gamma$ and suppose $f(\gamma)\ne1$, where $\gamma=\alpha a\alpha a^{-1}$ is the three-cycle used in the lower bound.
-The image chunk $f(E_H)$ retains every multiplication relation among the relator prefixes, even if other labels become identified.
-An expansive $r^{-1}$-morphism of this chunk to $\Sym_D$ therefore gives generator permutations with relator errors at most $23/r$
-and displacement of $\gamma$ at least $1-5/r$. For $r\ge10$, the proof of Theorem~\ref{thm:sofic}, using
-Proposition~\ref{prop:dimension-perm}, applies unchanged: it only needs these relations and the displacement of this one three-cycle.
-Thus $\log D\ge r^{1/(\log130+1)}/940-1/16$, contradicting the polynomial profile of $f(E_H)$.
-Hence $f$ kills $\gamma$, and then all finitary three-cycles by conjugation. These generate the finitary alternating subgroup.
-
-For $H_m$, restrict to the copy of $H_3$ on the first three rays and conjugate by finitary permutations of all $m$ rays. The same
-conclusion follows. The quotient by the finitary alternating subgroup is a central extension of $\mathbb Z^{m-1}$ by $C_2$:
-its kernel is the parity of a finitary permutation, which conjugation preserves. Its commutators are therefore central of order at most
-two. Put $d=m-1$. Commutation defines an alternating bilinear form on $\mathbb F_2^d$ with values in $C_2$: it is independent of
-the lifts, and $[x^2,y]=[x,y]^2=1$. Such a form has an isotropic subspace of dimension at least $\lceil d/2\rceil$. Indeed, if the form
-is nonzero, split off a nondegenerate plane spanned by $e,f$ with pairing one, apply induction to its orthogonal complement, and adjoin $e$;
-if it vanishes, take the whole space. The inverse image of this isotropic subspace in the central extension is abelian and has index
-at most $2^{\lfloor d/2\rfloor}$. Its image under any quotient map has no larger index. The other stated properties also pass to every image.
-
-Finally, the independent Corollary~4.5 of~\cite{Cornulier2013} gives polynomial profile for every chunk of $\operatorname{Bir}_K(X)$;
-replace $X$ by a nonempty affine open if necessary. This proves the birational assertions.
-\end{proof}
+The proof is in Section~\ref{sec:images}.
 
 We locate the error in Section~\ref{sec:correction}: the extension theorem asserts a finite piece of the kernel that does not depend on
 the error parameter, but the construction it relies on needs kernel elements conjugated along a Følner set whose size grows with the
@@ -134,7 +114,7 @@ presentation (Section~\ref{sec:group}) and call unitaries $\phi(a),\phi(b),\phi(
 relator satisfies $\|\phi(r_i)-I\|_2\le e$ in the normalized Hilbert--Schmidt norm.
 
 \begin{theorem}\label{thm:unitary}
-Let $\beta_H=1/(2\log130+1)\approx1/15.04$, $K'=750\cdot30\cdot3^{\log130}$ and $e>0$. Every $e$-representation of $P$ on $\mathbb C^D$ in which the
+Let $\beta_H=1/(2\log107+1)\approx1/14.48$, $K'=750\cdot135\cdot3^{\log107}$ and $e>0$. Every $e$-representation of $P$ on $\mathbb C^D$ in which the
 three-cycle $\gamma=\alpha\,a\alpha a^{-1}$ satisfies $\|\phi(\gamma)-I\|_2\ge1/2$ has $\log D\ge(K'e)^{-2\beta_H}/16-1/16$.
 \end{theorem}
 
@@ -146,54 +126,14 @@ Every homomorphism $H_m\to U(D)$, $m\ge3$, kills the finitary alternating subgro
 representation of $H_m$ has dimension either $1$ or $2^{\lfloor(m-1)/2\rfloor}$, and both dimensions occur.
 \end{corollary}
 
-\begin{proof}
-For $H_3$, let $\Delta$ be the displacement of $\gamma$ under an exact representation. Restrict to $N$ disjoint copies of $S_3$ as in
-Section~\ref{sec:profile}. Their three-cycles are conjugate and have displacement $\Delta$, and different copies commute. The exact case
-of Lemma~\ref{lem:sector} gives $\log D\ge N\Delta^2/3$ for every $N$, so $\Delta=0$. Conjugation then kills every finitary three-cycle;
-restriction to an embedded $H_3$ gives the same conclusion for $H_m$. The central-extension argument in the proof of
-Corollary~\ref{cor:cremona} gives an abelian subgroup of the image of index $q\le2^{\lfloor(m-1)/2\rfloor}$.
-Choose a common eigenvector of its commuting unitary operators. Its orbit lies in the span of its images under $q$ coset representatives,
-an invariant space of dimension at most $q$. Irreducibility makes this the whole representation space.
-The exact dimensions and their attainment follow from Remark~\ref{rem:sharp-images} below.
-\end{proof}
+The proof is in Section~\ref{sec:images}.
 
-\begin{remark}[Sharpness of the image bounds]\label{rem:sharp-images}
-Put $d=m-1$, $r=\lfloor d/2\rfloor$, and let $A_{\rm fin}$ be the finitary alternating subgroup. The parity quotient has presentation
-\[
-H_m/A_{\rm fin}=\langle t_1,\ldots,t_d,z\mid z^2=1,\ z\text{ central},\ [t_i,t_j]=z\ (i<j)\rangle.
-\]
-Indeed, take $t_i$ to translate from ray $1$ to ray $i+1$. Directly in the ray action, every $[t_i,t_j]$ is the same basic transposition
-$\alpha$. These translations generate $H_m$: they generate the translation lattice, and conjugates of $\alpha$ give adjacent
-transpositions along the connected union of rays, hence every finitary permutation. Their classes and $z=\alpha A_{\rm fin}$ satisfy
-the displayed relations. Every abstract word collects to $z^\epsilon t_1^{n_1}\cdots t_d^{n_d}$. If its image is trivial, translation forces
-all $n_i=0$, and parity forces $\epsilon=0$. Thus there are no further relations.
 
-By the preceding factorization argument and dimension bound, it remains to consider an irreducible representation of
-this quotient. Schur's lemma gives $z=\pm I$. For $z=I$ the generators commute, so the dimension is one. For $z=-I$, their matrices
-$T_i$ pairwise anticommute, and $T_i^2$ is central. Rescale each $T_i$ by a scalar phase so that $T_i^2=I$. The operators
-$H_j=iT_{2j-1}T_{2j}$, $1\le j\le r$, are commuting Hermitian involutions. From a common eigenvector, products of the $T_{2j-1}$ reach
-all $2^r$ joint eigenvalue patterns, since each flips exactly the $j$th sign. These vectors are nonzero and orthogonal. The dimension
-is at least $2^r$, hence exactly $2^r$ by the preceding upper bound.
-
-For attainment, use $X=\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$,
-$Y=\bigl(\begin{smallmatrix}0&-i\\i&0\end{smallmatrix}\bigr)$ and
-$Z=\bigl(\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\bigr)$. On $(\mathbb C^2)^{\otimes r}$ take
-\[
-\Gamma_{2j-1}=Z^{\otimes(j-1)}\otimes X\otimes I^{\otimes(r-j)},\qquad
-\Gamma_{2j}=Z^{\otimes(j-1)}\otimes Y\otimes I^{\otimes(r-j)}.
-\]
-If $d=2r+1$, append $\Gamma_{2r+1}=Z^{\otimes r}$. These pairwise anticommute and square to $I$, so $t_i\mapsto\Gamma_i$, $z\mapsto-I$
-defines a representation. The first pair generates all matrices on the first qubit; removing its $Z$-strings from the next pair and
-iterating proves irreducibility. Its image $F$ lies in the finite Pauli group. Any abelian subgroup $B\le F$ has a common eigenvector,
-whose coset orbit and irreducibility give $[F:B]\ge2^r$. Corollary~\ref{cor:cremona} gives the reverse bound, because a finite group has
-bounded chunk profiles. Thus its abelian-index bound is sharp already for a finite image. These are exact structural consequences;
-they make no separate priority claim or improvement to the approximation exponents.
-\end{remark}
 
 \paragraph{How the proofs go.}
 \begin{itemize}[leftmargin=1.2em,itemsep=2pt]
 \item \emph{Far commutators have polynomial area} (Section~\ref{sec:area}). The commutator of two conjugates of the basic transposition at
-distance $R$ has area at most $30R^{\log130}$ in Johnson's presentation, by a doubling self-similarity of $H_3$ whose finite relations are
+distance $R$ has area at most $135R^{\log107}$ in Johnson's presentation, by a doubling self-similarity of $H_3$ whose finite relations are
 certified by machine. Buffered collection upgrades these estimates to a polynomial bound on the full Dehn function
 (Theorem~\ref{thm:dehn}), improving the exponential upper bound of~\cite{Lee2012}.
 \item \emph{Displaced copies of $S_3$ need dimension} (Section~\ref{sec:profile}). An approximate representation gives, through the far
@@ -256,6 +196,97 @@ null word that is a product of $A$ conjugates of relators has $d_n(\phi(w),\math
 $d_n(\phi(r_i),\mathrm{id})\le\delta$. For unitaries only $\|\phi(w)-I\|_2\le A\max_i\|\phi(r_i)-I\|_2$ is available in general, since
 $\|(e^{i\vartheta}I)^A-I\|_2$ grows like $A\vartheta$.
 
+\subsection{Images and finite-dimensional representations}\label{sec:images}
+
+\begin{proof}[Proof of Corollary~\ref{cor:cremona}]
+Let $f:H_3\to\Gamma$ and suppose $f(\gamma)\ne1$, where $\gamma=\alpha a\alpha a^{-1}$ is the three-cycle used in the lower bound.
+The image chunk $f(E_H)$ retains every multiplication relation among the relator prefixes, even if other labels become identified.
+An expansive $r^{-1}$-morphism of this chunk to $\Sym_D$ therefore gives generator permutations with relator errors at most $23/r$
+and displacement of $\gamma$ at least $1-5/r$. For $r\ge10$, the proof of Theorem~\ref{thm:sofic}, using
+Proposition~\ref{prop:dimension-perm}, applies unchanged: it only needs these relations and the displacement of this one three-cycle.
+Thus $\log D\ge r^{1/(\log107+1)}/1280-1/16$, contradicting the polynomial profile of $f(E_H)$.
+Hence $f$ kills $\gamma$, and then all finitary three-cycles by conjugation. These generate the finitary alternating subgroup.
+
+For $H_m$, restrict to the copy of $H_3$ on the first three rays and conjugate by finitary permutations of all $m$ rays. The same
+conclusion follows. The quotient by the finitary alternating subgroup is a central extension of $\mathbb Z^{m-1}$ by $C_2$:
+its kernel is the parity of a finitary permutation, which conjugation preserves. Its commutators are therefore central of order at most
+two. Put $d=m-1$. Commutation defines an alternating bilinear form on $\mathbb F_2^d$ with values in $C_2$: it is independent of
+the lifts, and $[x^2,y]=[x,y]^2=1$. Such a form has an isotropic subspace of dimension at least $\lceil d/2\rceil$. Indeed, if the form
+is nonzero, split off a nondegenerate plane spanned by $e,f$ with pairing one, apply induction to its orthogonal complement, and adjoin $e$;
+if it vanishes, take the whole space. The inverse image of this isotropic subspace in the central extension is abelian and has index
+at most $2^{\lfloor d/2\rfloor}$. Its image under any quotient map has no larger index. The other stated properties also pass to every image.
+
+Finally, the independent Corollary~4.5 of~\cite{Cornulier2013} gives polynomial profile for every chunk of $\operatorname{Bir}_K(X)$;
+replace $X$ by a nonempty affine open if necessary. This proves the birational assertions.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:finite-representations}]
+For $H_3$, let $\Delta$ be the displacement of $\gamma$ under an exact representation. Restrict to $N$ disjoint copies of $S_3$ as in
+Section~\ref{sec:profile}. Their three-cycles are conjugate and have displacement $\Delta$, and different copies commute. The exact case
+of Lemma~\ref{lem:sector} gives $\log D\ge N\Delta^2/3$ for every $N$, so $\Delta=0$. Conjugation then kills every finitary three-cycle;
+restriction to an embedded $H_3$ gives the same conclusion for $H_m$. The central-extension argument in the proof of
+Corollary~\ref{cor:cremona} gives an abelian subgroup of the image of index $q\le2^{\lfloor(m-1)/2\rfloor}$.
+Choose a common eigenvector of its commuting unitary operators. Its orbit lies in the span of its images under $q$ coset representatives,
+an invariant space of dimension at most $q$. Irreducibility makes this the whole representation space.
+The exact dimensions and their attainment follow from Proposition~\ref{rem:sharp-images}.
+\end{proof}
+
+\begin{proposition}[Parity quotient and sharp image bounds]\label{rem:sharp-images}
+Put $d=m-1$, $r=\lfloor d/2\rfloor$, and let $A_{\rm fin}$ be the finitary alternating subgroup. The parity quotient has presentation
+\[
+H_m/A_{\rm fin}=\langle t_1,\ldots,t_d,z\mid z^2=1,\ z\text{ central},\ [t_i,t_j]=z\ (i<j)\rangle.
+\]
+The abelian-index bound in Corollary~\ref{cor:cremona} is attained by a finite image. The irreducible unitary representations
+have dimensions $1$ and $2^r$, and both occur.
+\end{proposition}
+\begin{proof}
+Indeed, take $t_i$ to translate from ray $1$ to ray $i+1$. Directly in the ray action, every $[t_i,t_j]$ is the same basic transposition
+$\alpha$. These translations generate $H_m$: they generate the translation lattice, and conjugates of $\alpha$ give adjacent
+transpositions along the connected union of rays, hence every finitary permutation. Their classes and $z=\alpha A_{\rm fin}$ satisfy
+the displayed relations. Every abstract word collects to $z^\epsilon t_1^{n_1}\cdots t_d^{n_d}$. If its image is trivial, translation forces
+all $n_i=0$, and parity forces $\epsilon=0$. Thus there are no further relations.
+
+By the preceding factorization argument and dimension bound, it remains to consider an irreducible representation of
+this quotient. Schur's lemma gives $z=\pm I$. For $z=I$ the generators commute, so the dimension is one. For $z=-I$, their matrices
+$T_i$ pairwise anticommute, and $T_i^2$ is central. Rescale each $T_i$ by a scalar phase so that $T_i^2=I$. The operators
+$H_j=iT_{2j-1}T_{2j}$, $1\le j\le r$, are commuting Hermitian involutions. From a common eigenvector, products of the $T_{2j-1}$ reach
+all $2^r$ joint eigenvalue patterns, since each flips exactly the $j$th sign. These vectors are nonzero and orthogonal. The dimension
+is at least $2^r$, hence exactly $2^r$ by the preceding upper bound.
+
+For attainment, use $X=\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$,
+$Y=\bigl(\begin{smallmatrix}0&-i\\i&0\end{smallmatrix}\bigr)$ and
+$Z=\bigl(\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\bigr)$. On $(\mathbb C^2)^{\otimes r}$ take
+\[
+\Gamma_{2j-1}=Z^{\otimes(j-1)}\otimes X\otimes I^{\otimes(r-j)},\qquad
+\Gamma_{2j}=Z^{\otimes(j-1)}\otimes Y\otimes I^{\otimes(r-j)}.
+\]
+If $d=2r+1$, append $\Gamma_{2r+1}=Z^{\otimes r}$. These pairwise anticommute and square to $I$, so $t_i\mapsto\Gamma_i$, $z\mapsto-I$
+defines a representation. The first pair generates all matrices on the first qubit; removing its $Z$-strings from the next pair and
+iterating proves irreducibility. Its image $F$ lies in the finite Pauli group. Any abelian subgroup $B\le F$ has a common eigenvector,
+whose coset orbit and irreducibility give $[F:B]\ge2^r$. Corollary~\ref{cor:cremona} gives the reverse bound, because a finite group has
+bounded chunk profiles. Thus its abelian-index bound is sharp already for a finite image. These are exact structural consequences;
+they make no separate priority claim or improvement to the approximation exponents.
+\end{proof}
+
+\begin{proposition}[Classification of polynomial-profile images]\label{prop:image-classification}
+Let $f:H_m\to\Gamma$, $m\ge3$, and put $F=f(H_m)$. The following are equivalent:
+every finite chunk of $F$ has polynomial sofic profile; every finite chunk of $F$ has bounded sofic profile;
+$F$ is residually finite; and $f(A_{\rm fin})=1$.
+Moreover, $A_{\rm fin}$ is the intersection of the kernels of all finite quotients of $H_m$, and also of all finite-dimensional unitary representations.
+\end{proposition}
+\begin{proof}
+The polynomial-profile condition implies $f(A_{\rm fin})=1$ by Corollary~\ref{cor:cremona}.
+If $f$ kills $A_{\rm fin}$, write its image using the generators of Proposition~\ref{rem:sharp-images}, and let
+$C=\langle f(z),f(t_1)^2,\ldots,f(t_{m-1})^2\rangle$. This is a finitely generated central abelian subgroup of finite index in $F$.
+An element outside $C$ is detected by $F/C$. A nonidentity element $g\in C$ is outside $kC$ for some positive integer $k$, by the structure
+theorem for finitely generated abelian groups. The subgroup $kC$ is central and $F/kC$ is finite, so it detects $g$. Thus $F$ is residually finite.
+For a fixed finite chunk, residual finiteness separates its finitely many pairwise differences in a finite product of quotients.
+The regular action of that quotient is an exact, fully separating permutation model at every accuracy, hence the profile is bounded.
+Bounded implies polynomial. Finally every finite quotient kills $A_{\rm fin}$, while the parity quotient is residually finite by the argument
+just given. Finite regular representations separate the same quotient; Corollary~\ref{cor:finite-representations} supplies the reverse inclusion
+for unitary kernels.
+\end{proof}
+
 \section{Polynomial area of far commutators}\label{sec:area}
 %======================================================================
 
@@ -306,10 +337,10 @@ exported certificates. The exported file holds every finite relation listed abov
 independent verifier checks; the instances $6\le n\le9$ were executed by the generator but are not in the file, and the generator
 exports them for the verifier on request. The proof uses only the finite relations and the hand induction of Appendix~\ref{app:area}.
 
-The same fillings give a better exponent when the five kinds of cells are counted separately.
+Keeping a derived nine-cell relation atomic during substitution gives a sharper bound.
 
 \begin{theorem}[Reweighted far-commutator area]\label{thm:area-weighted}
-$A^*(M)\le30\,M^{\log130}$ for every $M\ge2$.
+$A^*(M)\le135\,M^{\log107}$ for every $M\ge2$.
 \end{theorem}
 
 The proof is in Appendix~\ref{app:area}. The same area estimates also control arbitrary null words.
@@ -318,15 +349,16 @@ The proof is in Appendix~\ref{app:area}. The same area estimates also control ar
 Let $\delta_P(n)$ be the maximum area of a null word of length at most $n$ in Johnson's presentation. There is an absolute constant $C_0$ such that
 \[
 \delta_P(n)\le C_0n^4\bigl(1+A^*(4n+2)\bigr)
-=O(n^{\log130+4})\qquad(n\ge1).
+=O(n^{\log107+4})\qquad(n\ge1).
 \]
 The unweighted estimate of Theorem~\ref{thm:area} alone gives $\delta_P(n)=O(n^{15})$.
 \end{theorem}
 
 The proof in Appendix~\ref{app:dehn} collects a buffered null word into adjacent transpositions, then fills it using a uniform Coxeter insertion algorithm.
 This full Dehn bound does not improve the profile exponents: the direct far-commutator estimate is sharper for the words used there.
-Reweighting the far-commutator fillings cannot bring their exponent below $\log\rho\approx7.018$, where
-$\rho\approx129.64$ is the spectral radius of their substitution matrix; $\log130\approx7.022$ is the certified choice. The area is at least quadratic.
+The explicit integer weights give exponent $\log107\approx6.7415$. The auxiliary substitution matrix has spectral radius
+$\rho\approx106.3385$ and also gives the asymptotic bound $O(M^{\log\rho})$ (Appendix~\ref{app:area}). Neither is an optimal-area claim.
+The area is at least quadratic.
 
 \begin{proposition}[Quadratic lower bound]\label{prop:area-lower}
 For odd $k\ge9$, $\mathrm{Area}(C_k)\ge(k-7)(k-5)/8$, where $C_k=[\alpha,a^k\alpha a^{-k}]$. Hence $A^*(R)\ge R^2/16$ for every integer $R\ge23$.
@@ -506,7 +538,7 @@ The integer inequality $64^3 2^{29}\ge50625^3$ gives $\log(1/q)\le29/3$, and the
 
 If instead $\|\phi(\gamma)-I\|_2\ge\Delta$ with $0<\Delta\le1$, the same argument with $750$ replaced by a constant depending only on $\Delta$
 gives $\log D\ge c_\Delta N$ with $c_\Delta>0$. With $A^*(M)\le CM^p$ the condition reads $N^{p+1/2}e=O(1)$, which gives
-$\log D\ge c\,e^{-2/(2p+1)}$: the exponent is $2/(2p+1)$ in $1/e$, or $1/(2p+1)$ in the squared defect $1/e^2$. For $p=\log130$ this is the
+$\log D\ge c\,e^{-2/(2p+1)}$: the exponent is $2/(2p+1)$ in $1/e$, or $1/(2p+1)$ in the squared defect $1/e^2$. For $p=\log107$ this is the
 exponent $2\beta_H$ of Theorem~\ref{thm:unitary}.
 
 %======================================================================
@@ -539,16 +571,16 @@ $s_1\cdots s_l$ with prefixes $p_k$, the chunk contains $p_ks_{k+1}=p_{k+1}$ and
 inverse replacements give $d_n(\phi(r_i),\mathrm{id})\le(2l-1)/r\le23/r$, that is $\|\phi(r_i)-I\|_2\le\sqrt{46/r}$. In the
 same way $d_n(\phi(\gamma),f(\gamma))\le4/r$, while expansiveness gives $d_n(f(\gamma),\mathrm{id})\ge1-1/r$ because $\gamma\ne1$;
 so $d_n(\phi(\gamma),\mathrm{id})\ge1-5/r\ge1/2$. Apply Proposition~\ref{prop:dimension-perm} with $\delta=23/r$ and
-$A^*(3N)\le30(3N)^{\log130}$ (Theorem~\ref{thm:area-weighted}): the condition $10^8N\cdot30(3N)^{\log130}\delta\le1$ holds for
-$N=\lfloor(r/(23\cdot10^8\cdot30\cdot3^{\log130}))^{1/(\log130+1)}\rfloor$. Therefore, whenever $N\ge1$ (which forces $r\ge10$),
+$A^*(3N)\le135(3N)^{\log107}$ (Theorem~\ref{thm:area-weighted}): the condition $10^8N\cdot135(3N)^{\log107}\delta\le1$ holds for
+$N=\lfloor(r/(23\cdot10^8\cdot135\cdot3^{\log107}))^{1/(\log107+1)}\rfloor$. Therefore, whenever $N\ge1$ (which forces $r\ge10$),
 \[
-\log\sigma_{E_H}(r)\ \ge\ \frac N{16}\ \ge\ c_Sr^{1/(\log130+1)}-\frac1{16},
+\log\sigma_{E_H}(r)\ \ge\ \frac N{16}\ \ge\ c_Sr^{1/(\log107+1)}-\frac1{16},
 \]
-with $c_S=(23\cdot10^8\cdot30\cdot3^{\log130})^{-1/(\log130+1)}/16>1/940$,
+with $c_S=(23\cdot10^8\cdot135\cdot3^{\log107})^{-1/(\log107+1)}/16>1/1280$,
 and for smaller $r$ the right side is negative. For unitary approximations Proposition~\ref{prop:dimension} gives the
-corresponding bound: by Theorem~\ref{thm:area-weighted}, with $K'=750\cdot30\cdot3^{\log130}$ and $N=\lfloor(K'e)^{-2\beta_H}\rfloor$, every
+corresponding bound: by Theorem~\ref{thm:area-weighted}, with $K'=750\cdot135\cdot3^{\log107}$ and $N=\lfloor(K'e)^{-2\beta_H}\rfloor$, every
 $e$-representation of $P$ on $\mathbb C^D$ with $\|\phi(\gamma)-I\|_2\ge1/2$ has $\log D\ge(K'e)^{-2\beta_H}/16-1/16$, where
-$\beta_H=1/(2\log130+1)$; this is Theorem~\ref{thm:unitary}. The upper bound
+$\beta_H=1/(2\log107+1)$; this is Theorem~\ref{thm:unitary}. The upper bound
 $\log\sigma_{E_H}(r)=O(\sqrt r\log r)$ is Proposition~\ref{prop:sofic-upper}.
 \end{proof}
 
@@ -769,6 +801,37 @@ which decreases in $M$ and is below $14.26$ at $M=48$. So $e_4^2\le14.26\,M^{-3}
 $\tau(\rho(\gamma))=\det((I+\sigma)/2)^2=4^{-2}$ and $\|\rho(\gamma)-I\|_2^2=2-2\cdot4^{-2}=15/8$.
 \end{proof}
 
+\begin{proposition}[Sharp defect within the fixed-region construction]\label{prop:restricted-flux}
+Fix an integer $k\ge1$, the clock torus, the regions and their signs in the proof above, and the $k$-fold exterior-algebra representation.
+Allow arbitrary real fields $F_{R,q}$ with $\sum_{q\in R}F_{R,q}=s_R\pi$, realized by Lemma~\ref{lem:spreading}.
+If $E_{M,k}$ is the infimum of the squared $r_4$ defect over these fields, then
+\[
+E_{M,k}=\frac{k\pi^2\sqrt2\ln(1+\sqrt2)}4\,M^{-3}(1+o(1))\qquad(M\to\infty).
+\]
+This optimizes only these fixed regions and commuting phase planes, not arbitrary unitary models of $H_3$.
+\end{proposition}
+\begin{proof}
+Put $S_M=\sum_R|R|^{-1}$ and $m_M=1+(M-1)(M-2)/2$. Reduce each field angle modulo $2\pi$ to
+$\theta_{R,q}\in[-\pi,\pi]$. Its sum over a region is an odd multiple of $\pi$, so
+$\sum_{q\in R}\theta_{R,q}^2\ge\pi^2/|R|$ by Cauchy--Schwarz.
+The absolute normalized exterior trace at $q$ is
+$\prod_{R\ni q}|\cos(\theta_{R,q}/2)|^k\le\exp(-k\sum_{R\ni q}\theta_{R,q}^2/8)$.
+Here $\cos x\le e^{-x^2/2}$ for $|x|\le\pi/2$, as follows by differentiating $\log\cos x+x^2/2$.
+For nonnegative $a_q$, $\sum_q(1-e^{-a_q})\ge1-e^{-\sum_q a_q}$. Consequently
+\[
+\frac2{M^2}\bigl(1-e^{-k\pi^2S_M/8}\bigr)\le E_{M,k}
+\le\frac{k\pi^2S_M}{4M^2}+\frac{k^2\pi^2}{m_M^2}.
+\]
+The upper bound is the constant field in each region, with the alternating signs and phase estimate in the preceding proof.
+Directly counting the staircase gives
+$|R_t|=(M-1)^2-h(h+1)/2$ for $h=M+3-t\in\{0,\ldots,M-2\}$ and $|T|=m_M$.
+The Riemann sum therefore yields
+\[
+MS_M\longrightarrow\int_0^1\frac{dx}{1-x^2/2}=\sqrt2\ln(1+\sqrt2).
+\]
+Since $S_M=O(M^{-1})$ and $m_M$ is of order $M^2$, the two bounds have the same leading term.
+\end{proof}
+
 \begin{corollary}[Unitary upper bound]\label{cor:unitary-upper}
 Let $0<e\le e_0=14.26^{1/2}\cdot48^{-3/2}$ and $M=\lceil(14.26/e^2)^{1/3}\rceil$. Johnson's presentation has an $e$-representation on $\mathbb C^D$ with
 $\|\phi(\gamma)-I\|_2\ge1/2$ and $\log D\le8M+8+2\log M$. So such representations exist with $\log D=O(e^{-2/3})$.
@@ -783,7 +846,7 @@ defects at most
 $\sqrt2/M$ in $\|\cdot\|_2$, since a permutation moving a fraction $f$ of the points has $\|P-I\|_2^2=2f$, and $\|\phi(\gamma)-I\|_2^2=3/2$, at
 $\log D=6M+6+2\log M$; this gives only $\log D=O(e^{-1})$. Spreading the defect lowers the exponent of $1/e$ in our upper bounds from $1$ to
 $\frac23$; whether optimal permutation models are weaker than optimal unitary ones is open (Section~\ref{sec:open}). The lower
-bound of Theorem~\ref{thm:unitary} has exponent $2\beta_H\approx0.133$.
+bound of Theorem~\ref{thm:unitary} has exponent $2\beta_H\approx0.138$.
 
 %======================================================================
 \section{The correction}\label{sec:correction}
@@ -861,22 +924,28 @@ as in the arXiv version, where Proposition~3.17 appears as Example~3.17.
 %======================================================================
 
 \begin{enumerate}[label=(\arabic*)]
-\item \emph{The exponents.} The sofic exponent of $E_H$ in $r$ lies between $1/(\log130+1)\approx1/8.02$ and $1/2$ (up to the logarithm). For unitary
+\item \emph{The exponents.} The sofic exponent of $E_H$ in $r$ lies between $1/(\log107+1)\approx1/7.74$ and $1/2$ (up to the logarithm). For unitary
 approximations with relator defect $e$ in the normalized Hilbert--Schmidt norm, $\log D$ lies between order $e^{-2\beta_H}$, with
-$2\beta_H\approx0.133$ (Theorem~\ref{thm:unitary}), and $O(e^{-2/3})$ (Corollary~\ref{cor:unitary-upper}). The exponent is essentially
-intrinsic to the particular substitution certificates used here: reweighting these fillings cannot go below $\log\rho\approx7.018$, with $\rho\approx129.64$ the spectral radius of their
-substitution matrix, and $\log130$ is the certified choice. Since the area is at least quadratic
+$2\beta_H\approx0.138$ (Theorem~\ref{thm:unitary}), and $O(e^{-2/3})$ (Corollary~\ref{cor:unitary-upper}). The auxiliary certificate scheme
+also gives exponent $\log\rho\approx6.73252$, with $\rho\approx106.3385$, but the explicit bounds use $\log107$.
+These are bounds for one filling scheme, not obstructions to other fillings. Since the area is at least quadratic
 (Proposition~\ref{prop:area-lower}), the present uniform-area transport and sector argument cannot give more than $1/3$ in $r$ for permutations and $2/5$ in $1/e$
 for unitaries. A quadratic Dehn function for $H_3$ would reach these values: every word in the argument has linear length. Theorem~\ref{thm:dehn}
-gives the polynomial upper bound $O(n^{\log130+4})$, while for Thompson's group $F$ a quadratic Dehn function is a
+gives the polynomial upper bound $O(n^{\log107+4})$, while for Thompson's group $F$ a quadratic Dehn function is a
 theorem~\cite{Guba2006}. Shared fillings, improved aggregate defect estimates, or a stronger dimension argument are possible routes beyond these limits.
 \item \emph{Permutation versus unitary approximation.} Relator errors add up in measure for permutations and in norm for unitaries, so the
-two profiles may differ. The constructions here already have different exponents: in the normalized Hilbert--Schmidt norm, permutation models of $H_3$ give
-$\log D=O(e^{-1})$ and unitary models $O(e^{-2/3})$ (Section~\ref{sec:unitary-models}). Can the unitary profile of a chunk of an amenable group be
-polynomially smaller, in exponent, than its sofic profile?
+two profiles may differ. In common units, a permutation matrix has squared normalized Hilbert--Schmidt defect twice its normalized Hamming defect.
+At squared defect $\delta=e^2$, our permutation models give $\log D=O(\delta^{-1/2})$ and unitary models
+$O(\delta^{-1/3})$ (Section~\ref{sec:unitary-models}). Different upper constructions do not separate the optimal profiles.
+A permutation lower exponent strictly above $1/3$ would separate them using this unitary upper bound; the present area method cannot exceed $1/3$.
+Can a different method prove a separation?
 \item \emph{Other groups.} Every Houghton group $H_m$ with $m\ge3$ contains $H_3$; the same method applies to groups with a displaced
 $S_3$ structure and polynomially bounded far-commutator area. The proof of~\cite[Proposition~3.17]{Cornulier2013} for Baumslag--Solitar groups
-uses the same extension theorem; whether its conclusion holds is open.
+uses the same extension theorem. Its conclusion is already true in every residually finite case: a finite quotient injective on a fixed
+chunk gives a bounded profile, via its regular permutation action. In particular $BS(1,n)$ is not an open case. For $|n|\ge2$, its
+description $\mathbb Z[1/n]\rtimes\mathbb Z$ proves residual finiteness directly: reduce a nonzero translation modulo an integer coprime to $n$,
+then reduce the exponent modulo a multiple of the order of $n$ in that finite ring; a nonzero exponent is separated by a cyclic quotient.
+The cases $n=\pm1$ are virtually abelian. Only non-residually-finite Baumslag--Solitar cases remain at issue here.
 \item \emph{Extensions.} Proposition~\ref{prop:extension} bounds the profile of an extension by the Følner size of the quotient and the profile of a
 kernel chunk that grows with $r$ through the cocycle of a section; the kernel chunk is fixed when the cocycle takes finitely many values. Which
 extensions of groups with polynomial profile by amenable quotients have polynomial profile?
@@ -982,32 +1051,104 @@ $A(2),A(3),A(4)\le1,21,47$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:area-weighted}]
-The proof above bounds every lifted cell by the largest area $864$ of the images $\psi(r_i)$. Count instead the cells of each type. Let
-$C_{ij}$ be the number of cells of type $r_j$ in the certified filling of $\psi(r_i)$ from Lemma~\ref{lem:psi}; the certificates give
+Put $q=\sigma_{-2}$ and add the auxiliary relation $r_6=[q,b]$. It has a nine-cell filling in $P$, with counts
+$(3,1,0,4,1)$ in the original five types: two $r_4$ cells give $a^2ba^{-2}=\sigma_1\alpha b$, and commuting $\alpha$ through
+this word costs one adjacent braid (three $r_1$ cells and one $r_2$ cell) and one $r_5$ cell. Replacing the word on both sides costs four
+$r_4$ cells in total. We keep $r_6$ atomic until the final expansion. All recursive certificates use only the types
+$I=(1,3,4,5,6)$, so no image of $r_2$ is needed.
+
+Here are finite certificates and their derivation, with vectors ordered by $I$. Let $F_d$ fill $[\alpha,\sigma_d]$, $C_m$ certify
+$\sigma_m=\tau_m$, and $J_j$ certify $b\sigma_jb^{-1}=\sigma_{j+1}$. Starting from $\mathbf f_2=\mathbf e_3$ and $\mathbf c_0=0$,
 \[
-C=\begin{pmatrix}4&0&1&8&4\\108&32&31&128&60\\204&68&64&384&144\\0&0&0&0&0\\36&12&14&84&36\end{pmatrix},
+\mathbf j_j=2j\mathbf e_4+\mathbf e_5+\sum_{d=2}^{j+1}\mathbf f_d,\qquad
+\mathbf c_m=\mathbf c_{m-1}+\mathbf j_{m-1},\qquad
+\mathbf f_{m+2}=2\mathbf c_m+2m\mathbf e_6+\mathbf e_3.
 \]
-with row sums $17,359,864,0,182$. For $w=(1,\frac{63}2,\frac{338}5,0,\frac{29}2)$, exact arithmetic gives $Cw\le130w$ and $C\mathbf1\le17w$
-entrywise. The weight of $r_4$ is zero, but $\psi(r_4)$ is freely trivial, so cells of type $r_4$ disappear under $\psi$; the second
-inequality pays for the ordinary cells created by the last application of $\psi$. Thus if a diagram has weighted count $S$ (a cell of
-type $r_j$ counted with weight $w_j$), substituting the certified fillings gives weighted count at most $130S$ and ordinary area at most
-$17S$. The relations $\rho^b=R'$ and $\psi(\rho)=R$ have ordinary costs $14$ and $84$ and weighted costs $48$ and $288$.
+Indeed, $b\sigma_jb^{-1}=Q_j\sigma_{j+1}Q_j^{-1}$ with $Q_j=\sigma_0^{-1}\cdots\sigma_{j-1}^{-1}$ costs $2j$ copies of $r_4$ and
+one of $r_5$; commute past $Q_j$ using distances $2,\ldots,j+1$. For the last recurrence conjugate to $[q,\sigma_m]$, replace
+$\sigma_m$ by $\tau_m$, and move $q$ past the $2m$ letters $b^{\pm1}$ and then past $\alpha$. This is noncircular. It gives
+\[
+\begin{array}{c|rrrrr}
+d& r_1&r_3&r_4&r_5&r_6\\\hline
+2&0&1&0&0&0\\3&0&1&0&2&2\\4&0&3&4&4&4\\5&0&7&12&10&10\\6&0&17&32&24&24
+\end{array}
+\]
+For $N_m=[\sigma_{-m},b]$, $\mathbf n_2=\mathbf e_6$ and
+$\mathbf n_m=\mathbf n_{m-1}+\mathbf f_{m-1}+2\mathbf e_4$: conjugate by $a^{-1}$, replace $a^{-1}ba=\sigma_{-1}^{-1}b$, and remove
+the first factor using $F_{m-1}$. Thus $\mathbf n_3=(0,1,2,0,1)$ and $\mathbf n_4=(0,2,4,2,3)$.
 
-Let $T_n$ and $R_n$ count the letters $t^{\pm1}$ and $\rho^{\pm1}$ of $W_n$. The even step multiplies the column vector $(T,R)$ by
-$D_0=\left(\begin{smallmatrix}2&26\\1&20\end{smallmatrix}\right)$, since $t\mapsto t\rho t$ and $R$ has $26$ letters $t^{\pm1}$ and $20$ letters
-$\rho^{\pm1}$, and conjugation by $b$ multiplies it by $B_0=\left(\begin{smallmatrix}1&4\\1&3\end{smallmatrix}\right)$. Since
-$(1,18)B_0D_0=(96,1654)\le96\,(1,18)$ and $(1,18)D_0\le96\,(1,18)$, the quantity $L_n=T_n+18R_n$ has $L_1=1$ and, for $n\ge2$,
-satisfies $L_n\le96L_{\lfloor n/2\rfloor}+1$. Thus $L_n\le\frac{96}{95}96^s$ with $s=\lfloor\log n\rfloor$.
+Use the free substitution $D(a)=a^2,D(b)=b^2,D(\alpha)=T=[a^2,b^2]$. The equality
+$T=S:=\sigma_1\alpha\sigma_2\sigma_1^{-1}$ has vector $\mathbf v=(1,1,4,2,0)$: expand into four commutators $[a,b]$, use $r_5$ twice,
+commute $\sigma_2$ past $\alpha$, and invert the final $\sigma_1$. The image counts are
+\[
+\begin{aligned}
+\mathbf d_1&=2\mathbf v+\mathbf e_3+2\mathbf e_1,&
+\mathbf d_3&=4\mathbf v+\mathbf f_2+4\mathbf f_3+6\mathbf f_4+4\mathbf f_5+\mathbf f_6,\\
+\mathbf d_4&=0,&
+\mathbf d_5&=2\mathbf v+\mathbf H_0+2\mathbf H_1+\mathbf H_2,\\
+\mathbf H_j&=2\mathbf e_4+2\mathbf j_j+\mathbf f_{j+2},&
+\mathbf d_6&=2\mathbf v+2(2\mathbf n_3+\mathbf n_4+\mathbf n_2).
+\end{aligned}
+\]
+For $\mathbf d_1$, fill $(\alpha\sigma_2)^2$ inside its conjugator. For $\mathbf d_3$, the sixteen crossings between $S$ and
+$a^4Sa^{-4}$ have gap multiplicities $1,4,6,4,1$. The fourth image is free. For the fifth, $h_2:=b^{-2}a^2=t^2q$ costs one $r_4$ cell,
+so $[h_2,\sigma_j]$ has vector $\mathbf H_j$, and $D(r_5)=b^2[h_2,T]b^{-2}$ freely. For the sixth, replace
+$D(q)$ by $\sigma_{-3}\sigma_{-4}q\sigma_{-3}^{-1}$ and commute its four factors through $b^2$. Consequently the substitution matrix is
+\[
+M=\begin{pmatrix}4&3&8&4&0\\4&72&120&104&96\\0&0&0&0&0\\2&16&36&24&12\\2&10&24&8&12\end{pmatrix}.
+\]
+Its rows are the counts of the chosen fillings of $D(r_i)$, not a substitution of the expanded nine-cell proof.
+For $w=(25,616,1,133,78)^T$, direct integer arithmetic gives
+\[
+Mw=(2488,65892,0,14070,8234)^T\le107w.
+\]
+Every weight dominates its original expansion cost, including $w_6\ge9$.
 
-Let $S_n$ be the weighted count of the recursive filling of $X_nW_n^{-1}$. Its base value is $S_1=0$, and the ordinary base count is
-$\mathrm{Rw}(1)=0$. For $n\ge2$ put $m=\lfloor n/2\rfloor$. Both branches give
-$S_n\le130S_m+48T_m+1248R_m\le130S_m+\frac{208}3L_m$, hence $S_n\le\frac{3328}{1615}(130^s-96^s)\le\frac{21}{10}130^s$. For the ordinary count,
-the second inequality applied to the diagram of level $m$ and the ordinary cost $14T_m+364R_m$ of the new relations give
-$\mathrm{Rw}(n)\le17S_m+\frac{182}9L_m\le\frac9{20}130^s$, because $17\cdot\frac{21}{10}+\frac{182}9\cdot\frac{96}{95}<\frac9{20}\cdot130$. Expanding
-$[\alpha,W_n]$ letter by letter, $U(n)\le2\,\mathrm{Rw}(n)+T_n+5R_n\le(\frac9{10}+\frac{96}{19})\,n^{\log130}$. Finally
-$A(m)\le2U(m-2)+18m-35$ for $m\ge3$ gives $A^*(M)\le[2(\frac9{10}+\frac{96}{19})+18]M^{\log130}=\frac{2841}{95}M^{\log130}<30M^{\log130}$, and
-$A(2)=1$.
+Put $u_i=t^{-i}qt^i$. The identities $\sigma_{-3}=u_1$, $\sigma_{-4}=u_2$ cost one and seven auxiliary cells: use $r_6$ for the first,
+then replace $\sigma_{-3}$ twice in $N_3$ and conjugate the first identity by $a^{-1}$. On the formal $t,q$ alphabet define
+\[
+d(t)=t^2q,\quad d(q)=u_1u_2qu_1^{-1},\qquad E(t)=t^2qt^{-1},\quad E(q)=q,\qquad o=E\circ d.
+\]
+These certify $D(t)=d(t)$, $D(q)=d(q)$, $b^{-1}D(t)b=o(t)$ and $b^{-1}D(q)b=o(q)$. Their respective cell vectors and reduced formal lengths are
+\[
+\begin{array}{c|c|r}
+\text{rule}&\text{cell vector}&\text{length}\\\hline
+d(t)&(0,0,1,0,0)&3\\d(q)&(1,2,6,2,6)&10\\o(t)&(0,0,3,0,1)&7\\o(q)&(1,2,12,2,10)&26
+\end{array}
+\]
+The even rules follow from $h_2=t^2q$ and the block identity; $E$ expresses conjugation by $b^{-1}$, giving the odd rules.
+All four weighted costs are at most $2315$.
+
+Set $W_1=t$, $W_{2m}=d(W_m)$ and $W_{2m+1}=o(W_m)t$, freely reducing in the formal alphabet. Substitution of cells, followed by these
+rules, certifies $h_k=b^{-k}a^k=W_k$: freely $h_{2m}=D(h_m)$ and $h_{2m+1}=b^{-1}D(h_m)bt$.
+If $A_k$ is its weighted cost and $n_k=|W_k|$, then, with $m=\lfloor k/2\rfloor$,
+\[
+A_k\le107A_m+2315n_m,\qquad n_k\le26n_m+1.
+\]
+The $t$-exponent of $W_m$ is $m$, so $n_m\ge1$. Since $2315+29\cdot26+29\le107\cdot29$,
+\[
+A_k+29n_k\le107(A_m+29n_m)\le29\cdot107^{\lfloor\log k\rfloor}\le29k^{\log107}.
+\]
+Now $[t,\alpha]$ and $[q,\alpha]$ each cost one original cell. Replacing $h_k$ twice and commuting its formal letters therefore fills
+$[h_k,\alpha]$ with at most $2A_k+n_k\le58k^{\log107}$ original cells. The free identity
+$\sigma_m\tau_m^{-1}=b^m[h_m,\alpha]b^{-m}$ and the preceding far-commutator reduction give, for $k=m+2\ge3$,
+\[
+A(k)\le116m^{\log107}+18m+1\le135m^{\log107}.
+\]
+Together with $A(2)=1$, this proves the theorem. Literal certificates for every image and rule above, the bounded-distance inputs and
+the recursive identities through $k=8$ are distributed in \texttt{certificates107.json.gz}; an independent verifier recomputes their target
+words, their original-relator expansions and their cell histograms. The all-depth conclusion follows from the displayed recurrence,
+whose scalar induction is also checked in Lean.
 \end{proof}
+
+\begin{remark}[Asymptotic refinement of this certificate scheme]
+Direct calculation gives $\det(xI-M)=x(x^4-112x^3+572x^2+3328x-14208)$.
+The quartic changes sign on $(-6,-5),(3,4),(7,8),(106,107)$, so the five eigenvalues are distinct and the spectral radius is
+$\rho\in(106,107)$. Thus $\|M^j\|=O(\rho^j)$. Unweighted rule vectors are bounded by
+$(1,2,12,2,10)$, and $n_k\le27n_{\lfloor k/2\rfloor}$. The resulting convolution is
+$O(\sum_{j<s}27^j\rho^{s-1-j})=O(\rho^s)$, since $\rho>27$. Expanding auxiliary cells and commuting formal letters gives
+$A^*(M)=O(M^{\log\rho})$, where $\log\rho\approx6.73252$. The explicit constants elsewhere use $107$.
+\end{remark}
 
 \section{From far commutators to the full Dehn function}\label{app:dehn}
 

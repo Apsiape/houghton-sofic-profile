@@ -1,5 +1,27 @@
 # Area certificates for the far-commutator bound in Houghton's group H_3
 
+## Current sharper bound
+
+`build107.py` reconstructs the auxiliary-relator proof of
+`A*(M) <= 135 M^(log2 107)` without consuming any external certificate package.
+`verify107.py` is independent of the builder and checks all 25 distributed
+certificates over the original five relators, as well as the auxiliary lists,
+matrix counts, rule costs, weight inequality and characteristic polynomial.
+The auxiliary relation is a nine-cell consequence, not a free sixth relator.
+Its expansion is delayed until after recursive substitution. No image of r2 is
+needed for this restricted recursion; the original five-image endomorphism
+certificate below remains available independently.
+
+    python build107.py
+    python verify107.py
+
+The deterministic output is `out/certificates107.json.gz`. Its current 7,366
+original cells include normal-form certificates through k=8. The all-k area
+theorem uses the written recurrence; its scalar induction and eight short
+finite inputs have the Lean coverage detailed in `../README.md`.
+
+## Original fallback archive
+
 These files make the polynomial far-commutator area bound (the paper's polynomial-area theorem, A*(M) <= M^11)
 checkable by machine at every finite step.
 
