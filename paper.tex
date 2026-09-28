@@ -40,22 +40,19 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 \maketitle
 
 \begin{abstract}
-Amenable groups can be approximated by permutations, but the approximations need not be small. The sofic profile of a finite piece of
-a group measures how large a permutation model must be to reproduce its multiplication up to an error $1/r$. We show that Houghton's group
-$H_3$, a finitely presented elementary amenable group, has a finite piece whose sofic profile grows at least as fast as $\exp(r^{c})$ with
-$c=1/(\log_2130+1)\approx1/8.02$, and at most like $\exp(O(\sqrt r\log r))$. Since $H_3$ is amenable, and hence sofic, this answers the last
-question of Cornulier's Problem~3.18: a sofic group can have superpolynomial sofic profile. It also shows that Cornulier's extension theorem,
-from which he derived that every elementary amenable group has polynomial sofic profile, is false as stated, and we locate the error: the
-finite piece of the kernel that it provides must grow with the error parameter, and we give the corrected, scale-dependent form of the
-bound. The same argument bounds unitary approximations, where our unitary models, which spread a defect thinly, give a better upper bound
-than our permutation construction. The upper sofic bound holds for every fixed finite chunk of $H_3$.
-The proof combines a polynomial bound on the area of far commutators
-in Johnson's presentation, obtained from a doubling self-similarity with executable certificates for its finite relations, with an entropy count for
-approximately commuting copies of the symmetric group $S_3$. A collection argument also gives the full Dehn-function bound
-$\delta_{H_3}(n)=O(n^{\log_2 130+4})$.
+The sofic profile of a finite piece of a group measures the size of a permutation model reproducing its multiplication with error $1/r$.
+We prove that Houghton's finitely presented elementary amenable group $H_3$ has a finite piece with profile at least
+$\exp(\Omega(r^c))$, where $c=1/(\log_2 130+1)$, and at most $\exp(O(\sqrt r\log r))$.
+Thus a sofic group can have superpolynomial sofic profile, answering the last question of Cornulier's Problem~3.18.
+This also disproves his extension theorem as stated. We identify the missing dependence of the kernel chunk on the error scale and give a corrected bound.
+Every homomorphism from $H_m$, $m\ge3$, to a group with polynomial sofic profile kills the finitary alternating subgroup; in particular this applies
+to birational groups. The proof combines certified polynomial fillings of far commutators in Johnson's presentation with an entropy count for
+approximately commuting copies of $S_3$. Collection gives the full Dehn-function bound $\delta_{H_3}(n)=O(n^{\log_2 130+4})$.
+We also obtain quantitative unitary lower bounds and construct models that distribute the relator defect, improving the upper bound supplied by
+our permutation construction. The upper sofic bound holds for every fixed finite chunk of $H_3$.
 \end{abstract}
 
-\tableofcontents
+{\small\tableofcontents}
 
 %======================================================================
 \section{Introduction}\label{sec:intro}
@@ -77,7 +74,7 @@ of finitary permutations by $\mathbb Z^2$~\cite{Houghton1978}. Section~\ref{sec:
 \begin{theorem}\label{thm:sofic}
 The chunk $E_H$ of $H_3$ has sofic profile
 \[
-2^{\,r^{1/(\log130+1)}/940-1/16}\ \le\ \sigma_{E_H}(r)\ \le\ 2^{O(\sqrt r\log r)}\qquad(r>1).
+2^{\,r^{1/(\log130+1)}/940-1/16}\ \le\ \sigma_{E_H}(r)\ \le\ 2^{O(\sqrt r\log r)}\qquad(r\ge2).
 \]
 The unweighted bound obtained from certified finite fillings already gives $\sigma_{E_H}(r)\ge2^{\,r^{1/12}/270-1/16}$.
 \end{theorem}
@@ -93,16 +90,32 @@ Theorem~3.15 of~\cite{Cornulier2013} is false for the extension $1\to\FSym(\math
 is an elementary amenable group whose sofic profile is not polynomial, contrary to~\cite[Example~3.16]{Cornulier2013}.
 \end{corollary}
 
-\begin{corollary}[Non-embedding in birational groups]\label{cor:cremona}
-For any field $K$ and absolutely irreducible finite-dimensional variety $X$ over $K$, the group $H_3$ does not embed into
-$\operatorname{Bir}_K(X)$. The same holds for every group containing $H_3$, in particular $H_m$ for $m\ge3$.
+\begin{corollary}[Homomorphisms to polynomial-profile groups]\label{cor:cremona}
+Suppose every finite chunk of $\Gamma$ has polynomial sofic profile. Every homomorphism $H_m\to\Gamma$, $m\ge3$, kills the finitary
+alternating subgroup. Its image has commutator subgroup of order at most two, nilpotency class at most two, and an abelian subgroup
+of index at most $2^{m-1}$.
+
+In particular these conclusions hold for $\Gamma=\operatorname{Bir}_K(X)$, for any field $K$ and absolutely irreducible finite-dimensional
+variety $X$ over $K$. No group containing $H_3$ embeds into such a birational group.
 \end{corollary}
 
 \begin{proof}
-An embedding preserves the partial multiplication and distinct elements of the chunk $E_H$, and hence its sofic profile.
-By the independent Corollary~4.5 of~\cite{Cornulier2013}, every chunk of $\operatorname{Bir}_K(X)$ has polynomial sofic profile;
-one may replace $X$ by a nonempty affine open without changing its birational group. This contradicts Theorem~\ref{thm:sofic}.
-Finally, $H_3$ embeds into $H_m$ by fixing the additional rays.
+Let $f:H_3\to\Gamma$ and suppose $f(\gamma)\ne1$, where $\gamma=\alpha a\alpha a^{-1}$ is the three-cycle used in the lower bound.
+The image chunk $f(E_H)$ retains every multiplication relation among the relator prefixes, even if other labels become identified.
+An expansive $r^{-1}$-morphism of this chunk to $\Sym_D$ therefore gives generator permutations with relator errors at most $23/r$
+and displacement of $\gamma$ at least $1-5/r$. For $r\ge10$, the proof of Theorem~\ref{thm:sofic}, using
+Proposition~\ref{prop:dimension-perm}, applies unchanged: it only needs these relations and the displacement of this one three-cycle.
+Thus $\log D\ge r^{1/(\log130+1)}/940-1/16$, contradicting the polynomial profile of $f(E_H)$.
+Hence $f$ kills $\gamma$, and then all finitary three-cycles by conjugation. These generate the finitary alternating subgroup.
+
+For $H_m$, restrict to the copy of $H_3$ on the first three rays and conjugate by finitary permutations of all $m$ rays. The same
+conclusion follows. The quotient by the finitary alternating subgroup is a central extension of $\mathbb Z^{m-1}$ by $C_2$:
+its kernel is the parity of a finitary permutation, which conjugation preserves. Its commutators are therefore central of order at most
+two. In particular $[x^2,y]=[x,y]^2=1$, so the preimage of $2\mathbb Z^{m-1}$ is central and has index $2^{m-1}$.
+The stated properties pass to every image.
+
+Finally, the independent Corollary~4.5 of~\cite{Cornulier2013} gives polynomial profile for every chunk of $\operatorname{Bir}_K(X)$;
+replace $X$ by a nonempty affine open if necessary. This proves the birational assertions.
 \end{proof}
 
 We locate the error in Section~\ref{sec:correction}: the extension theorem asserts a finite piece of the kernel that does not depend on
@@ -349,7 +362,8 @@ each normal form $1,s,t,st,ts,sts$ evaluated in $u$ is within $10e$ of the same 
 \begin{proof}
 Round the spectra of $A$ and $B$ to the nearer of $\pm1$. For $|z|=1$ this moves $z$ by at most $|z^2-1|$, so the resulting
 Hermitian unitaries $S,T$ satisfy $\|S-A\|_2,\|T-B\|_2\le e$. Then $C=ST$ satisfies $SCS=C^*$ and $\|C^3-I\|_2\le7e$. Round the spectrum
-of $C$ to the nearest cube root of unity, choosing $1$ at ties and at $-1$. This rule commutes with complex conjugation and moves
+of $C$ to the nearest cube root of unity, choosing $1$ at ties except for the following explicit exception: send $-1$ to $1$, although
+it is not the nearest root there. At this exceptional point the displacement is $2=|(-1)^3-1|$. This rule commutes with complex conjugation and moves
 $z$ by at most $|z^3-1|$, so $C_0$ satisfies $C_0^3=I$, $SC_0S=C_0^*$ and $\|C_0-C\|_2\le7e$. Then $u(s)=S$ and $u(t)=SC_0$ are
 involutions with $u(s)u(t)=C_0$, and the bounds follow from the triangle inequality.
 \end{proof}
