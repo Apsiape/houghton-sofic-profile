@@ -14,10 +14,12 @@ Dehn-function upper bound O(n^(log2(130)+4)); this does not change the sharper
 far-commutator estimate used for the profile exponents.
 Every homomorphism from H_m (m >= 3) to a group with polynomial sofic profile
 kills the finitary alternating subgroup. Its image has commutator subgroup of
-order at most two and an abelian subgroup of index at most 2^(m-1). Combined
+order at most two and an abelian subgroup of index at most 2^floor((m-1)/2). Combined
 with Cornulier's independent theorem, this applies to Bir_K(X) for absolutely
 irreducible finite-dimensional varieties over any field, and excludes embeddings.
 This consequence is stated without a separate priority claim.
+Finite-dimensional unitary representations also kill that alternating subgroup;
+irreducible ones have dimension at most 2^floor((m-1)/2).
 
 This is a **private release candidate**, not an announced publication.
 The manuscript is the authority for exact statements and hypotheses. Licenses

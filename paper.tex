@@ -40,7 +40,7 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 \maketitle
 
 \begin{abstract}
-The sofic profile of a finite piece of a group measures the size of a permutation model reproducing its multiplication with error $1/r$.
+The sofic profile of a finite piece of a group measures the size of a permutation model that approximately preserves multiplication and separates distinct elements, at error $1/r$.
 We prove that Houghton's finitely presented elementary amenable group $H_3$ has a finite piece with profile at least
 $\exp(\Omega(r^c))$, where $c=1/(\log_2 130+1)$, and at most $\exp(O(\sqrt r\log r))$.
 Thus a sofic group can have superpolynomial sofic profile, answering the last question of Cornulier's Problem~3.18.
@@ -93,7 +93,7 @@ is an elementary amenable group whose sofic profile is not polynomial, contrary 
 \begin{corollary}[Homomorphisms to polynomial-profile groups]\label{cor:cremona}
 Suppose every finite chunk of $\Gamma$ has polynomial sofic profile. Every homomorphism $H_m\to\Gamma$, $m\ge3$, kills the finitary
 alternating subgroup. Its image has commutator subgroup of order at most two, nilpotency class at most two, and an abelian subgroup
-of index at most $2^{m-1}$.
+of index at most $2^{\lfloor(m-1)/2\rfloor}$; for $H_3$ this index is at most two.
 
 In particular these conclusions hold for $\Gamma=\operatorname{Bir}_K(X)$, for any field $K$ and absolutely irreducible finite-dimensional
 variety $X$ over $K$. No group containing $H_3$ embeds into such a birational group.
@@ -111,8 +111,11 @@ Hence $f$ kills $\gamma$, and then all finitary three-cycles by conjugation. The
 For $H_m$, restrict to the copy of $H_3$ on the first three rays and conjugate by finitary permutations of all $m$ rays. The same
 conclusion follows. The quotient by the finitary alternating subgroup is a central extension of $\mathbb Z^{m-1}$ by $C_2$:
 its kernel is the parity of a finitary permutation, which conjugation preserves. Its commutators are therefore central of order at most
-two. In particular $[x^2,y]=[x,y]^2=1$, so the preimage of $2\mathbb Z^{m-1}$ is central and has index $2^{m-1}$.
-The stated properties pass to every image.
+two. Put $d=m-1$. Commutation defines an alternating bilinear form on $\mathbb F_2^d$ with values in $C_2$: it is independent of
+the lifts, and $[x^2,y]=[x,y]^2=1$. Such a form has an isotropic subspace of dimension at least $\lceil d/2\rceil$. Indeed, if the form
+is nonzero, split off a nondegenerate plane spanned by $e,f$ with pairing one, apply induction to its orthogonal complement, and adjoin $e$;
+if it vanishes, take the whole space. The inverse image of this isotropic subspace in the central extension is abelian and has index
+at most $2^{\lfloor d/2\rfloor}$. Its image under any quotient map has no larger index. The other stated properties also pass to every image.
 
 Finally, the independent Corollary~4.5 of~\cite{Cornulier2013} gives polynomial profile for every chunk of $\operatorname{Bir}_K(X)$;
 replace $X$ by a nonempty affine open if necessary. This proves the birational assertions.
@@ -122,7 +125,7 @@ We locate the error in Section~\ref{sec:correction}: the extension theorem asser
 the error parameter, but the construction it relies on needs kernel elements conjugated along a Følner set whose size grows with the
 inverse error. Tracking that dependence gives a correct, scale-dependent extension bound (Proposition~\ref{prop:extension}). Since $H_3$ is
 amenable, and hence sofic, Theorem~\ref{thm:sofic} also answers the last question of Cornulier's
-Problem~3.18: a sofic group can have sofic profile that is unbounded and not linear in $r$. Slofstra constructed the first finitely
+Problem~3.18: a sofic group can have sofic profile that is unbounded and not linear in $r$. Slofstra constructed a finitely
 presented group with superpolynomial hyperlinear and sofic profile~\cite{Slofstra2018}, answering the first question; that group is
 not amenable, and its soficity and even hyperlinearity were left unresolved there. To our knowledge $H_3$ is the first amenable group shown to have superpolynomial sofic profile.
 
@@ -137,6 +140,21 @@ three-cycle $\gamma=\alpha\,a\alpha a^{-1}$ satisfies $\|\phi(\gamma)-I\|_2\ge1/
 
 Conversely, spreading the single defect of our permutation models over many cells gives such representations with $\log D=O(e^{-2/3})$,
 while our permutation models give only $O(e^{-1})$ (Corollary~\ref{cor:unitary-upper}).
+
+\begin{corollary}[Exact finite-dimensional representations]\label{cor:finite-representations}
+Every homomorphism $H_m\to U(D)$, $m\ge3$, kills the finitary alternating subgroup. Every irreducible finite-dimensional unitary
+representation of $H_m$ has dimension at most $2^{\lfloor(m-1)/2\rfloor}$.
+\end{corollary}
+
+\begin{proof}
+For $H_3$, let $\Delta$ be the displacement of $\gamma$ under an exact representation. Restrict to $N$ disjoint copies of $S_3$ as in
+Section~\ref{sec:profile}. Their three-cycles are conjugate and have displacement $\Delta$, and different copies commute. The exact case
+of Lemma~\ref{lem:sector} gives $\log D\ge N\Delta^2/3$ for every $N$, so $\Delta=0$. Conjugation then kills every finitary three-cycle;
+restriction to an embedded $H_3$ gives the same conclusion for $H_m$. The central-extension argument in the proof of
+Corollary~\ref{cor:cremona} gives an abelian subgroup of the image of index $q\le2^{\lfloor(m-1)/2\rfloor}$.
+Choose a common eigenvector of its commuting unitary operators. Its orbit lies in the span of its images under $q$ coset representatives,
+an invariant space of dimension at most $q$. Irreducibility makes this the whole representation space.
+\end{proof}
 
 \paragraph{How the proofs go.}
 \begin{itemize}[leftmargin=1.2em,itemsep=2pt]
@@ -942,10 +960,11 @@ $17S$. The relations $\rho^b=R'$ and $\psi(\rho)=R$ have ordinary costs $14$ and
 Let $T_n$ and $R_n$ count the letters $t^{\pm1}$ and $\rho^{\pm1}$ of $W_n$. The even step multiplies the column vector $(T,R)$ by
 $D_0=\left(\begin{smallmatrix}2&26\\1&20\end{smallmatrix}\right)$, since $t\mapsto t\rho t$ and $R$ has $26$ letters $t^{\pm1}$ and $20$ letters
 $\rho^{\pm1}$, and conjugation by $b$ multiplies it by $B_0=\left(\begin{smallmatrix}1&4\\1&3\end{smallmatrix}\right)$. Since
-$(1,18)B_0D_0=(96,1654)\le96\,(1,18)$ and $(1,18)D_0\le96\,(1,18)$, the quantity $L_n=T_n+18R_n$ satisfies $L_n\le96L_{\lfloor n/2\rfloor}+1$,
-so $L_n\le\frac{96}{95}96^s$ with $s=\lfloor\log n\rfloor$.
+$(1,18)B_0D_0=(96,1654)\le96\,(1,18)$ and $(1,18)D_0\le96\,(1,18)$, the quantity $L_n=T_n+18R_n$ has $L_1=1$ and, for $n\ge2$,
+satisfies $L_n\le96L_{\lfloor n/2\rfloor}+1$. Thus $L_n\le\frac{96}{95}96^s$ with $s=\lfloor\log n\rfloor$.
 
-Let $S_n$ be the weighted count of the recursive filling of $X_nW_n^{-1}$ and $m=\lfloor n/2\rfloor$. Both branches give
+Let $S_n$ be the weighted count of the recursive filling of $X_nW_n^{-1}$. Its base value is $S_1=0$, and the ordinary base count is
+$\mathrm{Rw}(1)=0$. For $n\ge2$ put $m=\lfloor n/2\rfloor$. Both branches give
 $S_n\le130S_m+48T_m+1248R_m\le130S_m+\frac{208}3L_m$, hence $S_n\le\frac{3328}{1615}(130^s-96^s)\le\frac{21}{10}130^s$. For the ordinary count,
 the second inequality applied to the diagram of level $m$ and the ordinary cost $14T_m+364R_m$ of the new relations give
 $\mathrm{Rw}(n)\le17S_m+\frac{182}9L_m\le\frac9{20}130^s$, because $17\cdot\frac{21}{10}+\frac{182}9\cdot\frac{96}{95}<\frac9{20}\cdot130$. Expanding
