@@ -59,7 +59,8 @@ superpolynomial sofic profile* (2026), version 1.1.0,
 machine-readable citation metadata. Tagged releases archive the corresponding
 manuscript and verification artifacts together.
 
-The DOI above is the all-versions DOI, which identifies the evolving work. The v1.0.0 archive is
+The DOI above is the all-versions DOI, which identifies the evolving work. The v1.1.0 archive is
+[doi:10.5281/zenodo.23048875](https://doi.org/10.5281/zenodo.23048875), and the v1.0.0 archive is
 [doi:10.5281/zenodo.23027625](https://doi.org/10.5281/zenodo.23027625).
 
 ## Reproduce

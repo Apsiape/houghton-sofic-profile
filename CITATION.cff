@@ -3,7 +3,7 @@ message: "Please cite the manuscript; this repository supplies source and verifi
 type: software
 title: "Houghton's group H_3 has superpolynomial sofic profile"
 version: 1.1.0
-doi: 10.5281/zenodo.23027624
+doi: 10.5281/zenodo.23048875
 license:
   - CC-BY-4.0
   - MIT
@@ -24,6 +24,6 @@ preferred-citation:
       given-names: Nidhal
   year: 2026
   version: 1.1.0
-  doi: 10.5281/zenodo.23027624
+  doi: 10.5281/zenodo.23048875
   notes: "Preprint with accompanying verification artifacts; see RIGHTS.md for license scope."
-  url: "https://doi.org/10.5281/zenodo.23027624"
+  url: "https://doi.org/10.5281/zenodo.23048875"
