@@ -2,19 +2,25 @@
   "title": "Houghton's group H_3 has superpolynomial sofic profile",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "creators": [
-    {"name": "Douglas, Seth"},
-    {"name": "Mghirbi, Nidhal"}
+    {
+      "name": "Douglas, Seth"
+    },
+    {
+      "name": "Mghirbi, Nidhal"
+    }
   ],
-  "description": "<p>Houghton's finitely presented elementary amenable group H_3 has a finite chunk with superpolynomial sofic profile. We prove a lower bound exp(Omega(r^c)), where c = 1/(log_2(107)+1), and an upper bound exp(O(sqrt(r) log r)). The upper bound holds for every fixed finite chunk of H_3. The paper gives a scale-dependent correction to the extension estimate discussed in the text, polynomial far-commutator fillings and a full Dehn-function upper bound, quantitative unitary approximation bounds, and consequences for homomorphisms into groups with polynomial sofic profile.</p><p>This preprint archive includes the PDF, TeX source, executable verification scripts, finite group-word certificates, and scoped Lean proofs. The verification artifacts do not formally verify the entire manuscript. Exact hypotheses and limitations are stated in the manuscript and verification/README.md.</p>",
+  "description": "<p>How many points does a permutation model of a group need? Houghton's group H_3, which is finitely presented and elementary amenable, has a finite piece whose sofic profile lies between exp(Omega(r^c)), with c = 1/(log_2(107)+1), about 0.129, and exp(O(sqrt(r) log r)). So an amenable group can have superpolynomial sofic profile, and every homomorphism from H_m (m at least 3) to a group of polynomial sofic profile, such as a birational group, kills the finitary alternating subgroup. Cornulier's extension theorem fails as stated; we locate the error and prove a corrected, scale-dependent bound. The lower bound rests on a general counting criterion: if finitely many relations make many displaced copies of S_3 commute cheaply, every model is large. We also give unitary versions of the lower bounds, unitary models that beat our permutation models, a polynomial bound on the Dehn function of H_3, and a direct proof that every finite piece of a Baumslag-Solitar group has at most linear profile.</p><p>Version 1.1 adds the general counting criterion, the Baumslag-Solitar theorem, the fact that every profile is bounded or at least 2r, unitary bounds for every separation margin, the quadratic lower bound for the Dehn function, and an example showing that the kernel and quotient of an extension do not determine its profile.</p><p>This preprint archive includes the PDF, TeX source, executable verification scripts, finite group-word certificates, and scoped Lean proofs. The verification artifacts do not formally verify the entire manuscript. Exact hypotheses and limitations are stated in the manuscript and verification/README.md.</p>",
   "keywords": [
     "sofic profile",
     "Houghton groups",
     "elementary amenable groups",
     "hyperlinear profile",
     "Dehn function",
-    "approximate representations"
+    "approximate representations",
+    "Baumslag-Solitar groups",
+    "LEF groups"
   ],
   "access_right": "open",
   "license": "cc-by-4.0",
@@ -22,7 +28,11 @@
   "notes": "The authors' archive content is licensed CC BY 4.0. Software and machine-readable verification artifacts are additionally available under MIT at the recipient's option; see RIGHTS.md. This is a preprint, not a claim of journal peer review.",
   "related_identifiers": [
     {
-      "identifier": "https://doi.org/10.5281/zenodo.23027627",
+      "identifier": "https://doi.org/10.5281/zenodo.23027626",
+      "relation": "cites"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.23027626",
       "relation": "isReferencedBy"
     }
   ]

@@ -2,7 +2,7 @@
 
 Seth Douglas and Nidhal Mghirbi — September 2026.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23027625.svg)](https://doi.org/10.5281/zenodo.23027625)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23027624.svg)](https://doi.org/10.5281/zenodo.23027624)
 
 [Read the manuscript](paper.pdf) · [TeX source](paper.tex) ·
 [Verification scope](verification/README.md)
@@ -34,6 +34,13 @@ chunk profile, residual finiteness and killing that alternating subgroup are
 equivalent conditions on the homomorphism and its image.
 The phase-spreading construction also has a sharp M^(-3) squared-defect law
 within its fixed regions; no matching lower bound for arbitrary models is claimed.
+The lower bound applies to any group in which finitely many relations make many
+displaced copies of S_3 commute cheaply (a general counting criterion); work in
+preparation applies it to groups with nearly exponential sofic profile. The paper
+also proves directly Cornulier's assertion that every chunk of every
+Baumslag-Solitar group has at most linear profile, which his argument derived from
+the extension theorem, with a lower bound of 2r for some chunk when the group is
+not residually finite.
 
 This repository contains the preprint, its source, and scoped verification
 artifacts. The manuscript is the authority for exact statements and hypotheses;
@@ -46,14 +53,14 @@ The software and machine-readable certificates are additionally available under
 the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
 
 Please cite Seth Douglas and Nidhal Mghirbi, *Houghton's group H_3 has
-superpolynomial sofic profile* (2026), version 1.0.0,
-[doi:10.5281/zenodo.23027625](https://doi.org/10.5281/zenodo.23027625).
+superpolynomial sofic profile* (2026), version 1.1.0,
+[doi:10.5281/zenodo.23027624](https://doi.org/10.5281/zenodo.23027624) (all versions).
 [CITATION.cff](CITATION.cff) provides
 machine-readable citation metadata. Tagged releases archive the corresponding
 manuscript and verification artifacts together.
 
-The version-specific DOI above identifies the v1.0.0 archive. The
-[all-versions DOI](https://doi.org/10.5281/zenodo.23027624) identifies the evolving work.
+The DOI above is the all-versions DOI, which identifies the evolving work. The v1.0.0 archive is
+[doi:10.5281/zenodo.23027625](https://doi.org/10.5281/zenodo.23027625).
 
 ## Reproduce
 
@@ -73,5 +80,5 @@ The bibliography is embedded in paper.tex.
 [Causal quantum-channel simulation: memory beyond entropy](https://github.com/Apsiape/causal-quantum-memory)
 uses these group results for operational memory lower bounds. Each manuscript
 can be built independently from its own repository.
-The companion's v1.0.0 archive is
-[doi:10.5281/zenodo.23027627](https://doi.org/10.5281/zenodo.23027627).
+Its all-versions DOI is
+[doi:10.5281/zenodo.23027626](https://doi.org/10.5281/zenodo.23027626).

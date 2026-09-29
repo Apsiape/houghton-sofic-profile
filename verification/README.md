@@ -17,6 +17,23 @@ check is allowed ten minutes; runtime depends on the machine.
 - **fluxcheck.py:** exact region-cardinality regressions at five sizes and finite
   evaluations of the restricted flux bounds. The universal phase inequality and
   asymptotic limit are proved in the manuscript, not by sampling.
+- **othergroupscheck.py:** the margin proposition (exact rational brackets at eight
+  margins, a grid down to 2^-40, and the constants of the analytic chain); the
+  lattice-area lower bound on the Dehn function (commutator structure for m up to
+  25 and signed areas); the Baumslag-Solitar tile construction (exact conjugacy of
+  the cut cycles, defect counts, and all reduced words with at most three stable
+  letters and bounded a-exponents at eight parameter sets, with auxiliary words checked reduced and
+  nontrivial in SL_2(Z)); the vanishing of [t a t^-1, a] in all homomorphisms of
+  BS(2,3) to S_5 and S_6. These are finite regressions; the general statements are
+  proved in the manuscript.
+- **cornercheck.py:** the corner models of the upper bounds, which the quadratic
+  lower bound on far-commutator area also uses. For M = 5,...,16 it builds the colour
+  permutations from the manuscript's recursion and follows every relator from every
+  clock: r_1, r_2, r_3, r_5 act trivially, r_4 acts as R_M at the corner clock only,
+  gamma is a three-cycle everywhere, and at each of the (M-4)(M-3)/2 clocks with
+  i + j >= M + 3 the far commutator C_(2M-1) acts as a three-cycle. A negative
+  control removes tau from the recursion and must break r_4. The all-M statement is
+  proved in the manuscript.
 - **collectioncheck.py:** finite ray-action checks for the buffered collection
   identities, local Coxeter rewrites through 24 generators, and recursive
   insertion on 120 deterministic test words. It charges original-relator cells
@@ -81,8 +98,8 @@ no mathematical axioms specific to these papers.
 
 The presentation theorem for H_3, the all-n conversion from word certificates to
 the complete area and Dehn-function theorems, the entropy/stability/sector arguments, the corner
-and unitary constructions, the sofic-profile theorem and the extension correction
-are not fully formalized in Lean. The certificate checker verifies triviality
+and unitary constructions, the sofic-profile theorem, the extension correction, the finite-certificate criterion and the
+Baumslag-Solitar theorem are not formalized in Lean. The certificate checker verifies triviality
 under the relator assumptions; a van Kampen-area semantics is not defined in Lean.
 
 Neither successful numerical tests nor a successful Lean arithmetic file should
