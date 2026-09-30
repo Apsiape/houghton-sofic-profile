@@ -3,6 +3,8 @@
 This checks local rewrites, not the all-word area theorem or Johnson's theorem.
 The general cost and normal-form arguments are proved in the manuscript.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from random import Random
 
 INV = dict(zip("aAbBxX", "AaBbXx"))

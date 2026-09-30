@@ -3,6 +3,8 @@
 Usage:  python build_all.py [N_EXPORT]     (default 5; recursion instances n <= N_EXPORT are exported)
 Output: out/certificates.json.gz  and a summary table on stdout.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import gzip
 import json
 import os

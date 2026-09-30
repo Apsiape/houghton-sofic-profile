@@ -1,4 +1,6 @@
 """Standalone verification entry point; no private repository dependencies."""
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from pathlib import Path
 import os
 import subprocess
@@ -23,6 +25,7 @@ run([sys.executable, "cornercheck.py"])
 run([sys.executable, "othergroupscheck.py"], timeout=900)
 run([sys.executable, "verify.py"], cwd=HERE / "certificates")
 run([sys.executable, "verify107.py"], cwd=HERE / "certificates")
+run([sys.executable, "mutation_check.py"], cwd=HERE / "certificates")
 run(["lean", "-M", "512", "-j", "1", "-T", "100000", "Auxiliary107.lean"], cwd=LEAN)
 with gzip.open(HERE / "certificates/out/certificates.json.gz", "rt") as stream:
     entries = {e["name"]: e for e in json.load(stream)["certificates"]}

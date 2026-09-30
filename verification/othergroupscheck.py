@@ -4,6 +4,8 @@ Baumslag-Solitar groups (Section "Other groups").
 Standard library only. Exits 1 on any failure. These are finite checks of the manuscript's identities and
 constants; the all-case statements are proved in the manuscript.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from fractions import Fraction as Fr
 from itertools import permutations, product
 import math

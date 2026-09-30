@@ -7,6 +7,8 @@ Definitions (areas in Johnson's presentation P):
   B(k) = Area [s_-k, b]            (k >= 2)
   B0   = Area [x, s_1 s_0 b]
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from vk import (REL, Deriv, S, Si, TAU, Tk, t_, ti_, comm, apow, bpow, inv, red)
 
 L = {}

@@ -34,7 +34,7 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 
 \title{Houghton's group $H_3$ has superpolynomial sofic profile}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{September 2026 (version 1.1)}
+\date{September 2026 (version 1.1.1)}
 
 \begin{document}
 \maketitle
@@ -97,7 +97,9 @@ $\mathbb Z^2$, has a chunk $E_H$ whose sofic profile is not bounded by any polyn
 \end{corollary}
 
 This contradicts~\cite[Theorem~3.15]{Cornulier2013}, which for this extension would give $\sigma_{E_H}(r)=O(r^2)$
-(Section~\ref{sec:correction}), and the conclusion of~\cite[Example~3.16]{Cornulier2013}.
+(Section~\ref{sec:correction}), and the conclusion of~\cite[Example~3.16]{Cornulier2013}. The contradiction needs only
+superpolynomial growth, so the unweighted bound of Theorem~\ref{thm:sofic}, whose fillings the original-relator certificate archive
+checks without the auxiliary optimisation behind the exponent $1/(\log107+1)$, already suffices.
 
 \begin{corollary}[Homomorphisms to polynomial-profile groups]\label{cor:cremona}
 Let $H_m$ denote the group of permutations of $m$ rays that are eventually translations on each ray.
@@ -162,8 +164,8 @@ from finite-group stability, is that of Slofstra~\cite[Section~3]{Slofstra2018};
 commuting copies of $S_3$, which needs only pairwise commutator data, transport in measure for permutations, and its use inside an amenable
 group. For $H_3$, Sections~\ref{sec:profile} and~\ref{sec:sofic} count the copies $u=\alpha$, $v=a\alpha a^{-1}$ conjugated
 by $w_i=a^{3(i-1)}$. The criterion can never give more than $2^{O(r)}$. For the copies transported by the powers of $a$ along a ray of $H_3$
-the area grows at least quadratically (Proposition~\ref{prop:area-lower}), so they cannot give more than the exponent $1/3$. In work in
-preparation~\cite{DouglasMghirbiC} we apply the criterion to groups that come close to this ceiling, among them an elementary amenable group,
+the area grows at least quadratically (Proposition~\ref{prop:area-lower}), so they cannot give more than the exponent $1/3$. In a companion
+paper~\cite{DouglasMghirbiC} we apply the criterion to groups that come close to this ceiling, among them an elementary amenable group,
 built from Houghton groups acting on finite binary configurations, with a chunk whose profile is at least $\exp(r^{1-o(1)})$. Houghton groups
 embed in Thompson's group $V$~\cite{Genevois2019}, so $V$ has a chunk whose profile is finite and superpolynomial.
 
@@ -205,7 +207,7 @@ representations of finite groups, here an entropy bound in place of the stabilit
 and De Chiffre--Ozawa--Thom~\cite{DOT2019}, with an isoperimetric input. Houghton's groups have an exponential isoperimetric
 inequality~\cite{Lee2012} and are not co-Hopfian~\cite{BCMR2014}; we use the doubling endomorphism behind the latter. The extension
 theorem is attributed in~\cite{Cornulier2013} to the construction of Elek and Szabó~\cite{ElekSzabo2006}. A companion paper~\cite{DouglasMghirbiB} applies the
-lower bounds to the memory needed for the repeated use of a quantum channel built from $H_3$, and work in preparation~\cite{DouglasMghirbiC} pushes the
+lower bounds to the memory needed for the repeated use of a quantum channel built from $H_3$, and a third paper~\cite{DouglasMghirbiC} pushes the
 criterion close to its ceiling.
 
 Glebe~\cite[Corollary~4.5]{Glebe2025} proves that $H_m$, $m\ge3$, is not stable
@@ -269,6 +271,13 @@ For permutations, relations can be transported in measure: the normalized Hammin
 null word that is a product of $A$ conjugates of relators has $d_n(\phi(w),\mathrm{id})\le A\delta$ when every relator has
 $d_n(\phi(r_i),\mathrm{id})\le\delta$. For unitaries only $\|\phi(w)-I\|_2\le A\max_i\|\phi(r_i)-I\|_2$ is available in general, since
 $\|(e^{i\vartheta}I)^A-I\|_2$ grows like $A\vartheta$.
+
+The two scales are related as follows. For permutation matrices,
+$\|P_\sigma-P_\pi\|_2^2 = 2\,d_n(\sigma,\pi)$. So an $r^{-1}$-morphism, read through permutation matrices, has defect at most $(2/r)^{1/2}$ in
+$\|\cdot\|_2$, and $(1-r^{-1})$-expansiveness becomes $\|P_{f(x)}-P_{f(y)}\|_2^2\ge2(1-r^{-1})$. Conversely, a unitary statement at squared defect
+$\delta = e^2$ corresponds to Hamming accuracy $\delta/2$ when the unitaries are permutation matrices. The permutation bounds
+(Theorem~\ref{thm:sofic}, Section~\ref{sec:sofic}) are stated in $d_n$; the unitary bounds (Theorem~\ref{thm:unitary},
+Section~\ref{sec:unitary-models}) are stated in $\|\cdot\|_2$.
 
 A chunk $E$ \emph{embeds in a finite group} $Q$ if there is an injective map $E\to Q$ that sends $1$ to $1$ and preserves every product
 defined in $E$. A group is locally embeddable into finite groups (LEF) if all its chunks do~\cite{VershikGordon1997}. The next lemma sharpens~\cite[Fact~3.5]{Cornulier2013}
@@ -1134,7 +1143,7 @@ The conditions of Theorem~\ref{thm:certificate} force $N\le r/10^8$ and $N\le(K_
 exceed $\log\sigma_E(r)\ge r/(16\cdot10^8)$ or $\log D\ge\Delta^2/(12K_\Delta^2e^2)$, that is, order $r$ and order $e^{-2}$. Transport by one element places $N$ copies at distances up to $N$, and with area
 of order $k^p$ at distance $k$ it reaches $N$ of order $r^{1/(p+1)}$. If words of length $O(\log N)$ carry a copy of $S_3$ to
 $N$ pairwise commuting copies whose commutators have area polylogarithmic in $N$, the theorem gives $\log\sigma_E(r)$ of order $r$ up to
-logarithms. Work in preparation~\cite{DouglasMghirbiC} realizes this in an elementary amenable group, and in a subgroup of Thompson's group $V$
+logarithms. The companion paper~\cite{DouglasMghirbiC} realizes this in an elementary amenable group, and in a subgroup of Thompson's group $V$
 whose profile is finite provided Thompson's group $F$ is amenable.
 
 \subsection{Baumslag--Solitar groups}\label{sec:bs}
@@ -1236,7 +1245,7 @@ two profiles may differ. In common units, a permutation matrix has squared norma
 At squared defect $\delta=e^2$, our permutation models give $\log D=O(\delta^{-1/2})$ and unitary models
 $O(\delta^{-1/3})$ (Section~\ref{sec:unitary-models}). That our two constructions differ does not show that the optimal profiles differ.
 A permutation lower exponent for $E_H$ strictly above $1/3$ would separate them using this unitary upper bound. Can a different method prove a separation?
-\item \emph{Beyond the counting bound.} Theorem~\ref{thm:certificate} never gives more than $2^{O(r)}$, and work in preparation~\cite{DouglasMghirbiC}
+\item \emph{Beyond the counting bound.} Theorem~\ref{thm:certificate} never gives more than $2^{O(r)}$, and~\cite{DouglasMghirbiC}
 comes within a polylogarithmic factor in the exponent of that ceiling, in an elementary amenable group. Does some sofic group have a chunk with profile
 $2^{r^{1+c}}$ for some $c>0$? A different lower-bound mechanism would be needed.
 \item \emph{Solvable groups.} Cornulier's assertion that every solvable group has polynomial sofic profile~\cite[Example~3.16]{Cornulier2013}
@@ -1547,8 +1556,8 @@ Substituting Theorem~\ref{thm:area-weighted}, or Theorem~\ref{thm:area}, gives t
 \bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62}(4) (2013), 823--841; \href{https://doi.org/10.1307/mmj/1387226167}{doi:10.1307/mmj/1387226167}.
 \bibitem{DOT2019} M.~De Chiffre, N.~Ozawa and A.~Thom, Operator algebraic approach to inverse and stability theorems for amenable groups, Mathematika \textbf{65} (2019), 98--118; arXiv:1706.04544.
 \bibitem{DouglasMghirbiC} S.~Douglas and N.~Mghirbi, Amenable groups with nearly exponential sofic profile, and quantum channels that
-need nearly linear memory, in preparation (2026).
-\bibitem{DouglasMghirbiB} S.~Douglas and N.~Mghirbi, Causal quantum-channel simulation: memory beyond entropy, version 1.1, Zenodo (2026); \href{https://doi.org/10.5281/zenodo.23027626}{doi:10.5281/zenodo.23027626} (all versions).
+need nearly linear memory, version 1.0, Zenodo (2026); \href{https://doi.org/10.5281/zenodo.23050303}{doi:10.5281/zenodo.23050303}.
+\bibitem{DouglasMghirbiB} S.~Douglas and N.~Mghirbi, Causal quantum-channel simulation: memory beyond entropy, version 1.1, Zenodo (2026); \href{https://doi.org/10.5281/zenodo.23048998}{doi:10.5281/zenodo.23048998}.
 \bibitem{ElekSzabo2006} G.~Elek and E.~Szabó, On sofic groups, J. Group Theory \textbf{9} (2006), 161--171; arXiv:math/0305352.
 \bibitem{FournierFacio2026} F.~Fournier-Facio, A torsion-free non-sofic group, \href{https://arxiv.org/abs/2608.02025}{arXiv:2608.02025} (2026).
 \bibitem{Genevois2019} A.~Genevois, Embeddings into Thompson's groups from quasi-median geometry, Groups Geom. Dyn. \textbf{13} (2019), 1457--1510; arXiv:1709.03888.

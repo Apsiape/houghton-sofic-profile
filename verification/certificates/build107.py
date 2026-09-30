@@ -3,6 +3,8 @@
 No missing external certificate package is consumed. Run verify107.py separately.
 The r6 symbol is kept atomic during lifts and expanded only at final export.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from collections import Counter
 from pathlib import Path
 import gzip

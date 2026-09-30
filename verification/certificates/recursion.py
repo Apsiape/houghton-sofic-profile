@@ -4,6 +4,8 @@ A(m) = Area[s_0, s_m] via the halving lemma at k = 2, for small n and m.
 X_n = b^-n a^n.  W_1 = t,  W_2n = W_n(t rho t, R),  W_2n+1 = W_2n(t rho, R') t.
 Rw(n) = cells in the certificate of X_n W_n^-1.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import sys
 import time
 from vk import (REL, Deriv, Lemma, S, Si, t_, ti_, rho_, rhoi_, comm, inv, red, psi, psi_cells,

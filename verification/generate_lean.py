@@ -5,6 +5,8 @@ The independent Python verifier supplies targets from manuscript definitions;
 this translation is explicitly part of the input/provenance boundary.
 Run from any directory: python verification/generate_lean.py
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import gzip
 import hashlib
 import importlib.util

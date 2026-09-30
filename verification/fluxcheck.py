@@ -3,6 +3,8 @@
 The universal phase inequality and Riemann-sum limit are manuscript proofs,
 not consequences of these finite regressions.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 import math
 
 for M in (6,7,12,48,64):

@@ -55,6 +55,13 @@ check is allowed ten minutes; runtime depends on the machine.
 - **Certificate provenance for reweighting:** the five relator-image cell
   histograms are recomputed from the archive and compared with the substitution
   matrix. Exact rational arithmetic checks its weight inequality.
+- **Inventory and mutation checks:** verify.py requires exactly the 40 named
+  certificates (none missing, none duplicated, none extra), and
+  certificates/mutation_check.py confirms that corrupted archives (a deleted
+  certificate body, an empty list, a missing or a duplicated certificate) are
+  rejected in normal and in optimized (python -O) mode. The certificate
+  verifiers use explicit checks rather than assert statements; every other
+  checker refuses to run under python -O, because it checks with assert.
 - **verify107.py:** independently recomputes all 25 targets in the auxiliary
   certificate archive (7,366 original-relator cells, including recursion through
   k = 8), checks both auxiliary and expanded lists, reconstructs the 107 matrix,
@@ -115,6 +122,7 @@ From verification/certificates/, run:
 
     python build_all.py
     python verify.py
+    python mutation_check.py
 
 Rebuilding may change the gzip container timestamp without changing its decoded
 certificate data. From the repository root, regenerate the Lean transcription:

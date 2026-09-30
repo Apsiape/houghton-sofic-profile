@@ -5,6 +5,8 @@ Pi = s_1 s_2 s_0 s_1.
 R' = t rho t^-1 . rho . t rho t^-1          (N4: rho^b = R')
 R  = t^-1 . R' . R'(t rho, R') . t . rho . R'
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from vk import (REL, Deriv, Lemma, S, Si, t_, ti_, rho_, rhoi_, comm, conjw, inv, red, psi,
                 W_ALPHA, check_cert)
 from lemmas_small import L, build_small

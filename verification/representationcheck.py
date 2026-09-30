@@ -3,6 +3,8 @@
 Uses monomial matrices encoded by permutations and powers of i, not floating
 point arithmetic. These samples do not prove the all-m representation theorem.
 """
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from itertools import permutations, product
 
 

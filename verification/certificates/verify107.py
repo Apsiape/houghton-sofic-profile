@@ -8,12 +8,20 @@ from pathlib import Path
 import gzip
 import json
 
+class VerificationError(Exception):
+    pass
+
+def require(condition, what):
+    """Explicit check that survives python -O (unlike assert)."""
+    if not condition:
+        raise VerificationError(what)
+
 INV = dict(zip('aAbBxX', 'AaBbXx'))
 def inv(w): return ''.join(INV[c] for c in w[::-1])
 def red(w):
     stack=[]
     for c in w:
-        assert c in INV
+        require(c in INV, "verify107 check 1")
         if stack and stack[-1]==INV[c]: stack.pop()
         else: stack.append(c)
     return ''.join(stack)
@@ -56,35 +64,35 @@ def target(name):
 def verify_cells(cells,relators):
     acc=''
     for z,r,s in cells:
-        assert r in relators and s in (-1,1)
+        require(r in relators and s in (-1,1), "verify107 check 2")
         rr=relators[r] if s==1 else inv(relators[r])
         acc=red(acc+z+rr+inv(z))
     return acc
 def counts(cells):
     c=Counter(r for _,r,_ in cells)
-    assert not c['r2']
+    require(not c['r2'], "verify107 check 3")
     return [c['r'+str(i)] for i in (1,3,4,5,6)]
 def verify():
     path=Path(__file__).parent/'out/certificates107.json.gz'
     with gzip.open(path,'rt') as stream: entries=json.load(stream)['certificates']
     names=['r6','D1','D3','D4','D5','D6','dt','dq','ot','oq']
     names += ['F'+str(n) for n in range(2,7)]+['N3','N4']+['h'+str(n) for n in range(1,9)]
-    assert {e['name'] for e in entries}==set(names) and len(entries)==len(names)
+    require({e['name'] for e in entries}==set(names) and len(entries)==len(names), "verify107 check 4")
     for e in entries:
         expected=red(target(e['name']))
-        assert e['word']==expected
-        assert verify_cells(e['cells'],REL)==expected
-        assert verify_cells(e['aux_cells'],AUX)==expected
+        require(e['word']==expected, e['name'] + ': archived word does not match the target')
+        require(verify_cells(e['cells'],REL)==expected, e['name'] + ': original-relator cells do not reproduce the target')
+        require(verify_cells(e['aux_cells'],AUX)==expected, e['name'] + ': auxiliary cells do not reproduce the target')
         print(e['name'],len(e['cells']),'original cells: VERIFIED')
     byname={e['name']:e for e in entries}
     matrix=[counts(byname['D'+str(i)]['aux_cells']) for i in (1,3,4,5,6)]
-    assert matrix==[[4,3,8,4,0],[4,72,120,104,96],[0,0,0,0,0],[2,16,36,24,12],[2,10,24,8,12]]
+    require(matrix==[[4,3,8,4,0],[4,72,120,104,96],[0,0,0,0,0],[2,16,36,24,12],[2,10,24,8,12]], "verify107 check 8")
     weights=[25,616,1,133,78]
     dot=lambda x,y:sum(a*b for a,b in zip(x,y))
-    assert all(dot(row,weights)<=107*w for row,w in zip(matrix,weights))
-    assert all(w>=c for w,c in zip(weights,[1,1,1,1,9]))
-    assert max(dot(counts(byname[key]['aux_cells']),weights) for key in ('dt','dq','ot','oq'))==2315
-    assert 2315+29*26+29<=107*29
+    require(all(dot(row,weights)<=107*w for row,w in zip(matrix,weights)), "verify107 check 9")
+    require(all(w>=c for w,c in zip(weights,[1,1,1,1,9])), "verify107 check 10")
+    require(max(dot(counts(byname[key]['aux_cells']),weights) for key in ('dt','dq','ot','oq'))==2315, "verify107 check 11")
+    require(2315+29*26+29<=107*29, "verify107 check 12")
     # Verify the characteristic polynomial by six integer evaluations of its
     # degree-five identity; also isolate four distinct real roots exactly.
     from itertools import permutations
@@ -98,8 +106,8 @@ def verify():
         return out
     quartic=lambda x:x**4-112*x**3+572*x*x+3328*x-14208
     for x in range(6):
-        assert det([[(x if i==j else 0)-matrix[i][j] for j in range(5)] for i in range(5)])==x*quartic(x)
-    assert all(quartic(a)*quartic(b)<0 for a,b in [(-6,-5),(3,4),(7,8),(106,107)])
+        require(det([[(x if i==j else 0)-matrix[i][j] for j in range(5)] for i in range(5)])==x*quartic(x), "verify107 check 13")
+    require(all(quartic(a)*quartic(b)<0 for a,b in [(-6,-5),(3,4),(7,8),(106,107)]), "verify107 check 14")
     print('Matrix, original-cell domination, rule costs and 107 recurrence: VERIFIED')
 
 if __name__=='__main__': verify()

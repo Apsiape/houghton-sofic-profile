@@ -1,4 +1,6 @@
 """Exact scalar margins; analytic entropy and logarithm inequalities are premises."""
+if not __debug__:
+    raise SystemExit("This check uses assert statements; run it without python -O.")
 from fractions import Fraction as F
 
 a = F(2 * 40**2, 3 * 750**2)

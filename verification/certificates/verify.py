@@ -136,16 +136,72 @@ def target(name):
     return fixed[name]
 
 
+# The complete inventory of certificates the paper relies on; an archive must contain exactly these.
+EXPECTED_NAMES = (
+    'A(2)',
+    'E(0)',
+    'U(1)',
+    'E(1)',
+    'U(2)',
+    'B0',
+    'B(2)',
+    'A(3)',
+    'A(4)',
+    'E(2)',
+    'U(3)',
+    'B(3)',
+    'A(5)',
+    'A(6)',
+    'E(3)',
+    'N4',
+    '[x,rho]',
+    'CONV',
+    'BRAID',
+    'psi(r1)',
+    'psi(r5)',
+    'psi(r3)',
+    'psi(r2)',
+    'psi(r4)',
+    'psi(rho)=R',
+    'X_1=W_1',
+    '[x,X_1]',
+    'A(3)/via-U',
+    'X_2=W_2',
+    '[x,X_2]',
+    'A(4)/via-U',
+    'X_3=W_3',
+    '[x,X_3]',
+    'A(5)/via-U',
+    'X_4=W_4',
+    '[x,X_4]',
+    'A(6)/via-U',
+    'X_5=W_5',
+    '[x,X_5]',
+    'A(7)',
+)
+
+
 def verify(path):
     with gzip.open(path, 'rt', encoding='ascii') as f:
         data = json.load(f)
+    entries = data.get('certificates', [])
+    got = [e.get('name') for e in entries]
     ok = True
-    for e in data['certificates']:
+    missing = sorted(set(EXPECTED_NAMES) - set(got))
+    extra = sorted(set(got) - set(EXPECTED_NAMES))
+    duplicates = sorted({nm for nm in got if got.count(nm) > 1})
+    if missing or extra or duplicates or len(got) != len(EXPECTED_NAMES):
+        print('INVENTORY FAILED: missing %s, unexpected %s, duplicated %s' % (missing, extra, duplicates))
+        ok = False
+    for e in entries:
         parts = []
+        good = True
         for z, r, s in e['cells']:
-            assert r in REL and s in (1, -1) and set(z) <= set(INV), (e['name'], r, s)
+            if not (r in REL and s in (1, -1) and set(z) <= set(INV)):
+                good = False
+                break
             parts.append(z + (REL[r] if s == 1 else inv(REL[r])) + inv(z))
-        good = red(''.join(parts)) == red(target(e['name']))
+        good = good and red(''.join(parts)) == red(target(e['name']))
         ok &= good
         print('%-14s cells %7d   %s' % (e['name'], len(e['cells']), 'VERIFIED' if good else 'FAILED'))
     print('ALL VERIFIED' if ok else 'SOME CERTIFICATE FAILED')
