@@ -12,6 +12,7 @@
 \usepackage{microtype}
 \setlength{\emergencystretch}{2em}
 \usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \hypersetup{pdftitle={Houghton's group H3 has superpolynomial sofic profile},
 pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlinear profile, Houghton groups, elementary amenable groups, Baumslag-Solitar groups, stability, Dehn function}}
@@ -25,6 +26,7 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
 
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\rank}{rank}
@@ -34,7 +36,7 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 
 \title{Houghton's group $H_3$ has superpolynomial sofic profile}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{September 2026 (version 1.1.1)}
+\date{September 2026 (version 1.1.2)}
 
 \begin{document}
 \maketitle
@@ -42,20 +44,20 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 \begin{abstract}
 How many points does a permutation model of a group need? For a finite piece of a group, Cornulier's sofic profile $\sigma(r)$ is the least
 number of points on which the piece can be modelled by permutations, with multiplication correct up to a fraction $1/r$ of the points and
-distinct elements separated almost everywhere. Cornulier asked whether a sofic group can have profile that is unbounded and not linear, and
-derived from an extension theorem that elementary amenable groups have polynomial profile.
+distinct elements separated almost everywhere. Cornulier observed that a profile is either bounded or at least linear, and asked whether a
+sofic group can have profile that is unbounded and not linear.
 We show that Houghton's group $H_3$, which is finitely presented and elementary amenable, has a finite piece whose profile grows faster than
 every polynomial: it lies between $\exp(\Omega(r^{c}))$, with $c=1/(\log_2107+1)\approx0.13$, and $\exp(O(\sqrt r\log r))$. So an amenable
-group can have superpolynomial sofic profile, and every homomorphism from $H_m$, $m\ge3$, to a group of polynomial sofic profile, such as a
-birational group, kills the finitary alternating subgroup. The extension theorem fails as stated; we locate the error, a finite piece of the
-kernel that must grow with the accuracy, and prove a corrected, scale-dependent bound.
+group can have superpolynomial sofic profile, and every homomorphism from $H_m$, $m\ge3$, to a group of polynomial sofic profile kills the
+finitary alternating subgroup. An extension theorem of Cornulier, which would give quadratic profile here, fails as stated; we locate the
+error, a finite piece of the kernel that must grow with the accuracy, and prove a corrected, scale-dependent bound.
 The lower bound rests on a general criterion: if finitely many relations make many displaced copies of $S_3$ commute cheaply, every model is
 large, because approximately commuting copies of $S_3$ carry entropy. For $H_3$ we certify polynomial fillings of the relevant commutators by a
 doubling self-similarity of the group.
 We also give unitary versions of the lower bounds, unitary models that beat our permutation upper bound, and a polynomial bound on the Dehn
 function of $H_3$. Finally, we prove directly Cornulier's assertion that every finite piece of a Baumslag--Solitar group has at most linear
-profile, which his argument derived from the extension theorem; when the group is not residually finite, this is the smallest unbounded growth
-possible.
+profile, which his argument derived from the extension theorem; when the group is not residually finite, this is, by Cornulier's linear lower
+bound, the smallest unbounded growth possible.
 \end{abstract}
 
 {\small\tableofcontents}
@@ -68,17 +70,20 @@ Sofic groups are the groups whose finite pieces can be modelled by permutations 
 whose finite pieces can be modelled by unitary matrices. Quantitative versions ask, for groups that can be approximated, how large the models must be.
 Cornulier introduced the \emph{sofic profile} $\sigma_E(r)$ of a finite piece (a chunk)
 $E$ of a group: the least $n$ for which $E$ maps to the symmetric group $\Sym_n$ with multiplication defect $1/r$ and with distinct
-elements at normalized Hamming distance at least $1-1/r$~\cite{Cornulier2013}. Amenable groups are sofic. Non-sofic groups were recently
-constructed (see~\cite{FournierFacio2026,KunThom2026} and the references there), and every non-sofic group has a chunk with infinite
-profile. Cornulier derived from an extension theorem~\cite[Theorem~3.15]{Cornulier2013}
-that every elementary amenable group has polynomial sofic profile~\cite[Example~3.16]{Cornulier2013}, and asked for methods to bound
-the sofic profile of explicit groups from below, whether some group has sofic profile that is unbounded and not linear in $r$, and
-whether such a group can be sofic~\cite[Problem~3.18]{Cornulier2013}.
+elements at normalized Hamming distance at least $1-1/r$~\cite{Cornulier2013}. Amenable groups are sofic. The first non-sofic group, the
+unit group of the binary Leavitt algebra, was announced by OpenAI on 1~August 2026~\cite{OpenAI2026}, building on work of Kun and of Kun
+and Thom; further examples are given in~\cite{FournierFacio2026,KunThom2026}, and~\cite{FournierFacio2026} recalls this history. Every
+non-sofic group has a chunk with infinite profile. Between bounded and linear profiles there is a gap: Cornulier showed that the profile
+of a chunk is either bounded or at least $r$ for every $r>1$~\cite[Fact~3.5]{Cornulier2013}, and Lemma~\ref{lem:floor} sharpens $r$ to
+$2r$. He asked for
+methods to bound the sofic profile of explicit groups from below, whether some group has sofic profile that is unbounded and not linear
+in $r$, and whether such a group can be sofic~\cite[Problem~3.18]{Cornulier2013}.
 
 Houghton's group $H_3$~\cite{Houghton1978} is finitely presented~\cite{Brown1987}, with an explicit presentation due to
 Johnson~\cite{Johnson1999}, and elementary amenable: it is an
-extension of the locally finite group $\FSym(\mathbb N)$ of finitary permutations by $\mathbb Z^2$. Section~\ref{sec:group} defines it and a
-chunk $E_H$. Here and below logarithms are to base two, and $\log107\approx6.7415$.
+extension of the locally finite group $\FSym(\mathbb N)$ of finitary permutations by $\mathbb Z^2$. Houghton's groups $H_m$, $m\ge3$,
+defined in the same way with $m$ rays, are infinite isolated groups~\cite[Section~5.3]{CGP07}, one of the classes Cornulier proposed as
+test cases for his Problem~3.18~\cite[Example~3.19]{Cornulier2013}. Section~\ref{sec:group} defines $H_3$ and a chunk $E_H$. Here and below logarithms are to base two, and $\log107\approx6.7415$.
 
 \begin{theorem}\label{thm:sofic}
 The chunk $E_H$ of $H_3$ has sofic profile
@@ -97,7 +102,8 @@ $\mathbb Z^2$, has a chunk $E_H$ whose sofic profile is not bounded by any polyn
 \end{corollary}
 
 This contradicts~\cite[Theorem~3.15]{Cornulier2013}, which for this extension would give $\sigma_{E_H}(r)=O(r^2)$
-(Section~\ref{sec:correction}), and the conclusion of~\cite[Example~3.16]{Cornulier2013}. The contradiction needs only
+(Section~\ref{sec:correction}), and the conclusion drawn from it in~\cite[Example~3.16]{Cornulier2013}, that every elementary amenable
+group has polynomial sofic profile. The contradiction needs only
 superpolynomial growth, so the unweighted bound of Theorem~\ref{thm:sofic}, whose fillings the original-relator certificate archive
 checks without the auxiliary optimisation behind the exponent $1/(\log107+1)$, already suffices.
 
@@ -106,28 +112,33 @@ Let $H_m$ denote the group of permutations of $m$ rays that are eventually trans
 Suppose every finite chunk of $\Gamma$ has polynomial sofic profile. Every homomorphism $H_m\to\Gamma$, $m\ge3$, kills the finitary
 alternating subgroup. Its image has commutator subgroup of order at most two, nilpotency class at most two, and an abelian subgroup
 of index at most $2^{\lfloor(m-1)/2\rfloor}$; for $H_3$ this index is at most two.
-
-In particular these conclusions hold for $\Gamma=\operatorname{Bir}_K(X)$, for any field $K$ and absolutely irreducible finite-dimensional
-variety $X$ over $K$. No group containing $H_3$ embeds into such a birational group.
 \end{corollary}
 
-In characteristic zero the birational conclusions also follow from Jordan-type theorems for birational
-groups~\cite{ProkhorovShramov2016,Birkar2021,Guld2020}, since the finitary alternating subgroup contains every finite alternating group.
-The argument here is independent of these and applies over every field.
+For any field $K$ and absolutely irreducible finite-dimensional variety $X$ over $K$, every chunk of the birational group
+$\operatorname{Bir}_K(X)$ has polynomial sofic profile by~\cite[Corollary~4.5]{Cornulier2013}, which does not depend on Cornulier's
+Theorem~3.15. So the conclusions of Corollary~\ref{cor:cremona} hold for $\Gamma=\operatorname{Bir}_K(X)$, and no group containing $H_3$
+embeds into such a birational group. In characteristic zero these birational consequences are known. By Jordan-type theorems for
+birational groups~\cite{ProkhorovShramov2016,Birkar2021,Guld2020} (see also the references in~\cite{DuncanHeathUrech2025}), no birational
+group contains every finite group, or even every finite alternating group. But $H_3$ contains the finitary symmetric group, hence every
+finite group, and the finitary alternating subgroup of $H_m$ is simple and contains every finite alternating group, so its image in a
+birational group is trivial. Our argument is independent of these results and applies over every field.
 
-The proof is in Section~\ref{sec:images}. In fact, every nontrivial normal subgroup of $H_m$ contains the finitary alternating subgroup
-(Lemma~\ref{lem:normal-subgroups}). Thus every homomorphic image is either a faithful copy of $H_m$, with superpolynomial sofic profile,
-or a residually finite, virtually abelian quotient with bounded profile on each finite chunk (Proposition~\ref{prop:image-classification}).
+The proof is in Section~\ref{sec:images}. As is well known, every nontrivial normal subgroup of $H_m$ contains the finitary alternating
+subgroup~\cite[proof of Proposition~5.5]{CGP07}; Lemma~\ref{lem:normal-subgroups} gives a proof. Thus every homomorphic image is either a
+faithful copy of $H_m$, with superpolynomial sofic profile, or a residually finite, virtually abelian quotient with bounded profile on each
+finite chunk (Proposition~\ref{prop:image-classification}).
 
 We locate the error in Section~\ref{sec:correction}: the extension theorem asserts a finite piece of the kernel that does not depend on
-the error parameter, but the construction it relies on needs kernel elements conjugated along a Følner set whose size grows with the
-inverse error. Tracking that dependence gives a correct, scale-dependent extension bound (Proposition~\ref{prop:extension}). Since $H_3$ is
+the error parameter, but the construction it relies on, that of Elek and Szabó~\cite{ElekSzabo2006}, needs kernel elements conjugated
+along a Følner set whose size grows with the inverse error. Tracking that dependence gives a correct, scale-dependent extension bound
+(Proposition~\ref{prop:extension}), the chunk-indexed analogue of~\cite[Theorem~5.5]{ArzhantsevaCherix2020}. Since $H_3$ is
 amenable, and hence sofic, Theorem~\ref{thm:sofic} also answers the last question of Cornulier's
 Problem~3.18: a sofic group can have sofic profile that is unbounded and not linear in $r$. Slofstra constructed a finitely
-presented group with superpolynomial hyperlinear profile and deduced that some chunk of it has superpolynomial sofic
-profile~\cite[Corollary~1.3]{Slofstra2018}, possibly infinite since the group is not known to be sofic; this answers the second of these
-questions. That group is not amenable, and its soficity and even hyperlinearity were left
-unresolved there. To our knowledge $H_3$ is the
+presented group whose hyperlinear profile, at relator defect $\varepsilon$ and separation $\delta$, is at least
+$C'\exp(C(\delta/\varepsilon)^{\alpha})$ for any fixed $\alpha<1/2$~\cite[Theorem~1.2]{Slofstra2018}, and the proof
+of~\cite[Corollary~1.3]{Slofstra2018} gives a chunk of it with sofic profile at least $C'\exp(Cr^{\alpha/2})$, with exponent
+$\alpha/2$ arbitrarily close to $1/4$, larger than ours; this answers the second of these questions. That group is not known to be sofic, or even hyperlinear (as
+Slofstra notes after his Theorem~1.2), hence not known to be amenable, and its sofic profile may be infinite. To our knowledge $H_3$ is the
 first amenable group shown to have superpolynomial sofic profile.
 
 The lower bound holds for unitary approximations as well. Write $P=\langle a,b,\alpha\mid r_1,\dots,r_5\rangle$ for Johnson's
@@ -160,33 +171,38 @@ $\mathrm{Area}_R([w_ixw_i^{-1},w_jyw_j^{-1}])\le\Lambda$ for all $i\ne j$ and $x
 
 Theorem~\ref{thm:certificate} proves this together with a unitary version. The chunk does not depend on the words $w_i$, which may be long;
 only the areas matter. The scheme, many cheaply transported copies of a finite group, relations controlled by area, and a dimension bound
-from finite-group stability, is that of Slofstra~\cite[Section~3]{Slofstra2018}; the new ingredients are an entropy bound for approximately
-commuting copies of $S_3$, which needs only pairwise commutator data, transport in measure for permutations, and its use inside an amenable
-group. For $H_3$, Sections~\ref{sec:profile} and~\ref{sec:sofic} count the copies $u=\alpha$, $v=a\alpha a^{-1}$ conjugated
+from finite-group stability, is that of Slofstra~\cite[Sections~2 and~3]{Slofstra2018}. Not in his argument are the entropy bound for
+approximately commuting copies of $S_3$, which needs only pairwise commutator data and replaces the stability theorems, a direct treatment
+of permutation models, in which relations are transported in measure by the standard additivity of relator defects in normalized Hamming
+distance, and the use of the scheme inside an amenable group. For $H_3$, Sections~\ref{sec:profile} and~\ref{sec:sofic} count the copies $u=\alpha$, $v=a\alpha a^{-1}$ conjugated
 by $w_i=a^{3(i-1)}$. The criterion can never give more than $2^{O(r)}$. For the copies transported by the powers of $a$ along a ray of $H_3$
 the area grows at least quadratically (Proposition~\ref{prop:area-lower}), so they cannot give more than the exponent $1/3$. In a companion
 paper~\cite{DouglasMghirbiC} we apply the criterion to groups that come close to this ceiling, among them an elementary amenable group,
 built from Houghton groups acting on finite binary configurations, with a chunk whose profile is at least $\exp(r^{1-o(1)})$. Houghton groups
-embed in Thompson's group $V$~\cite{Genevois2019}, so $V$ has a chunk whose profile is finite and superpolynomial.
+embed in Thompson's group $V$ (Röver~\cite[Proposition~2.6]{Rover1999}; Genevois extends this to generalized Houghton
+groups~\cite[Corollary~5.11]{Genevois2019}), so $V$ has a chunk whose profile is finite and superpolynomial.
 
 Cornulier's Proposition~3.17 asserts that the sofic profile of a Baumslag--Solitar group is at most linear: linear when the group is not
-residually finite, and bounded otherwise~\cite{Cornulier2013}. The lower bound and the bounded cases follow from his Fact~3.8 and Meskin's
-theorem, but the linear upper bound was derived from Theorem~3.15. We prove it directly, and raise the lower bound from $r$ to $2r$.
+residually finite, and bounded otherwise~\cite{Cornulier2013}. The linear lower bound and the bounded cases are his, from his Fact~3.8 and
+Meskin's theorem, but his proof of the linear upper bound used Theorem~3.15. We prove the upper bound directly, and raise the lower bound
+from $r$ to $2r$.
 
-\begin{theorem}[Baumslag--Solitar groups]\label{thm:bs-intro}
+\begin{theorem}[Baumslag--Solitar groups; Cornulier's Proposition~3.17 with a direct proof]\label{thm:bs-intro}
 Let $m,n\ne0$. Every chunk $E$ of $BS(m,n)=\langle a,t\mid ta^mt^{-1}=a^n\rangle$ has $\sigma_E(r)=O_E(r)$. If $BS(m,n)$ is not residually
-finite, then some chunk has $\sigma_E(r)\ge2r$ for every $r>1$.
+finite, then some chunk has $\sigma_E(r)\ge2r$ for every $r>1$, which sharpens Cornulier's lower bound $r$.
 \end{theorem}
 
-By Lemma~\ref{lem:floor} no chunk has unbounded profile below $2r$, so these finitely presented groups, which are not locally embeddable
-into finite groups, have the smallest possible unbounded profile (Section~\ref{sec:bs}).
+By Lemma~\ref{lem:floor}, which sharpens Cornulier's Fact~3.5 from $r$ to $2r$, no chunk has unbounded profile below $2r$, so these
+finitely presented groups, which are not locally embeddable into finite groups, have the smallest possible unbounded profile
+(Section~\ref{sec:bs}).
 
 \paragraph{How the proofs go.}
 \begin{itemize}[leftmargin=1.2em,itemsep=2pt]
 \item \emph{Far commutators have polynomial area} (Section~\ref{sec:area}). The commutator of two conjugates of the basic transposition at
 distance $R$ has area at most $135R^{\log107}$ in Johnson's presentation, by a doubling self-similarity of $H_3$ whose finite relations are
-certified by machine. Buffered collection upgrades these estimates to a polynomial bound on the full Dehn function
-(Theorem~\ref{thm:dehn}), improving the exponential upper bound of~\cite{Lee2012}. (Thompson's group $V$, which contains $H_3$, has
+certified by machine. Lee reduced the Dehn function of $H_3$ to such areas and bounded them exponentially~\cite[Section~4.2]{Lee2012};
+fed into a buffered form of his collection scheme, our estimates give a polynomial bound on the full Dehn function
+(Theorem~\ref{thm:dehn}), improving his exponential upper bound. (Thompson's group $V$, which contains $H_3$, has
 polynomial Dehn function~\cite{Guba2000}.)
 \item \emph{Displaced copies of $S_3$ need dimension} (Section~\ref{sec:profile}). An approximate representation gives, through the far
 commutators, many approximately commuting copies of $S_3$ whose three-cycles are displaced from the identity. Rounding each copy to an
@@ -199,13 +215,16 @@ that failure over many cells by small rotations.
 carries one family of tiles onto the other while recording the tile in a fixed finite group, so that reduced words move every point.
 \end{itemize}
 
-\paragraph{Related work.} Quantitative metric approximations of groups are surveyed in~\cite{ArzhantsevaCherix2020}, where the name
-sofic profile is used for a related function indexed by the radius of a ball; here it always means Cornulier's profile of a chunk; the hyperlinear
+\paragraph{Related work.} Arzhantseva and Cherix~\cite{ArzhantsevaCherix2020} introduce and study profiles of metric approximations of
+finitely generated groups. Their sofic profile uses one parameter both for the radius of the ball to be approximated and for the inverse
+accuracy, whereas Cornulier's fixes a chunk and varies only the accuracy~\cite[Section~4.5]{ArzhantsevaCherix2020}; here the name always
+means Cornulier's profile of a chunk. The hyperlinear
 profile and its relation to nonlocal games are studied in~\cite{SlofstraVidick2018,Slofstra2018}, and hyperlinear approximations of
 amenable groups come from sofic ones~\cite{BCJM2023}. Our method follows Slofstra's in combining stability of approximate
 representations of finite groups, here an entropy bound in place of the stability theorems of Gowers--Hatami~\cite{GowersHatami2017}
-and De Chiffre--Ozawa--Thom~\cite{DOT2019}, with an isoperimetric input. Houghton's groups have an exponential isoperimetric
-inequality~\cite{Lee2012} and are not co-Hopfian~\cite{BCMR2014}; we use the doubling endomorphism behind the latter. The extension
+and De Chiffre--Ozawa--Thom~\cite{DOT2019}, with an isoperimetric input. Lee proved an exponential isoperimetric inequality for
+Houghton's groups~\cite{Lee2012}, and our polynomial Dehn bound follows his scheme (Section~\ref{sec:area}). Houghton's groups are not
+co-Hopfian~\cite{BCMR2014}; we use the doubling endomorphism behind this. The extension
 theorem is attributed in~\cite{Cornulier2013} to the construction of Elek and Szabó~\cite{ElekSzabo2006}. A companion paper~\cite{DouglasMghirbiB} applies the
 lower bounds to the memory needed for the repeated use of a quantum channel built from $H_3$, and a third paper~\cite{DouglasMghirbiC} pushes the
 criterion close to its ceiling.
@@ -215,8 +234,9 @@ in the unnormalized Schatten $p$-norms, $1<p\le\infty$, by a cup-product
 obstruction. That qualitative nonstability result differs from the
 normalized-error dimension profiles considered here: we require separation of
 a fixed finite piece and bound the dimension of every approximate model.
-In particular, changing the matrix-norm normalization is not innocuous in a
-comparison of these statements.
+Glebe's obstruction uses unnormalized norms, in which, for $p<\infty$, a defect
+of fixed normalized size grows with the dimension; our unitary bounds use the
+normalized Hilbert--Schmidt norm.
 
 \paragraph{Organization.} Section~\ref{sec:group} defines $H_3$, the chunk and the profiles. Section~\ref{sec:area} proves the area bounds,
 Section~\ref{sec:profile} the dimension bounds for approximate representations, and Section~\ref{sec:sofic} the lower bounds of
@@ -227,7 +247,9 @@ Section~\ref{sec:open} open problems.
 \paragraph{Changes from version 1.0.} This version adds the counting criterion (Theorems~\ref{thm:criterion-intro} and~\ref{thm:certificate}),
 the Baumslag--Solitar theorem (Section~\ref{sec:bs}), the linear floor (Lemma~\ref{lem:floor}), the bound for every separation margin
 (Proposition~\ref{prop:margin}), the quadratic lower bound for the Dehn function and the example $G_0$ (Section~\ref{sec:correction}).
-Corollary~1.5 of version~1.0 is now Remark~\ref{rem:finite-representations}, and several statements are renumbered.
+Corollary~1.5 of version~1.0 is now Remark~\ref{rem:finite-representations} together with the unnumbered remark after
+Proposition~\ref{rem:sharp-images}, which records the standard dimensions of the irreducible representations, and several statements are
+renumbered.
 Appendix~\ref{app:area} gives the fillings and Appendix~\ref{app:dehn} the Dehn-function bound.
 
 %======================================================================
@@ -315,7 +337,8 @@ if it vanishes, take the whole space. The inverse image of this isotropic subspa
 at most $2^{\lfloor d/2\rfloor}$. Its image under any quotient map has no larger index. The other stated properties also pass to every image.
 
 Finally, the independent Corollary~4.5 of~\cite{Cornulier2013} gives polynomial profile for every chunk of $\operatorname{Bir}_K(X)$;
-replace $X$ by a nonempty affine open if necessary. This proves the birational assertions.
+replace $X$ by a nonempty affine open if necessary. This proves the birational assertions made after Corollary~\ref{cor:cremona}; for
+the last of them, note that an injective homomorphism from $H_3$ does not kill the finitary alternating subgroup.
 \end{proof}
 
 \begin{remark}[Finite-dimensional representations]\label{rem:finite-representations}
@@ -330,8 +353,7 @@ Put $d=m-1$ and $k=\lfloor d/2\rfloor$. The parity quotient has presentation
 \[
 H_m/A_{\rm fin}=\langle t_1,\ldots,t_d,z\mid z^2=1,\ z\text{ central},\ [t_i,t_j]=z\ (i<j)\rangle.
 \]
-The abelian-index bound in Corollary~\ref{cor:cremona} is attained by a finite image. The finite-dimensional irreducible unitary
-representations have dimensions $1$ and $2^k$, and both occur.
+The abelian-index bound in Corollary~\ref{cor:cremona} is attained by a finite image.
 \end{proposition}
 \begin{proof}
 Indeed, take $t_i$ to translate from ray $1$ to ray $i+1$. Directly in the ray action, every $[t_i,t_j]$ is the same basic transposition
@@ -339,14 +361,6 @@ $\alpha$. These translations generate $H_m$: they generate the translation latti
 transpositions along the connected union of rays, hence every finitary permutation. Their classes and $z=\alpha A_{\rm fin}$ satisfy
 the displayed relations. Every abstract word collects to $z^\epsilon t_1^{n_1}\cdots t_d^{n_d}$. If its image is trivial, translation forces
 all $n_i=0$, and parity forces $\epsilon=0$. Thus there are no further relations.
-
-Let $\pi$ be an irreducible unitary representation of this quotient. The proof of Corollary~\ref{cor:cremona} gives an abelian subgroup
-of index $q\le2^k$; the commuting unitaries representing it have a common eigenvector, and its images under $q$ coset representatives span
-an invariant subspace, so $\dim\pi\le2^k$. Schur's lemma gives $z=\pm I$. For $z=I$ the generators commute, so the dimension is one. For $z=-I$, their matrices
-$T_i$ pairwise anticommute, and $T_i^2$ is central. Rescale each $T_i$ by a scalar phase so that $T_i^2=I$. The operators
-$H_j=iT_{2j-1}T_{2j}$, $1\le j\le k$, are commuting Hermitian involutions. From a common eigenvector, products of the $T_{2j-1}$ reach
-all $2^k$ joint eigenvalue patterns, since each flips exactly the $j$th sign. These vectors are nonzero and orthogonal. The dimension
-is at least $2^k$, hence exactly $2^k$.
 
 For attainment, use $X=\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$,
 $Y=\bigl(\begin{smallmatrix}0&-i\\i&0\end{smallmatrix}\bigr)$ and
@@ -362,7 +376,21 @@ whose coset orbit and irreducibility give $[F:B]\ge2^k$. Corollary~\ref{cor:crem
 bounded chunk profiles. Thus its abelian-index bound is sharp already for a finite image.
 \end{proof}
 
-\begin{lemma}[Normal subgroups]\label{lem:normal-subgroups}
+\begin{remark*}[Irreducible representations; standard]
+The finite-dimensional irreducible unitary representations of $H_m$, which factor through the parity quotient by
+Remark~\ref{rem:finite-representations}, have dimensions $1$ and $2^k$, and both occur. This is the standard representation theory of
+complex Clifford algebras; we include the short argument.
+Let $\pi$ be an irreducible unitary representation of the parity quotient. The proof of Corollary~\ref{cor:cremona} gives an abelian subgroup
+of index $q\le2^k$; the commuting unitaries representing it have a common eigenvector, and its images under $q$ coset representatives span
+an invariant subspace, so $\dim\pi\le2^k$. Schur's lemma gives $z=\pm I$. For $z=I$ the generators commute, so the dimension is one. For $z=-I$, their matrices
+$T_i$ pairwise anticommute, and $T_i^2$ is central. Rescale each $T_i$ by a scalar phase so that $T_i^2=I$. The operators
+$H_j=iT_{2j-1}T_{2j}$, $1\le j\le k$, are commuting Hermitian involutions. From a common eigenvector, products of the $T_{2j-1}$ reach
+all $2^k$ joint eigenvalue patterns, since each flips exactly the $j$th sign. These vectors are nonzero and orthogonal. The dimension
+is at least $2^k$, hence exactly $2^k$. The trivial representation and the representation constructed in the proof of
+Proposition~\ref{rem:sharp-images} show that both dimensions occur.
+\end{remark*}
+
+\begin{lemma}[{Normal subgroups;~\cite[proof of Proposition~5.5]{CGP07}}]\label{lem:normal-subgroups}
 For $m\ge3$, every nontrivial normal subgroup of $H_m$ contains $A_{\rm fin}$.
 \end{lemma}
 \begin{proof}
@@ -386,7 +414,8 @@ Let $f:H_m\to\Gamma$, $m\ge3$, and put $F=f(H_m)$. The following are equivalent:
 every finite chunk of $F$ has polynomial sofic profile; every finite chunk of $F$ has bounded sofic profile;
 $F$ is residually finite; $f(A_{\rm fin})=1$; and $f$ is not injective.
 Every such image is virtually abelian, with the sharp index bound of Proposition~\ref{rem:sharp-images}.
-Moreover, $A_{\rm fin}$ is the intersection of the kernels of all finite quotients of $H_m$, and also of all finite-dimensional unitary representations.
+Moreover, $A_{\rm fin}$ is the intersection of the kernels of all finite quotients of $H_m$, and also of all finite-dimensional unitary
+representations (a standard fact, since $A_{\rm fin}$ is infinite and simple).
 \end{proposition}
 \begin{proof}
 Lemma~\ref{lem:normal-subgroups} gives the equivalence of noninjectivity and $f(A_{\rm fin})=1$.
@@ -471,12 +500,17 @@ Let $\delta_P(n)$ be the maximum area of a null word of length at most $n$ in Jo
 The unweighted estimate of Theorem~\ref{thm:area} alone gives $\delta_P(n)=O(n^{15})$.
 \end{theorem}
 
-The proof in Appendix~\ref{app:dehn} collects a buffered null word into adjacent transpositions, then fills it using a uniform Coxeter insertion algorithm.
+The scheme is Lee's~\cite[Section~4.2]{Lee2012}. He reduced the Dehn function of $H_3$ to the areas of far commutators and of the words
+comparing the conjugates of $\alpha$ transported along two rays, by powers of $a$ and of $b$, and bounded these areas
+exponentially~\cite[Lemma~4.7 and Remark~4.8]{Lee2012}. Our polynomial bounds for these words (Theorems~\ref{thm:area}
+and~\ref{thm:area-weighted} and Lemma~\ref{lem:transfer}), fed into a buffered form of the same collection scheme, give
+Theorem~\ref{thm:dehn}. The proof in Appendix~\ref{app:dehn} collects a buffered null word into adjacent transpositions, then fills it
+using a uniform Coxeter insertion algorithm.
 This full Dehn bound does not improve the profile exponents: the direct far-commutator estimate is sharper for the words used there.
 The explicit integer weights give exponent $\log107\approx6.7415$. The auxiliary substitution matrix has spectral radius
 $\rho\approx106.3385$ and also gives the asymptotic bound $O(M^{\log\rho})$ (Appendix~\ref{app:area}). Neither is an optimal-area claim.
 
-The Dehn function is at least quadratic, as for every finitely presented group that is not hyperbolic ($H_3$ contains the infinite
+The Dehn function is at least quadratic, as for every finitely presented group that is not hyperbolic~\cite{Olshanskii1991} ($H_3$ contains the infinite
 torsion group $\FSym(\mathbb N)$). Explicitly, the word $w_m=[a^m,b^m]^2$ is null in $H_3$, because $[a^m,b^m]$ is a product of $m$ disjoint
 transpositions, and it has length $8m$. Send $a$, $b$ and $\alpha$ to the lattice steps $(1,0)$, $(0,1)$ and $(0,0)$. The signed area enclosed
 by the path of a null word is additive over products of conjugates and unchanged by free reduction. Among the relators only $r_4$ encloses
@@ -1055,9 +1089,10 @@ elements of $K_{A,E}$, so on the fibers with $a\pi(g)\in A$ the images differ on
 $(1-\frac1{4r})(1-\frac1{2r})\ge1-\frac1r$. So $f$ is $(1-r^{-1})$-expansive, on $|A|\,m$ points.
 \end{proof}
 
-In the radius-indexed setting of Arzhantseva and Cherix, a scale-dependent extension bound for finitely generated kernels
-is~\cite[Theorem~38 and Corollary~39]{ArzhantsevaCherix2020}; Proposition~\ref{prop:extension} is the chunk-indexed analogue for arbitrary
-kernels, which is what the extension theorem of~\cite{Cornulier2013} needs.
+In the setting of Arzhantseva and Cherix, where one parameter is both the radius of the ball and the inverse accuracy, a scale-dependent
+extension bound for finitely generated kernels is~\cite[Theorem~5.5 and Corollary~5.6]{ArzhantsevaCherix2020} (Theorem~38 and
+Corollary~39 in arXiv:2008.12954v1); Proposition~\ref{prop:extension} is the chunk-indexed analogue for arbitrary kernels, which is what
+the extension theorem of~\cite{Cornulier2013} needs.
 
 When the cocycle takes finitely many values on $Q\times E$, for instance for direct products, $K_{A,E}$ lies in a fixed finite set and a bound with a
 fixed kernel chunk follows, as Theorem~3.15 asserts. For $H_3$ with boxes $A=[0,M)^2$ and $M$ of order $r$, $K_{A,E_H}$ lies in the finite group of
@@ -1148,18 +1183,22 @@ whose profile is finite provided Thompson's group $F$ is amenable.
 
 \subsection{Baumslag--Solitar groups}\label{sec:bs}
 
-\begin{theorem}[Baumslag--Solitar groups]\label{thm:bs}
+\begin{theorem}[Baumslag--Solitar groups; Cornulier's Proposition~3.17 with a direct proof]\label{thm:bs}
 Let $m,n\ne0$ and $G=BS(m,n)=\langle a,t\mid ta^mt^{-1}=a^n\rangle$.
 \begin{enumerate}[label=(\alph*),itemsep=0pt]
 \item Every chunk $E$ of $G$ has $\sigma_E(r)\le C_Er$ for $r\ge2$.
-\item If $|m|,|n|\ge2$ and $|m|\ne|n|$, some chunk of $G$ does not embed in a finite group, so its profile is at least $2r$ for every $r>1$.
-\item In the remaining cases every chunk of $G$ has bounded profile.
+\item If $|m|,|n|\ge2$ and $|m|\ne|n|$, some chunk of $G$ does not embed in a finite group, so its profile is at least $2r$ for every $r>1$,
+which sharpens Cornulier's lower bound $r$.
 \end{enumerate}
 \end{theorem}
 
-Parts (b) and (c), with $r$ in place of $2r$, are in~\cite[Proposition~3.17]{Cornulier2013}, where they follow from~\cite[Fact~3.8]{Cornulier2013}
-and Meskin's theorem; we include a direct proof of~(b) with an explicit chunk. By Meskin's theorem~\cite{Meskin1972}, the groups in (b) are
-exactly the Baumslag--Solitar groups that are not residually finite, and (b) shows directly that they are not LEF.
+Part~(a) is the upper bound of~\cite[Proposition~3.17]{Cornulier2013}, whose proof there used Theorem~3.15. Part~(b), with $r$ in place
+of $2r$, is also in~\cite[Proposition~3.17]{Cornulier2013}, where it follows from~\cite[Fact~3.8]{Cornulier2013} and Meskin's theorem; we
+include a direct proof of~(b) with an explicit chunk. By Meskin's theorem~\cite{Meskin1972}, the groups in (b) are exactly the
+Baumslag--Solitar groups that are not residually finite, and (b) shows directly that they are not LEF. In the remaining cases, $|m|=1$,
+$|n|=1$ or $|m|=|n|$, every chunk of $G$ has bounded profile~\cite[Proposition~3.17]{Cornulier2013}: these groups are residually finite by
+Meskin's theorem, and a finite quotient that separates the finitely many elements $g^{-1}h$, $g\ne h$ in a chunk $E$, gives an embedding
+of $E$ in a finite group.
 
 \begin{proof}
 Write $M=|m|$, $N=|n|$ and $\mu=MN$. Permutations act on the right, as in Section~\ref{sec:group}, and $d$ is the normalized Hamming distance.
@@ -1203,9 +1242,6 @@ $w=[t^{-1}a^{d_0}t,a]$ otherwise, when $d_0=M<N$. Then $w$ is trivial in every f
 Let $E_*$ consist of $1,a^{\pm1},t^{\pm1}$, the prefixes of $ta^mt^{-1}a^{-n}$ and of $w$, and their inverses. An embedding of $E_*$ in a finite
 group $Q$ sends $a,t$ to elements satisfying the defining relation, hence defines a homomorphism $G\to Q$, and it sends $w$ to a nonidentity
 element, which is impossible. Lemma~\ref{lem:floor} completes the proof.
-
-\emph{(c)} By Meskin's theorem these groups are residually finite. A finite quotient that separates the finitely many elements $g^{-1}h$,
-$g\ne h$ in $E$, gives an embedding of $E$, hence a bounded profile.
 \end{proof}
 
 \begin{remark}[Several stable letters]
@@ -1233,8 +1269,9 @@ $[w_ixw_i^{-1},w_jyw_j^{-1}]$, $i\ne j$, $x,y\in\{u,v\}$, has area at least $cN^
 Theorem~\ref{thm:certificate} for $H_3$.
 \item A quadratic Dehn function for $H_3$ would reach these limits: every word in the argument has linear length. Theorem~\ref{thm:dehn}
 gives the polynomial upper bound $O(n^{\log107+4})$, and the Dehn function is at least quadratic. Is it quadratic? For Thompson's group $F$ a
-quadratic Dehn function is a theorem~\cite{Guba2006}, proved with diagram groups, which are torsion-free~\cite{GubaSapir1997}, so the
-method does not apply to $H_3$ directly; torsion alone is no obstruction, since Thompson's group $T$ has a quadratic Dehn
+quadratic Dehn function is a theorem~\cite{Guba2006}, proved with planar diagram groups, which are torsion-free~\cite{GubaSapir1997}.
+The group $H_3$, which has torsion, is a braided diagram group~\cite[Example~4.3]{FarleyHughes2017} but not a planar one, and the method
+does not apply to it directly; torsion alone is no obstruction, since Thompson's group $T$ has a quadratic Dehn
 function~\cite{Migliorini2025}.
 \item The quadratic lower bound of Proposition~\ref{prop:area-lower} counts only cells of type $r_4$; do $O(k^2)$ cells of type $r_4$
 suffice to fill $C_k$?
@@ -1252,7 +1289,8 @@ $2^{r^{1+c}}$ for some $c>0$? A different lower-bound mechanism would be needed.
 rests on Theorem~3.15, and $H_3$ is not solvable. Is it true?
 \item \emph{Products of Baumslag--Solitar groups.} For a product of $k$ non-residually-finite Baumslag--Solitar groups, the product of the
 models of Theorem~\ref{thm:bs}, each at accuracy $1/(kr)$, gives chunks with profile $O(r^k)$. This proves directly the upper bound
-$\sigma\preceq r^k$ that~\cite[Example~3.19]{Cornulier2013} derives for $BS(2,3)^k$ from Theorem~3.15. Is there a matching lower bound?
+$\sigma\preceq r^k$ that~\cite[Example~3.19]{Cornulier2013} states for $BS(2,3)^k$ as a test case, and which follows from his
+Proposition~3.17, hence from Theorem~3.15. Is there a matching lower bound?
 \item \emph{Extensions.} Proposition~\ref{prop:extension} bounds the profile of an extension by the Følner size of the quotient and the profile of a
 kernel chunk that grows with $r$ through the cocycle of a section; the kernel chunk is fixed when the cocycle takes finitely many values. The
 groups $G_0$ and $H_3$ of Section~\ref{sec:correction} show that the kernel and the quotient alone do not determine the profile. Which data of an
@@ -1470,6 +1508,11 @@ $A^*(M)=O(M^{\log\rho})$, where $\log\rho\approx6.73252$. The explicit constants
 
 \section{From far commutators to the full Dehn function}\label{app:dehn}
 
+We follow Lee's scheme~\cite[Section~4.2]{Lee2012}. Lee reduced the Dehn function of $H_3$ to the areas of far commutators and of the
+words $\tau_j\sigma_j^{-1}$, which compare the conjugates of $\alpha$ by powers of $b$ and of $a$, and bounded these areas
+exponentially~\cite[Lemma~4.7 and Remark~4.8]{Lee2012}. We feed the polynomial bounds of Section~\ref{sec:area} and
+Lemma~\ref{lem:transfer} for these words into a buffered form of his collection scheme.
+
 \begin{proof}[Proof of Theorem~\ref{thm:dehn}]
 Fix an integer $n\ge1$ and put $F_n=1+A^*(4n+2)$ and $U(0)=0$. Lemma~\ref{lem:transfer} gives
 \[
@@ -1554,11 +1597,14 @@ Substituting Theorem~\ref{thm:area-weighted}, or Theorem~\ref{thm:area}, gives t
 \bibitem{BCMR2014} J.~Burillo, S.~Cleary, A.~Martino and C.~E.~Röver, Commensurations and metric properties of Houghton's groups, Pacific J. Math. \textbf{285} (2016), 289--301; arXiv:1403.0026.
 \bibitem{BCJM2023} P.~Burton, M.~Chaudkhari, K.~Juschenko and K.~Muliarchyk, Hyperlinear approximations to amenable groups come from sofic approximations, arXiv:2311.09202 (2023).
 \bibitem{Cornulier2013} Y.~Cornulier, Sofic profile and computability of Cremona groups, Michigan Math. J. \textbf{62}(4) (2013), 823--841; \href{https://doi.org/10.1307/mmj/1387226167}{doi:10.1307/mmj/1387226167}.
+\bibitem{CGP07} Y.~de Cornulier, L.~Guyot and W.~Pitsch, On the isolated points in the space of groups, J. Algebra \textbf{307} (2007), 254--277; arXiv:math/0511714.
 \bibitem{DOT2019} M.~De Chiffre, N.~Ozawa and A.~Thom, Operator algebraic approach to inverse and stability theorems for amenable groups, Mathematika \textbf{65} (2019), 98--118; arXiv:1706.04544.
 \bibitem{DouglasMghirbiC} S.~Douglas and N.~Mghirbi, Amenable groups with nearly exponential sofic profile, and quantum channels that
 need nearly linear memory, version 1.0, Zenodo (2026); \href{https://doi.org/10.5281/zenodo.23050303}{doi:10.5281/zenodo.23050303}.
 \bibitem{DouglasMghirbiB} S.~Douglas and N.~Mghirbi, Causal quantum-channel simulation: memory beyond entropy, version 1.1, Zenodo (2026); \href{https://doi.org/10.5281/zenodo.23048998}{doi:10.5281/zenodo.23048998}.
+\bibitem{DuncanHeathUrech2025} A.~Duncan, B.~Heath and C.~Urech, Representations of finite subgroups of Cremona groups, \href{https://arxiv.org/abs/2507.04474}{arXiv:2507.04474} (2025).
 \bibitem{ElekSzabo2006} G.~Elek and E.~Szabó, On sofic groups, J. Group Theory \textbf{9} (2006), 161--171; arXiv:math/0305352.
+\bibitem{FarleyHughes2017} D.~S.~Farley and B.~Hughes, Braided diagram groups and local similarity groups, in: Geometric and Cohomological Group Theory, London Math. Soc. Lecture Note Ser. \textbf{444}, Cambridge Univ. Press, 2017, 15--33; arXiv:1406.4587.
 \bibitem{FournierFacio2026} F.~Fournier-Facio, A torsion-free non-sofic group, \href{https://arxiv.org/abs/2608.02025}{arXiv:2608.02025} (2026).
 \bibitem{Genevois2019} A.~Genevois, Embeddings into Thompson's groups from quasi-median geometry, Groups Geom. Dyn. \textbf{13} (2019), 1457--1510; arXiv:1709.03888.
 \bibitem{Glebe2025} F.~Glebe, A cup product obstruction to Frobenius stability, M\"unster J. Math. \textbf{18} (2025), 27--38; \url{https://www.uni-muenster.de/FB10/mjm/vol_18/mjm_vol_18_02.pdf}.
@@ -1575,7 +1621,10 @@ need nearly linear memory, version 1.0, Zenodo (2026); \href{https://doi.org/10.
 \bibitem{LyndonSchupp1977} R.~C.~Lyndon and P.~E.~Schupp, Combinatorial Group Theory, Springer, Berlin, 1977.
 \bibitem{Meskin1972} S.~Meskin, Nonresidually finite one-relator groups, Trans. Amer. Math. Soc. \textbf{164} (1972), 105--114.
 \bibitem{Migliorini2025} M.~Migliorini, Thompson's group $T$ has quadratic Dehn function, Forum Math. Sigma \textbf{13} (2025), e109; arXiv:2410.23088.
+\bibitem{Olshanskii1991} A.~Yu.~Ol'shanskii, Hyperbolicity of groups with subquadratic isoperimetric inequality, Internat. J. Algebra Comput. \textbf{1} (1991), 281--289.
+\bibitem{OpenAI2026} OpenAI, Non-sofic groups exist, \url{https://openai.com/index/ten-advances-in-mathematics/} (2026).
 \bibitem{ProkhorovShramov2016} Yu.~Prokhorov and C.~Shramov, Jordan property for Cremona groups, Amer. J. Math. \textbf{138} (2016), 403--418; arXiv:1211.3563.
+\bibitem{Rover1999} C.~E.~Röver, Subgroups of finitely presented simple groups, PhD thesis, University of Oxford (1999).
 \bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, \href{https://arxiv.org/abs/1806.05267v1}{arXiv:1806.05267v1} (2018).
 \bibitem{SlofstraVidick2018} W.~Slofstra and T.~Vidick, Entanglement in non-local games and the hyperlinear profile of groups, Ann. Henri Poincaré \textbf{19} (2018), 2979--3005; arXiv:1711.10676.
 \bibitem{VershikGordon1997} A.~M.~Vershik and E.~I.~Gordon, Groups that are locally embeddable in the class of finite groups, Algebra i Analiz \textbf{9}(1) (1997), 71--97; English transl. St. Petersburg Math. J. \textbf{9}(1) (1998), 49--67.
