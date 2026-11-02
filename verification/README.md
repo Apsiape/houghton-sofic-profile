@@ -59,9 +59,10 @@ check is allowed ten minutes; runtime depends on the machine.
   certificates (none missing, none duplicated, none extra), and
   certificates/mutation_check.py confirms that corrupted archives (a deleted
   certificate body, an empty list, a missing or a duplicated certificate) are
-  rejected in normal and in optimized (python -O) mode. The certificate
-  verifiers use explicit checks rather than assert statements; every other
-  checker refuses to run under python -O, because it checks with assert.
+  rejected in normal and in optimized (python -O) mode. The
+  legacy certificate verifiers use explicit checks rather than assert statements;
+  assert-based regression checkers, including the sweep checks, refuse optimized
+  Python (-O/-OO or PYTHONOPTIMIZE).
 - **verify107.py:** independently recomputes all 25 targets in the auxiliary
   certificate archive (7,366 original-relator cells, including recursion through
   k = 8), checks both auxiliary and expanded lists, reconstructs the 107 matrix,
@@ -141,3 +142,18 @@ Regenerate from the repository root with:
     python verification/certificates/build107.py
     python verification/certificates/verify107.py
     python verification/generate_lean.py --aux107
+
+## Version 1.2.0 sweep checks
+
+Run these checks without -O/-OO or PYTHONOPTIMIZE; optimized Python is rejected
+because the checks use assertions.
+
+`sweeps/independent_corner.py` checks the corner models and bounded-multiplicity lamp lists.
+`sweeps/check_corner_formulas.py` checks 15,612 clock/depth cases against the all-scale endpoint formulas.
+Run `python -B verification/sweeps/run_limited.py 120 verification/sweeps/independent_corner.py` and
+`python -B verification/sweeps/run_limited.py 120 verification/sweeps/check_corner_formulas.py`.
+These finite checks support the algebraic proof in the manuscript; they do not prove a quadratic upper bound for block coherence.
+
+The corner-list run includes 24 single/double/triple lists and eleven admissible random lists.
+One additional random list has multiplicity four and is diagnostic only. The displayed deepest-lamp comparator
+is not asserted for arbitrary lists; cancelling examples intentionally disagree with it.

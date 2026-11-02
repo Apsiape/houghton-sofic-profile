@@ -36,28 +36,17 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 
 \title{Houghton's group $H_3$ has superpolynomial sofic profile}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{September 2026 (version 1.1.2)}
+\date{November 2026 (version 1.2.0)}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-How many points does a permutation model of a group need? For a finite piece of a group, Cornulier's sofic profile $\sigma(r)$ is the least
-number of points on which the piece can be modelled by permutations, with multiplication correct up to a fraction $1/r$ of the points and
-distinct elements separated almost everywhere. Cornulier observed that a profile is either bounded or at least linear, and asked whether a
-sofic group can have profile that is unbounded and not linear.
-We show that Houghton's group $H_3$, which is finitely presented and elementary amenable, has a finite piece whose profile grows faster than
-every polynomial: it lies between $\exp(\Omega(r^{c}))$, with $c=1/(\log_2107+1)\approx0.13$, and $\exp(O(\sqrt r\log r))$. So an amenable
-group can have superpolynomial sofic profile, and every homomorphism from $H_m$, $m\ge3$, to a group of polynomial sofic profile kills the
-finitary alternating subgroup. An extension theorem of Cornulier, which would give quadratic profile here, fails as stated; we locate the
-error, a finite piece of the kernel that must grow with the accuracy, and prove a corrected, scale-dependent bound.
-The lower bound rests on a general criterion: if finitely many relations make many displaced copies of $S_3$ commute cheaply, every model is
-large, because approximately commuting copies of $S_3$ carry entropy. For $H_3$ we certify polynomial fillings of the relevant commutators by a
-doubling self-similarity of the group.
-We also give unitary versions of the lower bounds, unitary models that beat our permutation upper bound, and a polynomial bound on the Dehn
-function of $H_3$. Finally, we prove directly Cornulier's assertion that every finite piece of a Baumslag--Solitar group has at most linear
-profile, which his argument derived from the extension theorem; when the group is not residually finite, this is, by Cornulier's linear lower
-bound, the smallest unbounded growth possible.
+How many points does a permutation model of a group need? Cornulier's sofic profile measures the size needed to imitate a fixed finite piece at a given accuracy. We show that Houghton's finitely presented elementary amenable group on three rays has a finite piece with superpolynomial profile. The unconditional lower exponent is one divided by one plus the base-two logarithm of 107; the upper bound is exponential in the square root of the accuracy parameter times its logarithm.
+
+The lower bound uses entropy carried by approximately commuting copies of the symmetric group on three letters, with polynomial commutator fillings certified by a doubling self-similarity. A stronger sweep criterion charges a whole ordered suffix at once and rounds permutations in Hamming distance. Conditionally, a quadratic Dehn function, or a quadratic bound for block coherence with at most three letters per position, gives a square-root lower exponent, matching the upper exponent up to a logarithm. We prove an all-scale quadratic lower bound for block coherence; its quadratic upper bound remains open.
+
+Every homomorphism from a Houghton group on at least three rays to a group of polynomial sofic profile kills the finitary alternating subgroup. We locate the error in Cornulier's extension estimate and prove a corrected bound that depends on scale. We also give unitary lower bounds, unitary models smaller than our permutation models, a polynomial Dehn-function upper bound, and a direct proof that every finite piece of a Baumslag-Solitar group has at most linear profile.
 \end{abstract}
 
 {\small\tableofcontents}
@@ -176,7 +165,9 @@ approximately commuting copies of $S_3$, which needs only pairwise commutator da
 of permutation models, in which relations are transported in measure by the standard additivity of relator defects in normalized Hamming
 distance, and the use of the scheme inside an amenable group. For $H_3$, Sections~\ref{sec:profile} and~\ref{sec:sofic} count the copies $u=\alpha$, $v=a\alpha a^{-1}$ conjugated
 by $w_i=a^{3(i-1)}$. The criterion can never give more than $2^{O(r)}$. For the copies transported by the powers of $a$ along a ray of $H_3$
-the area grows at least quadratically (Proposition~\ref{prop:area-lower}), so they cannot give more than the exponent $1/3$. In a companion
+the area grows at least quadratically (Proposition~\ref{prop:area-lower}), so the pairwise estimate cannot give more than exponent $1/3$.
+The sweep strengthening of Theorem~\ref{thm:sweep} supersedes that estimate: a quadratic Dehn function or quadratic block coherence would give
+$\exp(c\sqrt r)\le\sigma_{E_H}(r)\le\exp(C\sqrt r\log r)$ (Proposition~\ref{prop:bc-sweep}). In a companion
 paper~\cite{DouglasMghirbiC} we apply the criterion to groups that come close to this ceiling, among them an elementary amenable group,
 built from Houghton groups acting on finite binary configurations, with a chunk whose profile is at least $\exp(r^{1-o(1)})$. Houghton groups
 embed in Thompson's group $V$ (Röver~\cite[Proposition~2.6]{Rover1999}; Genevois extends this to generalized Houghton
@@ -530,8 +521,8 @@ Hence $A_4\ge(1-s^{-2})(M-4)(M-3)/2$ for every $s$, which gives the claim with $
 $k\le R$.
 \end{proof}
 
-Thus transport by the powers of $a$ along ray~1 cannot give more than the exponent $1/3$ in $r$ for permutation approximations, and $2/5$ in $1/e$ for unitary
-approximations with relator defect $e$ (Section~\ref{sec:open}). This is a limit of that transport, not of the counting:
+Thus the pairwise estimate for transport by the powers of $a$ along ray~1 cannot give more than the exponent $1/3$ in $r$ for permutation approximations, and $2/5$ in $1/e$ for unitary
+approximations with relator defect $e$ (Section~\ref{sec:open}). This is a limit of the pairwise area estimate; the sweep strengthening of Theorem~\ref{thm:sweep} can improve it:
 Theorem~\ref{thm:certificate} states the count for any family of copies, and~\cite{DouglasMghirbiC} applies it to groups that move many
 copies pairwise at small cost.
 %======================================================================
@@ -1178,8 +1169,250 @@ The conditions of Theorem~\ref{thm:certificate} force $N\le r/10^8$ and $N\le(K_
 exceed $\log\sigma_E(r)\ge r/(16\cdot10^8)$ or $\log D\ge\Delta^2/(12K_\Delta^2e^2)$, that is, order $r$ and order $e^{-2}$. Transport by one element places $N$ copies at distances up to $N$, and with area
 of order $k^p$ at distance $k$ it reaches $N$ of order $r^{1/(p+1)}$. If words of length $O(\log N)$ carry a copy of $S_3$ to
 $N$ pairwise commuting copies whose commutators have area polylogarithmic in $N$, the theorem gives $\log\sigma_E(r)$ of order $r$ up to
-logarithms. The companion paper~\cite{DouglasMghirbiC} realizes this in an elementary amenable group, and in a subgroup of Thompson's group $V$
-whose profile is finite provided Thompson's group $F$ is amenable.
+logarithms. The companion paper~\cite{DouglasMghirbiC} realizes this in an elementary amenable group, and in a subgroup of Thompson's group $V$.
+The recent preprint of Chaudkhari, Juschenko and Muliarchyk,
+arXiv:2610.25415v1, Theorem~1.1~\cite{CJM2026}, proves soficity of $V$;
+using that result, the subgroup's chunk has finite profile.
+
+
+\subsection{Whole suffix sweeps}
+
+Pairwise commutator estimates can overcount the cost of moving one copy past an ordered suffix. The following form charges one filling
+for the whole suffix. It uses permutation rounding in Hamming distance before passing to the entropy estimate.
+
+\begin{theorem}[Sweep counting criterion]\label{thm:sweep}
+Write $a_0=u$, $b_0=v$ for the two abstract $S_3$ letters. Use the group, relators, chunk and transport words of Theorem~\ref{thm:certificate}, and suppose $N\ge1$.
+For each of the six fixed normal forms
+\[
+\mathcal N=\{1,a_0,b_0,a_0b_0,b_0a_0,a_0b_0a_0\},\qquad W_i(g)=w_i g w_i^{-1},
+\]
+assume that, for every $i$, every $h\in\mathcal N$ and every choice $g_j\in\mathcal N$ for $j>i$,
+\[
+\mathrm{Area}_R\left([W_i(h),W_{i+1}(g_{i+1})\cdots W_N(g_N)]\right)\le\Lambda_N.
+\]
+Then
+\begin{equation}\label{eq:sweep-criterion}
+ (\Lambda_N+40N)(2l-1)\le r/20000
+ \quad\Longrightarrow\quad \log\sigma_E(r)\ge N/16.
+\end{equation}
+If only the sweeps with $h=a_0,b_0$ are bounded by $\Lambda_N$, the same conclusion holds with $r/60000$ in the
+hypothesis in place of $r/20000$. In both versions every later factor ranges over all six normal forms.
+\end{theorem}
+
+\begin{proof}
+\emph{Relator errors.} Given a chunk model $f:E\to\Sym_n$, evaluate generator words by $\phi(s)=f(s)$ and
+$\phi(s^{-1})=f(s)^{-1}$. Merging successive prefixes of a relator of length $m$ costs at most $(m-1)/r$;
+replacing inverse letters costs at most $m/r$, since $s,s^{-1},1\in E$. Thus each relator has Hamming defect at most
+$\epsilon=(2l-1)/r$. Bi-invariance implies that a word of area $A$ has defect at most $A\epsilon$.
+The prefix of $a_0b_0$ and expansiveness give $d(\phi(a_0b_0),1)\ge1-2/r$. All transported pairs have the same square and braid
+errors and three-cycle displacement: conjugation is an exact Hamming isometry, regardless of the transport word's length.
+
+\emph{Native rounding.} Let $A,B$ be any transported pair. Replace cycles of length at least three in each permutation by fixed points,
+obtaining involutions $P,Q$ with $d(P,A),d(Q,B)\le\epsilon$. Put $R=PQ$. Then
+$d(R^3,1)\le7\epsilon$. The identity $QRQ=R^{-1}$ implies that $\mathrm{Fix}(R^3)$ is invariant under $Q,R$, and hence under $P=RQ$.
+Keep $P,Q$ on this set and make them both trivial on its invariant complement. They now give an exact permutation representation
+$u_i:S_3\to\Sym_n$. Every normal form has length at most three: its first replacement costs at most $3\epsilon$, and deleting bad
+orbits costs at most $7\epsilon$. Consequently
+\[
+ d(u_i(g),\phi(W_i(g)))\le10\epsilon\qquad(g\in\mathcal N).
+\]
+This construction allows trivial and sign orbits. In particular, the three-cycle loses at most $10\epsilon$ of its Hamming displacement.
+
+\emph{One ordered error.} Put $U_{>i}=u_{i+1}(g_{i+1})\cdots u_N(g_N)$ and let $V_{>i}$ be its raw-word counterpart.
+Replacing both occurrences of the first factor and of the suffix in the commutator gives
+\[
+ d([u_i(h),U_{>i}],1)
+ \le\bigl(\Lambda_N+20(N-i+1)\bigr)\epsilon
+ \le(\Lambda_N+40N)\epsilon.
+\]
+Let $F(g)=u_1(g_1)\cdots u_N(g_N)$, for uniform $g\in S_3^N$. Exact same-copy multiplication shows that the error
+$F(gh)-F(g)u_i(h)$ is exactly the error in commuting $u_i(h)$ past its suffix, up to unitary factors.
+For permutation matrices $\|P-Q\|_2^2=2d(P,Q)$; hence
+\[
+ T^2:=\max_{i,h}\mathbb E_g\|F(gh)-F(g)u_i(h)\|_2^2
+ \le2(\Lambda_N+40N)\epsilon.
+\]
+Here $h$ lies in factor $i$. There is no same-copy multiplication defect after rounding.
+
+\emph{Entropy from this error.} We give the sector argument to specify exactly what is used. Suppose
+$\|u_i(c)-I\|_2\ge\Delta$ for a three-cycle $c$, $T\le\Delta$ and $T^2\le5/6$.
+On $\ell^2(S_3^N)\otimes\mathbb C^n$ use the regular action $\mathsf R$ and the isometry
+\[
+ Wv=|S_3^N|^{-1/2}\sum_g|g\rangle\otimes F(g)v,
+ \qquad \Pi=WW^*,\quad\rho=\Pi/n.
+\]
+The ordered-error identity gives $\|\mathsf R(h_i)W-Wu_i(h)\|_{HS}\le\sqrt n\,T$.
+Thus, for $Z_i=2I-\mathsf R(c_i)-\mathsf R(c_i)^*$,
+$\mathrm{Tr}(\rho Z_i)\ge(\Delta-T)^2$. Let $\mathcal E_i$ average conjugation by the six regular operators in factor $i$.
+Its leakage outside $\Pi$ is at most $T^2$. Pinching into $\Pi$ and $I-\Pi$ gives ranks at most $n$ and $5n$, because one of the
+six states being averaged is $\rho$. Therefore
+$S(\mathcal E_i\rho)\le\log n+h_2(T^2)+T^2\log5$.
+The $\mathcal E_i$ commute. Monotonicity of relative entropy, together with
+$S(\mathcal E\sigma)-S(\sigma)=D(\sigma\|\mathcal E\sigma)$, bounds each successive entropy increment by its increment on $\rho$.
+For $\bar\rho=\mathcal E_N\cdots\mathcal E_1\rho$ this yields
+\[
+ S(\bar\rho)\le\log n+N\{h_2(T^2)+T^2\log5\}.
+\]
+On each irreducible sector of $S_3^N$, $Z_i$ is $3I$ if factor $i$ is standard and zero otherwise.
+If a sector has $k$ standard factors, its dimension is $2^k$. Since $\bar\rho$ commutes with the regular action, its entropy is
+at least the mean of $k$. The twirls preserve the expectation of each central $Z_i$, so
+$N(\Delta-T)^2\le3S(\bar\rho)$. Combining gives
+\[
+ \log n\ge N\{(\Delta-T)^2/3-h_2(T^2)-T^2\log5\}.
+\]
+No pairwise estimate entered this argument.
+
+\emph{Constants.} The stated hypothesis gives $T\le1/100$ and
+$\epsilon\le1/(800000N)$. The preceding displacement estimate gives $\Delta\ge49/100$ (a deliberately conservative
+Hilbert--Schmidt lower bound). Using $\log_2(10000)<14$ and $1/\ln2<3/2$, one has
+\[
+ h_2(1/10000)\le31/20000,\qquad
+ (1/10000)\log5\le6/20000.
+\]
+Thus the entropy per copy is at least
+$(48/100)^2/3-37/20000=1499/20000>1/16$.
+For elementary-letter sweeps, split $h$ into at most three letters and use the free commutator product identity.
+The full sweep area is at most $3\Lambda_N$, and
+$3\Lambda_N+40N\le3(\Lambda_N+40N)$, proving the $1/60000$ version.
+\end{proof}
+
+The $40N$ term retains the counting method's linear scale in $r$ even if sweep areas are very small. This is a restriction
+on lower bounds produced by the criterion, not an upper bound on any group's actual profile.
+The transported finite-group and area-to-defect strategy follows Slofstra and Slofstra--Vidick~\cite{Slofstra2018,SlofstraVidick2018};
+metric approximation growth with growing balls, as studied by Arzhantseva--Cherix and Bradford~\cite{ArzhantsevaCherix2020,Bradford2021},
+is distinct from the fixed-chunk accuracy profile used here.
+
+
+\subsection{Block coherence and the conditional square-root bound}
+
+All areas in this subsection use Johnson's five-relator presentation $P$ of~\eqref{eq:relators}.
+For a monotone list $L=((q_1,c_1),\ldots,(q_m,c_m))$, with $0\le q_1\le\cdots\le q_m\le K$ and $c_j\in\{0,1\}$, put
+\[
+ e_0=\alpha,\quad e_1=a\alpha a^{-1},\qquad
+ A(L)=\prod_{j=1}^m a^{q_j}e_{c_j}a^{-q_j},
+\]
+and let $B(L)$ be the word obtained by replacing every $a$ by $b$, including those inside $e_1$.
+Every positive word of length $d$ in $a,b$ conjugates $\alpha$ to the ray-1 transposition at positions $d+1,d+2$.
+Thus $A(L)=B(L)$ in $H_3$. The freely telescoped boundary $A(L)B(L)^{-1}$ has length at most $4K+6m$.
+Define the finite maximum
+\[
+ \mathrm{BC}(K;\mu)=\max_L\mathrm{Area}_P(A(L)B(L)^{-1}),\qquad
+ \mathrm{BC}(K)=\mathrm{BC}(K;3),
+\]
+where at most $\mu$ entries occur at any position. In particular $m\le3(K+1)$ for $\mathrm{BC}(K)$.
+The multiplicity restriction is essential to the definition used here.
+
+\begin{proposition}[Reduction to block coherence]\label{prop:bc-sweep}
+For the copies generated by $a^{3i}\alpha a^{-3i}$ and $a^{3i+1}\alpha a^{-3i-1}$, full normal-form sweep areas satisfy
+\[
+ \Lambda_N\le2\mathrm{BC}(3N)+CN
+\]
+with an absolute constant $C$. If $H_3$ has a quadratic Dehn function, or if $\mathrm{BC}(K)=O(K^2)$, then, for the existing chunk $E_H$,
+\begin{equation}\label{eq:conditional-half}
+ \exp(c\sqrt r)\le\sigma_{E_H}(r)\le\exp(C'\sqrt r\log r)\qquad(r\ge r_0).
+\end{equation}
+The existing unconditional bounds of Theorem~\ref{thm:sofic} remain in force.
+\end{proposition}
+
+\begin{proof}
+For a sweep whose first copy is at $3i$, conjugate by $a^{-(3i+3)}$.
+The first copy's two generators become $a^{-3}\alpha a^3$ and $a^{-2}\alpha a^2$, both supported wholly on ray~2.
+The suffix becomes $A(L)$ at positions $0,3,6,\ldots,3(N-i)-3$, with at most three letters per position.
+Changing its two occurrences to $B(L)$ costs at most $2\mathrm{BC}(3N)$.
+Both fixed ray-2 transpositions commute with $b$ and $\alpha$ in the ray action.
+The four resulting fixed null commutators therefore have fixed finite $P$-fillings, by Johnson's presentation.
+Commuting a word of at most three such transpositions through the telescoped $B(L)$ costs $O(|B(L)|)=O(N)$.
+This proves the reduction. The shift by three ensures that neither transposition straddles rays~1 and~2.
+
+If $\mathrm{BC}(K)=O(K^2)$, then $\Lambda_N=O(N^2)$ and the native rounding proof of Theorem~\ref{thm:sweep} applies directly to $E_H$.
+Indeed the two square defects are conjugates of $r_1$, the braid defect is a conjugate of $r_2$, and the displaced three-cycle is $\gamma$.
+No extra square relator or chunk element is required for the second generator $a\alpha a^{-1}$: it is evaluated as an exact conjugate.
+The prefix argument for $E_H$ gives relator defect at most $23/r$ and $d(\phi(\gamma),1)\ge1-5/r$.
+Taking $N$ a sufficiently small constant times $\sqrt r$ in the sweep estimate yields $\log\sigma_{E_H}(r)\ge N/16$.
+Proposition~\ref{prop:sofic-upper} supplies the upper side of~\eqref{eq:conditional-half}.
+
+Alternatively, a quadratic Dehn function gives quadratic $\mathrm{BC}$ because the boundaries have length $O(K)$.
+One can also see the sweep length directly: each normal form in $\alpha,a\alpha a^{-1}$ has length at most $9$ in the original generators,
+and the monotone suffix telescopes to length at most $15N$.
+The first transported normal form has length at most $6N+9$, so the entire sweep has length at most $45N+18$.
+Its area is then $O(N^2)$. Both routes are conditional; neither proves the required quadratic upper filling bound.
+\end{proof}
+
+\begin{proposition}[An all-scale block-coherence lower bound]\label{prop:bc-lower}
+For every integer $K\ge0$,
+\[
+ \mathrm{BC}(K)\ge K(K-1).
+\]
+For $K\ge2$, a single-entry list $L=((K,1))$ witnesses this lower bound on the number of $r_4$-cells in every filling.
+\end{proposition}
+
+\begin{proof}
+\emph{Signed cells.} Project $a,b,\alpha$ to $e_1,e_2,0$ in the square lattice.
+Only $r_4$ contributes a signed unit square; the other relators have zero projected edge chain.
+A coherence boundary $A(L)B(L)^{-1}$ has zero projected edge chain, so the finite integral 2-chain of its $r_4$-cells has zero boundary.
+There is no nonzero finite 2-cycle in the square lattice (an outermost nonzero square would expose an edge).
+Thus the signed count at every offset is zero, as is its sum in each residue class modulo $M$.
+In the corner model of Proposition~\ref{prop:corner}, a failing clock fibre of the boundary forces an $r_4$-cell at an offset in its
+corresponding residue class: without one, every cell is exact on that fibre and so is the boundary.
+Distinct failing fibres give distinct residue classes. Each occupied class contains at least two cells with opposite signs. Therefore
+\begin{equation}\label{eq:bc-sign-double}
+ \#\{r_4\text{-cells}\}\ge2\#\{\text{failing clock fibres}\}.
+\end{equation}
+It suffices that the boundary has nonidentity coordinate permutation on a fibre; some colorings then move.
+
+\emph{Single-lamp endpoints.} Use the one-based coordinate labels of Proposition~\ref{prop:corner}.
+At clock $(i,j)$ put $x=M-1-i$, $y=M-1-j$. For $3\le d\le M-3$, let $A_d,B_d$ be the endpoint pairs of
+$a^d\alpha a^{-d}$ and $b^d\alpha b^{-d}$.
+Write $D_i=B_{(i,M-1)}$ for the top-row link in that proposition. Its recursion gives
+\[
+ D_i^{-1}(v)=H_x(v):=
+ \begin{cases}v+1,&v\le x+3,\\v+M-x,&v\ge x+4,\end{cases}
+ \qquad 1\le v\le M+1.
+\]
+For completeness, invert the top-row recursion and put $h_R=\tau c_R$, which fixes $1$ and cycles $2,R,R-1,\ldots,3$.
+Start at $v+i+1$ and apply $h_{M+3},h_{M+2},\ldots,h_{M+4-i}$.
+If $v\le M+2-i=x+3$, every step decreases by one, ending at $v+1$; otherwise every step fixes the point,
+ending at $v+i+1=v+M-x$. This proves the displayed formula at every scale.
+
+With $r=y+4$, define
+\[
+ F_{r,x}(v)=\begin{cases}
+ v+x+1,&v<r,\\
+ r+x+1-v,&r\le v\le r+x,\\
+ v,&v>r+x.
+ \end{cases}
+\]
+Along the inverse $a$-path, consecutive increasing forward cycles have at most one wrap. Before the wrap an endpoint increases by one at
+each step; at the wrap the labels $r,\ldots,r+x$ are sent in reverse order to $x+1,\ldots,1$ by the resulting cycle product. After it, labels above $r+x$ are fixed.
+These three cases give $F_{r,x}$ and hence
+\[
+ A_d=\begin{cases}(d+1,d+2),&d\le x+1,\\
+ (F_{r,x}(d-x),F_{r,x}(d-x+1)),&d>x+1.
+ \end{cases}
+\]
+For the $b$-path the same no-wrap case applies; after the wrap the top-row inverse just computed is followed by $y$ ordinary steps. Thus
+\[
+ B_d=\begin{cases}(d+1,d+2),&d\le y+1,\\
+ (H_x(d-y)+y,H_x(d-y+1)+y),&d>y+1.
+ \end{cases}
+\]
+Substitution shows that if $x+y\ge d-2$, both pairs are $(d+1,d+2)$.
+If $x+y\le d-3$, the second pair has an endpoint at least $M+4$, while both endpoints of the first are at most $d+2\le M-1$.
+Consequently the single-lamp coherence fails exactly at
+\[
+ x,y\ge0,\qquad x+y\le d-3,
+\]
+which consists of $(d-1)(d-2)/2$ clock fibres.
+For $L=((K,1))$ take $d=K+1$ and $M\ge K+4$;~\eqref{eq:bc-sign-double} gives $K(K-1)$ cells.
+For $K=0,1$ the bound is zero and follows from nonnegativity of area.
+\end{proof}
+
+The maximum in $\mathrm{BC}(K)$ is important. There is no analogous lower bound for every list with deepest entry $K$:
+$L=((K,1),(K,1))$ has a two-cell filling using conjugates of $r_1=\alpha^2$, and its boundary is exact in every corner fibre.
+Likewise a quadratic total budget constrains only the total and average cell count; it imposes no constant multiplicity at each offset.
+Finite checks of the endpoint formulas and of both cancelling and noncancelling lists accompany the manuscript.
+They support the all-scale calculation above and do not establish a quadratic upper bound for $\mathrm{BC}$.
+
 
 \subsection{Baumslag--Solitar groups}\label{sec:bs}
 
@@ -1262,21 +1495,26 @@ $a^n$, and the construction pays for it with one defect per tile. Displaced copi
 approximations with relator defect $e$ in the normalized Hilbert--Schmidt norm, $\log D$ lies between order $e^{-2\beta_H}$, with
 $2\beta_H\approx0.138$ (Theorem~\ref{thm:unitary}), and $O(e^{-2/3})$ (Corollary~\ref{cor:unitary-upper}). What are the true exponents?
 \item Since the area of the far commutators along a ray is at least quadratic (Proposition~\ref{prop:area-lower}), transport by the powers of
-$a$ along a ray cannot give more than $1/3$ in $r$ for permutations and $2/5$ in $1/e$ for unitaries. The orbits of $H_3$ grow linearly, so
+$a$ along a ray, through Theorem~\ref{thm:certificate}'s pairwise estimate, cannot give more than $1/3$ in $r$ for permutations and $2/5$ in $1/e$ for unitaries. The orbits of $H_3$ grow linearly, so
 the transport of many copies used in~\cite{DouglasMghirbiC} is not available as it stands. Given a finite set $R$ of relations of $H_3$ and a
 pair $u,v$ as in Theorem~\ref{thm:certificate}, is there $c>0$ such that for all words $w_1,\dots,w_N$ some commutator
 $[w_ixw_i^{-1},w_jyw_j^{-1}]$, $i\ne j$, $x,y\in\{u,v\}$, has area at least $cN^2$? If so, these values are the limits of
 Theorem~\ref{thm:certificate} for $H_3$.
-\item A quadratic Dehn function for $H_3$ would reach these limits: every word in the argument has linear length. Theorem~\ref{thm:dehn}
+\item A quadratic Dehn function for $H_3$ would reach these limits of the pairwise theorem, since every word in that argument has linear length.
+The sweep strengthening now gives the stronger conditional bound~\eqref{eq:conditional-half}, with permutation exponent $1/2$,
+superseding the pairwise conclusion. Theorem~\ref{thm:dehn}
 gives the polynomial upper bound $O(n^{\log107+4})$, and the Dehn function is at least quadratic. Is it quadratic? For Thompson's group $F$ a
 quadratic Dehn function is a theorem~\cite{Guba2006}, proved with planar diagram groups, which are torsion-free~\cite{GubaSapir1997}.
 The group $H_3$, which has torsion, is a braided diagram group~\cite[Example~4.3]{FarleyHughes2017} but not a planar one, and the method
 does not apply to it directly; torsion alone is no obstruction, since Thompson's group $T$ has a quadratic Dehn
 function~\cite{Migliorini2025}.
 \item The quadratic lower bound of Proposition~\ref{prop:area-lower} counts only cells of type $r_4$; do $O(k^2)$ cells of type $r_4$
-suffice to fill $C_k$?
+suffice to fill $C_k$? For the bounded-multiplicity block problem defined in Section~8,
+Proposition~\ref{prop:bc-lower} gives $\mathrm{BC}(K)\ge K(K-1)$ at every scale. Does the matching all-cell upper bound
+$\mathrm{BC}(K)=O(K^2)$ hold? By Proposition~\ref{prop:bc-sweep} it would imply~\eqref{eq:conditional-half}.
 \end{enumerate}
-Shared fillings, improved aggregate defect estimates, or a stronger dimension argument are possible routes beyond these limits.
+Whole-suffix fillings and the native Hamming error estimate now improve the pairwise implication. The quadratic upper filling bound
+needed to make that improvement unconditional remains open.
 \item \emph{Permutation versus unitary approximation.} Relator errors add up in measure for permutations and in norm for unitaries, so the
 two profiles may differ. In common units, a permutation matrix has squared normalized Hilbert--Schmidt defect twice its normalized Hamming defect.
 At squared defect $\delta=e^2$, our permutation models give $\log D=O(\delta^{-1/2})$ and unitary models
@@ -1304,7 +1542,8 @@ This work was carried out with extensive use of generative AI systems. They prop
 checked proofs, carried out computations, searched the literature, wrote the verification code, and drafted and edited the text. The
 authors directed the research, assessed and selected the results, and take full responsibility for the content. The proofs are given in
 full in the text; repeated adversarial checking and the accompanying programs support them but do not replace them. The verification
-notes state which statements are checked by machine.
+notes state which statements are checked by machine. New sessions developed the whole-suffix sweep argument and its applications,
+and an independent blind check tested the proofs and finite certificates before this revision.
 
 \appendix
 %======================================================================
@@ -1628,6 +1867,10 @@ need nearly linear memory, version 1.0, Zenodo (2026); \href{https://doi.org/10.
 \bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, \href{https://arxiv.org/abs/1806.05267v1}{arXiv:1806.05267v1} (2018).
 \bibitem{SlofstraVidick2018} W.~Slofstra and T.~Vidick, Entanglement in non-local games and the hyperlinear profile of groups, Ann. Henri Poincaré \textbf{19} (2018), 2979--3005; arXiv:1711.10676.
 \bibitem{VershikGordon1997} A.~M.~Vershik and E.~I.~Gordon, Groups that are locally embeddable in the class of finite groups, Algebra i Analiz \textbf{9}(1) (1997), 71--97; English transl. St. Petersburg Math. J. \textbf{9}(1) (1998), 49--67.
+\bibitem{Bradford2021} H.~Bradford, Quantifying local embeddings into finite groups, \href{https://arxiv.org/abs/2104.07111v2}{arXiv:2104.07111v2} (2021).
+\bibitem{CJM2026} M.~Chaudkhari, K.~Juschenko and K.~Muliarchyk,
+Thompson's groups are sofic,
+\href{https://arxiv.org/abs/2610.25415v1}{arXiv:2610.25415v1} (2026).
 \end{thebibliography}
 
 \end{document}

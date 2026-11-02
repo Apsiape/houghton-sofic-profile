@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "Please cite the manuscript; this repository supplies source and verification artifacts."
 type: software
 title: "Houghton's group H_3 has superpolynomial sofic profile"
-version: 1.1.2
-doi: 10.5281/zenodo.23070869
+version: 1.2.0
+doi: 10.5281/zenodo.23027624
 license:
   - CC-BY-4.0
   - MIT
@@ -23,7 +23,14 @@ preferred-citation:
     - family-names: Mghirbi
       given-names: Nidhal
   year: 2026
-  version: 1.1.2
-  doi: 10.5281/zenodo.23070869
-  notes: "Preprint with accompanying verification artifacts; see RIGHTS.md for license scope."
-  url: "https://doi.org/10.5281/zenodo.23070869"
+  version: 1.2.0
+  doi: 10.5281/zenodo.23027624
+  notes: "Version 1.2.0, November 2026; concept DOI identifies all versions. See RIGHTS.md for license scope."
+  url: "https://doi.org/10.5281/zenodo.23027624"
+
+abstract: |
+  How many points does a permutation model of a group need? Cornulier's sofic profile measures the size needed to imitate a fixed finite piece at a given accuracy. We show that Houghton's finitely presented elementary amenable group on three rays has a finite piece with superpolynomial profile. The unconditional lower exponent is one divided by one plus the base-two logarithm of 107; the upper bound is exponential in the square root of the accuracy parameter times its logarithm.
+  
+  The lower bound uses entropy carried by approximately commuting copies of the symmetric group on three letters, with polynomial commutator fillings certified by a doubling self-similarity. A stronger sweep criterion charges a whole ordered suffix at once and rounds permutations in Hamming distance. Conditionally, a quadratic Dehn function, or a quadratic bound for block coherence with at most three letters per position, gives a square-root lower exponent, matching the upper exponent up to a logarithm. We prove an all-scale quadratic lower bound for block coherence; its quadratic upper bound remains open.
+  
+  Every homomorphism from a Houghton group on at least three rays to a group of polynomial sofic profile kills the finitary alternating subgroup. We locate the error in Cornulier's extension estimate and prove a corrected bound that depends on scale. We also give unitary lower bounds, unitary models smaller than our permutation models, a polynomial Dehn-function upper bound, and a direct proof that every finite piece of a Baumslag-Solitar group has at most linear profile.
