@@ -8,6 +8,10 @@ Lean is pinned to 4.30.0. Python uses only its standard library. All checks are
 finite and have explicit per-command timeouts. The selected certificate kernel
 check is allowed ten minutes; runtime depends on the machine.
 
+This README describes the earlier certificate package only. The separate
+[Lean core](../lean/README.md), pinned to Lean 4.35.0, states its own checked
+scope and what it does not formalize.
+
 ## What is checked
 
 - **scalarcheck.py:** exact rational margin in the constant-750 sector bound,
@@ -102,16 +106,17 @@ oracle. The abstract soundness proofs use propositional extensionality; concrete
 checks and induction may also use Lean's standard quotient and choice principles. They introduce
 no mathematical axioms specific to these papers.
 
-## Not formally verified
+## Scope of the two packages
 
-The presentation theorem for H_3, the all-n conversion from word certificates to
-the complete area and Dehn-function theorems, the entropy/stability/sector arguments, the corner
-and unitary constructions, the sofic-profile theorem, the extension correction, the finite-certificate criterion and the
-Baumslag-Solitar theorem are not formalized in Lean. The certificate checker verifies triviality
-under the relator assumptions; a van Kampen-area semantics is not defined in Lean.
+The checks in this `verification/` directory do not by themselves prove the
+presentation theorem, the all-n area and Dehn-function theorems, or the profile
+bounds. They check certificates under relator assumptions, finite regressions
+and scalar recurrence implications; this earlier checker alone does not define
+van Kampen-area semantics.
 
-Neither successful numerical tests nor a successful Lean arithmetic file should
-be cited as formal certification of the whole manuscript.
+The separate `lean/` core supplies area semantics and proves the selected
+presentation, area and profile forms listed in [its README](../lean/README.md)
+and Appendix C of the manuscript. Neither package certifies the whole manuscript.
 
 ## Regeneration
 

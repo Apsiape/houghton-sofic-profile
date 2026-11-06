@@ -1,11 +1,11 @@
 # Houghton's group H_3 has superpolynomial sofic profile
 
-Seth Douglas and Nidhal Mghirbi — November 2026, version 1.2.0.
+Seth Douglas and Nidhal Mghirbi — November 2026, version 1.3.0.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23027624.svg)](https://doi.org/10.5281/zenodo.23027624)
 
 [Read the manuscript](paper.pdf) · [TeX source](paper.tex) ·
-[Verification scope](verification/README.md)
+[Lean core and scope](lean/README.md) · [Certificate checks](verification/README.md)
 
 ## Abstract
 
@@ -15,9 +15,12 @@ The lower bound uses entropy carried by approximately commuting copies of the sy
 
 Every homomorphism from a Houghton group on at least three rays to a group of polynomial sofic profile kills the finitary alternating subgroup. We locate the error in Cornulier's extension estimate and prove a corrected bound that depends on scale. We also give unitary lower bounds, unitary models smaller than our permutation models, a polynomial Dehn-function upper bound, and a direct proof that every finite piece of a Baumslag-Solitar group has at most linear profile.
 
-This repository contains the preprint, its source, and scoped verification
-artifacts. The manuscript is the authority for exact statements and hypotheses;
-the automated checks do not constitute full formal verification or peer review.
+This repository contains the preprint, its source, finite certificate checks and a Lean 4 core.
+The Lean core proves the printed profile bounds of Theorem 1.1 (with upper constant 7000), Theorems 3.1–3.3
+and other printed results, the profile-only part of Corollary 1.2
+and, conditionally on the explicit premise `PermSectorBound`, the H₃ finitary-three-cycle-kernel conclusion of Corollary 1.3, using only Lean's three standard axioms and passing the leanchecker and nanoda
+kernel checkers. [lean/README.md](lean/README.md) and Appendix C give the exact scope, what is not
+formalized and the build commands; this is a formal core, not verification of the whole paper or peer review.
 
 ## License and citation
 
@@ -26,7 +29,7 @@ The software and machine-readable certificates are additionally available under
 the **MIT License**, at your option; see [RIGHTS.md](RIGHTS.md) for the scope.
 
 Please cite Seth Douglas and Nidhal Mghirbi, *Houghton's group H_3 has
-superpolynomial sofic profile* (2026), version 1.2.0,
+superpolynomial sofic profile* (2026), version 1.3.0,
 [doi:10.5281/zenodo.23027624](https://doi.org/10.5281/zenodo.23027624) (all versions).
 [CITATION.cff](CITATION.cff) provides
 machine-readable citation metadata. Tagged releases archive the corresponding
@@ -41,16 +44,21 @@ The DOI above is the all-versions DOI, which identifies the evolving work. The v
 
 ## Reproduce
 
-Requires Python 3.10+, a TeX distribution with the packages listed in paper.tex,
-and (for formal checks) Lean 4.30.0. No third-party Python package is needed.
+Requires Python 3.10+, a TeX distribution with the packages listed in paper.tex
+and Lean 4.30.0 for the existing certificate checks. No third-party Python package is needed.
+
+With Lean 4.30.0 on PATH, from the repository root:
 
     python build.py
     python verification/check.py
 
-The second command checks the distributed certificates, regenerates their Lean
-transcription, and runs the Lean kernel checks. It does not prove the entire paper.
+The second command checks the distributed certificates and scalar recurrences,
+regenerates their Lean transcription, and runs their kernel checks. For the separate
+Lean 4.35.0 core, see [lean/README.md](lean/README.md).
+
 Generated TeX build files stay in build/; paper.pdf is the canonical output.
-The bibliography is embedded in paper.tex.
+The bibliography is embedded in paper.tex. The version 1.3.0 version DOI will be
+recorded after minting; the DOI above remains the all-versions DOI.
 
 ## Companions
 

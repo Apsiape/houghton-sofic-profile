@@ -18,3 +18,11 @@ The archive-wide CC BY 4.0 grant permits one consistent license for the Zenodo
 preprint archive while retaining the conventional MIT option for code reuse.
 These grants do not alter the rights in third-party material or cited work.
 They imply neither peer review nor endorsement by cited authors.
+
+The same CC BY 4.0 grant and alternative MIT grant cover the authors' new
+`lean/` formalization, its documentation, machine-readable evidence, build
+configuration and vendored `lean/vendor/finite-lean/` source subset. Its
+retained `lean/RIGHTS.md` states the core's own matching terms; full copies
+of both licences are also supplied in `lean/LICENSES/`. No Mathlib or Lean
+binary/dependency distribution is included; their separate upstream licences
+are unaffected.

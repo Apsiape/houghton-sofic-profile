@@ -7,7 +7,7 @@
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=1.1in]{geometry}
-\usepackage{booktabs}
+\usepackage{booktabs,longtable,array}
 \usepackage{enumitem}
 \usepackage{microtype}
 \setlength{\emergencystretch}{2em}
@@ -36,7 +36,7 @@ pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={sofic profile, hyperlin
 
 \title{Houghton's group $H_3$ has superpolynomial sofic profile}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{November 2026 (version 1.2.0)}
+\date{November 2026 (version 1.3.0)}
 
 \begin{document}
 \maketitle
@@ -1543,7 +1543,8 @@ checked proofs, carried out computations, searched the literature, wrote the ver
 authors directed the research, assessed and selected the results, and take full responsibility for the content. The proofs are given in
 full in the text; repeated adversarial checking and the accompanying programs support them but do not replace them. The verification
 notes state which statements are checked by machine. New sessions developed the whole-suffix sweep argument and its applications,
-and an independent blind check tested the proofs and finite certificates before this revision.
+and an independent check tested the proofs and finite certificates before version 1.2.0.
+Appendix~\ref{app:lean} records the forms checked in Lean and their limits.
 
 \appendix
 %======================================================================
@@ -1733,7 +1734,7 @@ A(k)\le116m^{\log107}+18m+1\le135m^{\log107}.
 Together with $A(2)=1$, this proves the theorem. Literal certificates for every image and rule above, the bounded-distance inputs and
 the recursive identities through $k=8$ are distributed in \texttt{certificates107.json.gz}; an independent verifier recomputes their target
 words, their original-relator expansions and their cell histograms. The all-depth conclusion follows from the displayed recurrence,
-whose scalar induction is also checked in Lean.
+whose scalar induction is also checked in Lean; Appendix~\ref{app:lean} describes the additional formal area theorems.
 \end{proof}
 
 \begin{remark}[Asymptotic refinement of this certificate scheme]
@@ -1827,6 +1828,112 @@ The identification of null words with identity ray permutations uses Johnson's p
 Substituting Theorem~\ref{thm:area-weighted}, or Theorem~\ref{thm:area}, gives the two polynomial exponents.
 \end{proof}
 
+\section{Lean verification}\label{app:lean}
+
+The source package \nolinkurl{lean/} proves selected results of this paper in
+Lean~4: the printed permutation profile bounds and area bounds, with the
+stronger, partial and conditional forms stated in the table. It is the Lean
+core of the paper, not a formalization of the whole paper. The finite
+certificate and scalar-induction checks in \nolinkurl{verification/} are
+separate and use Lean~4.30.0.
+
+\paragraph{What is checked.}
+\nolinkurl{Statements.lean} freezes the selected propositions,
+\nolinkurl{Proofs.lean} proves them and \nolinkurl{Audit.lean} checks that
+they match the original declarations below. A row credits only the form
+stated in it. The numbered wrappers are \nolinkurl{PaperProofs.<suffix>},
+with frozen types \nolinkurl{PaperStatements.<suffix>}.
+
+\begingroup\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}p{0.46\textwidth}@{}}
+\toprule
+Printed result & Lean name; suffix & Checked form \\
+\midrule
+\endhead
+Theorem 1.1 & \nolinkurl{Houghton.theorem_1_1_final}; \nolinkurl{theorem_1_1} & The printed lower bounds, with the stronger explicit upper bound $2^{7000\sqrt r\log_2 r}$ for $E_H$. \\
+Corollary 1.2 & \nolinkurl{Houghton.corollary_1_2_final}; \nolinkurl{corollary_1_2} & Partial: the finite, superpolynomial profile conclusion only; not the structural extension or elementary-amenability clause. \\
+Corollary 1.3 & \nolinkurl{Houghton.cremona_finAlt3}; \nolinkurl{corollary_1_3} & Conditional and partial: only the $H_3$, finitary-three-cycle-kernel conclusion, with the explicit premise \nolinkurl{hS : PermSectorBound}, which this root does not discharge; not the general $H_m$ statement or the commutator-order, nilpotency-class and abelian-index conclusions. \\
+Theorem 3.1 & \nolinkurl{Houghton.astar_le_pow}; \nolinkurl{theorem_3_1} & The printed bound $A^*(M)\le M^{11}$ for $M\ge2$. \\
+Theorem 3.2 & \nolinkurl{Houghton.astar_le_weighted_rpow}; \nolinkurl{theorem_3_2} & The stronger range $M\ge1$: a natural area witness $\le135M^{\log_2 107}$. \\
+Theorem 3.3 & \nolinkurl{Houghton.dehn_bound}; \nolinkurl{theorem_3_3} & The printed bound in the equivalent pointwise form over all null words: area $\le400n^4(1+A)$ for $n\ge1$, where $A$ bounds $A^*(4n+2)$. \\
+Theorem 3.3, polynomial consequence & \nolinkurl{Houghton.dehn_poly_weighted}; \nolinkurl{theorem_3_3_polynomial} & The printed consequence: one real $C$ bounds every null word by $\lfloor Cn^{\log_2 107+4}\rfloor$. \\
+Lemma 2.1, embedding & \nolinkurl{Houghton.embeds_of_profile_lt}; \nolinkurl{lemma_2_1_embedding} & The printed threshold $\sigma_E(r)<2r$ for $r>1$. \\
+Lemma 2.1, dichotomy & \nolinkurl{Houghton.profile_bounded_or_ge}; \nolinkurl{lemma_2_1_dichotomy} & The printed bounded-or-linear dichotomy; infinite profile uses the \nolinkurl{ENat} convention. \\
+Proposition 5.1 & \nolinkurl{Houghton.dimension_perm}; \nolinkurl{proposition_5_1} & The printed permutation dimension bound. \\
+Johnson's presentation (unnumbered) & \nolinkurl{Houghton.null_iff_areaLE}; \nolinkurl{johnson_presentation} & The printed equivalence of a trivial ray action and finite relator area. \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\noindent\textbf{Conditional premise.} \nolinkurl{PermSectorBound} can be
+proved inside the package, as
+\begin{quote}\small
+\nolinkurl{Houghton.permSectorBound_of_SSA}
+\nolinkurl{Houghton.qit_commutingPinchingSSA},
+\end{quote}
+but the selected Corollary~1.3 root and its wrapper keep it as a hypothesis.
+No named literature hypothesis is assumed: strong subadditivity is proved, as
+\nolinkurl{Houghton.qit_commutingPinchingSSA}, and every row except Corollary~1.3
+discharges it. \nolinkurl{lean/AXIOMS.txt} also lists the \texttt{\_SSA} roots, which
+keep \nolinkurl{hQ : QIT_CommutingPinchingSSA} as an explicit hypothesis.
+Historical comments in some source files (for example
+\nolinkurl{Houghton/Final.lean}) describe earlier intermediate steps; they do
+not change the table.
+
+\noindent\textbf{Conventions:} $H_3$ is realized in
+$(\operatorname{Perm}Y)^{\mathrm{op}}$ for the paper's right action, and models
+use Mathlib's product (\nolinkurl{Houghton.modelSizesPaper_eq} proves that the
+model sizes agree). Approximate $S_3$ pairs are rounded as permutations by
+cycle truncation. The entropy results are finite dimensional, use natural
+logarithms and keep the positive-definiteness hypotheses of their types.
+
+\noindent\textbf{Not formalized:} the $H_m$ ($m>3$) and sharp
+image-structure clauses of Corollary~1.3; the structural clause of
+Corollary~1.2; Proposition~2.3, Lemma~2.4 and Proposition~2.5; Remark~2.2's
+representation description; Proposition~3.4; the general unitary statements
+of Theorem~1.4, Lemmas~4.2--4.3, Theorem~4.4 and Propositions~4.5--4.6 beyond
+their permutation specializations; Proposition~6.1 in full arbitrary-colour
+form; Proposition~6.2 for chunks other than $E_H$; Lemmas~6.3--6.4,
+Propositions~6.5--6.6 and Corollary~6.7; Proposition~7.1; the results of
+Section~8 (Theorems~8.1, 8.3 and~8.6, Corollary~8.2, Propositions~8.4--8.5)
+and their introductory restatements, Theorems~1.5--1.6; the spectral-radius
+refinement of Appendix~A; Lemma~4.1 and Lemmas~A.1--A.2 as numbered
+statements (only supporting source results exist); Remark~8.7.
+
+\paragraph{Trust base.}
+The proofs use Lean~4.35.0 and the Mathlib commit
+\begin{quote}\small
+\nolinkurl{56a005855ea17e0b0958f73ec801ae140b0a1679};
+\end{quote}
+all pins are in \nolinkurl{lean/}. Every declaration in the table and every
+numbered wrapper depends only on Lean's three standard axioms
+\nolinkurl{propext}, \nolinkurl{Classical.choice} and \nolinkurl{Quot.sound};
+\nolinkurl{lean/AXIOMS.txt} is the exact axiom output. The proofs pass two
+independent kernel checkers, \texttt{leanchecker} and \texttt{nanoda}.
+\nolinkurl{lean/evidence/KERNEL-REPLAY.json} records the kernel replay (export digest, checker binaries, exits) and the run of the reproduce commands on 6 November 2026.
+
+\paragraph{Reproduce.}
+With the pinned toolchain on PATH, Git available for fetching the pinned
+dependencies, one compiler at a time and at least four GiB of free memory,
+run from \nolinkurl{lean/}:
+\begin{verbatim}
+export LEAN_NUM_THREADS=1
+lake exe cache get
+lake build
+lake env lean -j1 -M6144 Audit.lean
+\end{verbatim}
+On Windows set \texttt{LEAN\_NUM\_THREADS} to \texttt{1} before the commands.
+\texttt{Audit.lean} prints the type of each checked declaration followed by
+its axioms; the axiom lines match \nolinkurl{lean/AXIOMS.txt}. The earlier
+certificate package uses Lean~4.30.0; from the repository root, with that
+toolchain on PATH:
+\begin{verbatim}
+python build.py
+python verification/check.py
+\end{verbatim}
+
 \begin{thebibliography}{99}
 \bibitem{AlekseevBradford2026} V.~Alekseev and H.~Bradford, Sofic actions, halo products, and metric approximations of groups, \href{https://arxiv.org/abs/2601.18742}{arXiv:2601.18742} (2026).
 \bibitem{ArzhantsevaCherix2020} G.~Arzhantseva and P.-A.~Cherix, Quantifying metric approximations of discrete groups, Ann. Fac. Sci. Toulouse Math. \textbf{33} (2024), 831--877; arXiv:2008.12954.
@@ -1854,14 +1961,14 @@ need nearly linear memory, version 1.0, Zenodo (2026); \href{https://doi.org/10.
 \bibitem{Guld2020} A.~Guld, Finite subgroups of the birational automorphism group are `almost' nilpotent of class at most two, \href{https://arxiv.org/abs/2004.11715}{arXiv:2004.11715} (2020).
 \bibitem{Houghton1978} C.~H.~Houghton, The first cohomology of a group with permutation module coefficients, Arch. Math. \textbf{31} (1978), 254--258.
 \bibitem{Johnson1999} D.~L.~Johnson, Embedding some recursively presented groups, in: Groups St Andrews 1997 in Bath, II, London Math. Soc. Lecture Note Ser. \textbf{261}, Cambridge Univ. Press, 1999, 410--416.
-\bibitem{KunThom2026} G.~Kun and A.~Thom, Nonsofic wreath products of residually finite groups, \href{https://arxiv.org/abs/2608.06222}{arXiv:2608.06222} (2026).
-\bibitem{Lee2012} S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); \href{https://arxiv.org/abs/1212.0257v1}{arXiv:1212.0257v1}. Numbered references use this arXiv version.
+\bibitem{KunThom2026} {\raggedright G.~Kun and A.~Thom, Nonsofic wreath products of residually finite groups, \href{https://arxiv.org/abs/2608.06222}{arXiv:2608.06222} (2026).\par}
+\bibitem{Lee2012} {\raggedright S.~R.~Lee, Geometry of Houghton's groups, PhD thesis, University of Oklahoma (2012); \href{https://arxiv.org/abs/1212.0257v1}{arXiv:1212.0257v1}. Numbered references use this arXiv version.\par}
 \bibitem{LiebRuskai1973} E.~H.~Lieb and M.~B.~Ruskai, Proof of the strong subadditivity of quantum-mechanical entropy, J. Math. Phys. \textbf{14} (1973), 1938--1941.
 \bibitem{LyndonSchupp1977} R.~C.~Lyndon and P.~E.~Schupp, Combinatorial Group Theory, Springer, Berlin, 1977.
 \bibitem{Meskin1972} S.~Meskin, Nonresidually finite one-relator groups, Trans. Amer. Math. Soc. \textbf{164} (1972), 105--114.
 \bibitem{Migliorini2025} M.~Migliorini, Thompson's group $T$ has quadratic Dehn function, Forum Math. Sigma \textbf{13} (2025), e109; arXiv:2410.23088.
 \bibitem{Olshanskii1991} A.~Yu.~Ol'shanskii, Hyperbolicity of groups with subquadratic isoperimetric inequality, Internat. J. Algebra Comput. \textbf{1} (1991), 281--289.
-\bibitem{OpenAI2026} OpenAI, Non-sofic groups exist, \url{https://openai.com/index/ten-advances-in-mathematics/} (2026).
+\bibitem{OpenAI2026} {\raggedright OpenAI, Non-sofic groups exist, \url{https://openai.com/index/ten-advances-in-mathematics/} (2026).\par}
 \bibitem{ProkhorovShramov2016} Yu.~Prokhorov and C.~Shramov, Jordan property for Cremona groups, Amer. J. Math. \textbf{138} (2016), 403--418; arXiv:1211.3563.
 \bibitem{Rover1999} C.~E.~Röver, Subgroups of finitely presented simple groups, PhD thesis, University of Oxford (1999).
 \bibitem{Slofstra2018} W.~Slofstra, A group with at least subexponential hyperlinear profile, \href{https://arxiv.org/abs/1806.05267v1}{arXiv:1806.05267v1} (2018).
